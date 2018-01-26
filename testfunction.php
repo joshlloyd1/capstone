@@ -22,3 +22,4 @@ function func($db) {
         die("There was a problem seeing the categories");
     }
 }
+words
