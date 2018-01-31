@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://E:/gitcap/.idea/gitcap.iml" filepath="E:/gitcap/.idea/gitcap.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/htdocs.iml" filepath="$PROJECT_DIR$/.idea/htdocs.iml" />
     </modules>
   </component>

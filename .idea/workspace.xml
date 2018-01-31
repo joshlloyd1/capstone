@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef550e3f-96fb-496a-9d3b-9615c7968079" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/htdocs.iml" afterPath="$PROJECT_DIR$/.idea/htdocs.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +28,8 @@
       <file leaf-file-name="hey.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hey.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+            <state relative-caret-position="17">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -148,7 +150,7 @@
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
-      <showMembers />
+      <showMembers ProjectPane="true" />
       <showModules />
       <showLibraryContents />
       <hideEmptyPackages />
@@ -167,10 +169,6 @@
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gitcap" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -315,12 +313,12 @@
       <workItem from="1517254922438" duration="161000" />
       <workItem from="1517255100748" duration="175000" />
       <workItem from="1517366416589" duration="498000" />
-      <workItem from="1517403661429" duration="3878000" />
+      <workItem from="1517403661429" duration="4886000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="336393000" />
+    <option name="totallyTimeSpent" value="337401000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="32" y="1" width="1638" height="1018" extended-state="0" />
@@ -693,8 +691,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hey.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
