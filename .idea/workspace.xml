@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef550e3f-96fb-496a-9d3b-9615c7968079" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/htdocs.iml" afterPath="$PROJECT_DIR$/.idea/htdocs.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/style/style.css" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,11 +23,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hey.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="hey.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hey.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -170,6 +178,21 @@
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="css" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="photo" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -185,19 +208,19 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\xampp\htdocs\css" />
+      <recent name="E:\xampp\htdocs\guitarStudio" />
+      <recent name="E:\xampp\htdocs\guitarStudio\js" />
+      <recent name="E:\xampp\htdocs\guitarStudio\assets" />
+      <recent name="F:\xampp\htdocs\lab5\assets" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\xampp\htdocs\final\assests" />
       <recent name="F:\xampp\htdocs\cart\assets" />
       <recent name="E:\xampp\htdocs\lab5\assets" />
       <recent name="E:\xampp\htdocs\lab4_real\assets" />
       <recent name="F:\xampp\htdocs\lab4\assets" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\xampp\htdocs\guitarStudio" />
-      <recent name="E:\xampp\htdocs\guitarStudio\js" />
-      <recent name="E:\xampp\htdocs\guitarStudio\assets" />
-      <recent name="F:\xampp\htdocs\lab5\assets" />
-      <recent name="F:\xampp\htdocs\lab5" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -313,12 +336,12 @@
       <workItem from="1517254922438" duration="161000" />
       <workItem from="1517255100748" duration="175000" />
       <workItem from="1517366416589" duration="498000" />
-      <workItem from="1517403661429" duration="4886000" />
+      <workItem from="1517403661429" duration="5065000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="337401000" />
+    <option name="totallyTimeSpent" value="337580000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="32" y="1" width="1638" height="1018" extended-state="0" />
@@ -358,13 +381,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wk6demo/demo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="57" column="22" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="57" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cart/assets/fileupload/upload.php" />
     <entry file="file://$PROJECT_DIR$/cart/assets/viewProdsForm.php" />
     <entry file="file://$PROJECT_DIR$/cart/assets/signupPage.php">
@@ -692,7 +708,15 @@
     <entry file="file://$PROJECT_DIR$/hey.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
