@@ -36,6 +36,18 @@ ul li{
     font-family:Arial;
 }
 ul li:hover{
-    background:#009ada;
-    color:#000;
+    background:#808080;
+    color:white;
+}
+.firstBlock{
+    margin: auto;
+    width:90%;
+    height: 40%;
+    border:1px solid black;
+}
+.secondBlock{
+    margin:auto;
+    width:90%;
+    height:30%;
+    border:1px solid black;
 }
