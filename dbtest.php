@@ -7,7 +7,7 @@
 <body>
 Hey guys
 <?php
-include_once ("assets/dbconnect.php");
+include_once("assets/dbconnect.php");
 include_once("testfunction.php");
 
 $db = dbconnect();
