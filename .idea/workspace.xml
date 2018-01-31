@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef550e3f-96fb-496a-9d3b-9615c7968079" name="Default" comment="" />
+    <list default="true" id="ef550e3f-96fb-496a-9d3b-9615c7968079" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -299,15 +301,15 @@
       <workItem from="1517254922438" duration="161000" />
       <workItem from="1517255100748" duration="175000" />
       <workItem from="1517366416589" duration="498000" />
-      <workItem from="1517403661429" duration="2971000" />
+      <workItem from="1517403661429" duration="3187000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="335486000" />
+    <option name="totallyTimeSpent" value="335702000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="32" y="1" width="1638" height="1018" extended-state="0" />
+    <frame x="32" y="1" width="1638" height="1018" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16831073" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
