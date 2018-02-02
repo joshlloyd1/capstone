@@ -21,3 +21,18 @@ function aboutusBlock() {
     $block .= "</div>";
     return $block;
 }
+function LoginForm($username = "", $password = "") { // displays the login form
+    $form = "<div style='position:relative; margin:auto; text-align:center; border:1px solid black; width:400px; margin-top: 65px;'><section>
+    <form method='post' action='index.php'>
+        <h1>Log In</h1>
+        <label for='email'>Username: </label><br>
+                <input type='text' name='email' id = 'email' style='text-align:center;' value='$username'/><br>
+        <label for='password'>Password: </label><br>
+        <input type='password' name='password' id = 'password' style='text-align:center;' value='$password'/><br>
+
+        <input type='hidden' name='action' value='submit' />
+        <input type='submit' />
+    </form></section></div>";
+    return $form;
+
+}
