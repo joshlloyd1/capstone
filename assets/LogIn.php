@@ -7,8 +7,8 @@
 <body>
 <?php
 session_start();
-include_once ("assets/functions.php");
-include_once ("assets/header.html");
+include_once("functions.php");
+include_once("header.html");
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
@@ -66,7 +66,7 @@ switch($action) {
         echo LoginForm();
         break;
 }
-include_once ("assets/footer.html");
+include_once("assets/footer.html");
 ?>
 </body>
 </html>

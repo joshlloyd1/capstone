@@ -1,6 +1,8 @@
+<!--
 <head>
     <link rel="stylesheet" href="style/style.css">
 </head>
+!-->
 <?php
 /**
  * Created by PhpStorm.

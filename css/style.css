@@ -4,7 +4,12 @@
     margin-right:15px;
     font-weight:bold;
 }
-
+.searchBar{
+    margin-top:9px;
+    margin-right:60px;
+    float:right;
+    position:relative;
+}
 
 
 
