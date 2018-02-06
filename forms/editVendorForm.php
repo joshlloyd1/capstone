@@ -2,6 +2,10 @@
 /*
  * dropdowns are messed up. Not sure why.
  */
+include_once ("../assets/functions.php");
+include_once ("../assets/dbconnect.php");
+$db = dbconnect();
+$dropdown = getVendorsDropDown($db);
 ?>
 <form>
     <div class="container">

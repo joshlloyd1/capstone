@@ -60,7 +60,8 @@ function checkUserCustomer($db, $customer_username, $password, $hash) {
         $bln = -2;
     }
     return $bln;
-}function checkUserEmployee($db, $employee_username, $password, $hash) {
+}
+function checkUserEmployee($db, $employee_username, $password, $hash) {
     $sql = $db->prepare("SELECT * FROM employees WHERE employee_username = :employee_username");
       $binds = array(
           ":employee_username" => $employee_username,
@@ -85,4 +86,26 @@ function NewUser($newpage) { // brings user to a new page based on what the $new
     $form = "<div style='float:right'><form method='post' action='LogIn.php' ";
     $form .= "<input type='hidden' name='action' value='register' /><input type='submit' name='action' value='$newpage' style='height: 80px; width: 180px; font-size : 20px;'/></form></div>";
     return $form;
+}
+function getVendorsDropDown($db){
+    try{
+        $sql = "SELECT * FROM vendors";
+        $sql = $db->prepare($sql);
+        $sql->execute(); //executes statement
+        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+
+        if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
+            $dropDown = "<option value=''>Select...</option>" . PHP_EOL;
+            foreach($vendors as $vendor){
+
+                $dropDown .= "<option value='" . $vendor['vendor_id'] . "|" . $vendor['vendor_name'] . "'>" . $vendor['vendor_name'] . "</option>";
+            }
+        } else { //if there is not any data, say so.
+            $dropDown = "NO DATA" . PHP_EOL;
+        }
+        return $dropDown; //return it.
+
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die("There was a problem creating drop down");
+    }
 }

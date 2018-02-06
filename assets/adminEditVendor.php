@@ -9,8 +9,8 @@
 include_once ("adminHeader.php");
 include_once("functions.php");
 include_once("dbconnect.php");
-?>
 
+?>
     <h1>Edit Vendor</h1>
 
 <?php

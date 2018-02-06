@@ -5,14 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/htdocs/capstone/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/htdocs/capstone/css/bootstrap-theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link href="/htdocs/capstone/css/style.css" rel="stylesheet">
     <title>Used Cars of New England Tech</title>
 </head>
 <body>
 <div class="container">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -34,7 +33,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-    </div>
+    </nav>
 </div>
 <section>
     <div class="container body-content" style="margin-top:90px">
