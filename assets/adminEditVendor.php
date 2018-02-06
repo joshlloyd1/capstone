@@ -11,9 +11,9 @@ include_once("functions.php");
 include_once("dbconnect.php");
 ?>
 
-    <h1>Vendors</h1>
+    <h1>Edit Vendor</h1>
 
 <?php
-include_once ("../forms/addVendorForm.php");
+include_once ("../forms/editVendorForm.php");
 include_once ("footer.html");
 ?>
