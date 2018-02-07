@@ -95,15 +95,107 @@ function getVendorsDropDown($db){
         $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
 
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
-            $dropDown = "<option value=''>Select...</option>" . PHP_EOL;
+            $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
 
-                $dropDown .= "<option value='" . $vendor['vendor_id'] . "|" . $vendor['vendor_name'] . "'>" . $vendor['vendor_name'] . "</option>";
+                $dropDown .= "<a class=\"dropdown-item\" href=\"#\">" . $vendor['vendor_name'] . "</a>";
             }
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
         }
         return $dropDown; //return it.
+
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die("There was a problem creating drop down");
+    }
+}
+function getVendorsAsTable($db){
+    try{
+        $sql = "SELECT * FROM vendors";
+        $sql = $db->prepare($sql);
+        $sql->execute(); //executes statement
+        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+
+        if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
+            $displayVendors = "<div class=\"container\">" . PHP_EOL;
+            foreach($vendors as $vendor){
+                //row 1
+                $displayVendors .= "<div class='row'>";
+                    //col 1
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "</div>";
+                    //col 2
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
+                $displayVendors .= "</div>";
+                    //col 3
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "</div>";
+
+
+                //row 2
+                $displayVendors .= "<div class='row'>";
+                //col 1
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "</div>";
+                //col 2
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_contact_fname'] . "</span>";
+                $displayVendors .= "</div>";
+                //col 3
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_contact_lname'] . "</span>";
+                $displayVendors .= "</div>";
+
+
+                //row 3
+                $displayVendors .= "<div class='row'>";
+                //col 1
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "</div>";
+                //col 2
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_phone'] . "</span>";
+                $displayVendors .= "</div>";
+                //col 3
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_email'] . "</span>";
+                $displayVendors .= "</div>";
+
+
+                //row 4
+                $displayVendors .= "<div class='row'>";
+                //col 1
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "</div>";
+                //col 2
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_country'] . "</span>";
+                $displayVendors .= "</div>";
+                //col 3
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_city'] . "</span>";
+                $displayVendors .= "</div>";
+
+
+                //row 5
+                $displayVendors .= "<div class='row'>";
+                //col 1
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "</div>";
+                //col 2
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_zipcode'] . "</span>";
+                $displayVendors .= "</div>";
+                //col 3
+                $displayVendors .= "<div class='col-lg-4'>";
+                $displayVendors .= "<span>" . $vendor['vendor_state'] . "</span>";
+                $displayVendors .= "</div>";
+            }
+        } else { //if there is not any data, say so.
+            $dropDown = "NO DATA" . PHP_EOL;
+        }
+        return $displayVendors; //return it.
 
     }catch(PDOException $e){ //if it fails, throw the exception and display error message.
         die("There was a problem creating drop down");
