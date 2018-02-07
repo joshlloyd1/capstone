@@ -119,19 +119,6 @@ function getVendorsAsTable($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $displayVendors = "<div class=\"container\">" . PHP_EOL;
             foreach($vendors as $vendor){
-                //row 1
-                $displayVendors .= "<div class='row'>";
-                    //col 1
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "</div>";
-                    //col 2
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
-                $displayVendors .= "</div>";
-                    //col 3
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "</div>";
-
 
                 //row 2
                 $displayVendors .= "<div class='row'>";
@@ -140,60 +127,21 @@ function getVendorsAsTable($db){
                 $displayVendors .= "</div>";
                 //col 2
                 $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_contact_fname'] . "</span>";
+                $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
+                $displayVendors .= "<span>" . "Contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
+                $displayVendors .= "<span>" . "phone: " . $vendor['vendor_phone'] . "</span>" . "</br>";
+                $displayVendors .= "<span>" . "email: " . $vendor['vendor_email'] . "</span>" . "</br>";
+                $displayVendors .= "<span>" .  $vendor['vendor_city'] . ", " . $vendor['vendor_state'] . "</span>" . "</br>";
+                $displayVendors .= "<span>" . $vendor['vendor_country'] . ", " .  $vendor['vendor_zipcode'] . "</span>" . "</br>";
+                $displayVendors .= "</br>";
+                $displayVendors .= "</br>";
                 $displayVendors .= "</div>";
-                //col 3
                 $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_contact_lname'] . "</span>";
-                $displayVendors .= "</div>";
-
-
-                //row 3
-                $displayVendors .= "<div class='row'>";
-                //col 1
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "</div>";
-                //col 2
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_phone'] . "</span>";
-                $displayVendors .= "</div>";
-                //col 3
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_email'] . "</span>";
-                $displayVendors .= "</div>";
-
-
-                //row 4
-                $displayVendors .= "<div class='row'>";
-                //col 1
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "</div>";
-                //col 2
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_country'] . "</span>";
-                $displayVendors .= "</div>";
-                //col 3
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_city'] . "</span>";
-                $displayVendors .= "</div>";
-
-
-                //row 5
-                $displayVendors .= "<div class='row'>";
-                //col 1
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "</div>";
-                //col 2
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_zipcode'] . "</span>";
-                $displayVendors .= "</div>";
-                //col 3
-                $displayVendors .= "<div class='col-lg-4'>";
-                $displayVendors .= "<span>" . $vendor['vendor_state'] . "</span>";
                 $displayVendors .= "</div>";
             }
+            $displayVendors .= "<button type='submit' action='addVendor' class='btn btn-primary'>Add Vendor</button>" . PHP_EOL;
         } else { //if there is not any data, say so.
-            $dropDown = "NO DATA" . PHP_EOL;
+            $displayVendors = "NO DATA" . PHP_EOL;
         }
         return $displayVendors; //return it.
 

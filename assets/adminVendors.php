@@ -11,13 +11,15 @@ include_once("functions.php");
 include_once("dbconnect.php");
 $db = dbconnect();
 $vendors = getVendorsAsTable($db);
+$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
+
 ?>
 
     <h1>Vendors</h1>
 
 
 <?php
-//echo $vendors;
+echo $vendors;
 include_once ("../forms/addVendorForm.php");
 include_once ("footer.html");
 ?>
