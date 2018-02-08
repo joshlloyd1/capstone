@@ -16,7 +16,9 @@
 .dropDownLoc{
     margin-top: 25px;
 }
-
+.hidden {
+    display:none;
+}
 
 
 
