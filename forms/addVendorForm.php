@@ -3,7 +3,7 @@
  * dropdowns are messed up. Not sure why.
  */
 ?>
-<form>
+<form method="post" action="#" class="hidden">
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
@@ -107,6 +107,7 @@
             </div>
         </div>
 </form>
+
 
 
 

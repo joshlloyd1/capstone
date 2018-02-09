@@ -9,20 +9,22 @@
 session_start();
 include_once("functions.php");
 include_once("header.html");
+include_once("dbconnect.php");
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-
+$db = dbconnect();
 
 switch($action) {
-    case 'submitt':
+    case 'submit':
+
         $passwordhash = password_hash($password, PASSWORD_DEFAULT);
         $valid = checkUserCustomer($db, $username, $password, $passwordhash);
         if($valid > 0) { // if user exists brings to CUSTOMER PAGE
             $_SESSION['username'] = $valid;
             $_SESSION['access'] = true;
-            header('Location: CustomerHomePage.php');
+            header('Location: loginSuccess.php');
         }
         if($valid == -1) { // user exists but gave wrong password brings back to log in
             $_SESSION['access'] = false;
@@ -35,7 +37,7 @@ switch($action) {
             if($admin > 0) { // if an admin account was found brings to ADMIN PAGE
                 $_SESSION['username'] = $valid;
                 $_SESSION['adminaccess'] = true;
-                header('Location: AdminHomePage.php');
+                header('Location: adminHeader.php');
             }
             if($admin = -1) {
                 $_SESSION['access'] = false;
@@ -55,18 +57,20 @@ switch($action) {
         if($valid || $admin == -2) {
             $_SESSION['access'] = false;
             $_SESSION['adminaccess'] = false;
-            $form = LoginForm($username, $password);
-            echo $form;
             echo "<h3 style='text-align: center'>We apologize, there was a problem 
             getting into database</h3>";
         }
+        break;
+    case 'register':
+        header('Location: newUser.php');
+        break;
     default:
         $_SESSION['access'] = false;
-        echo NewUser("New User");
+        echo NewUser("register");
         echo LoginForm();
         break;
 }
-include_once("assets/footer.html");
+include_once("footer.html");
 ?>
 </body>
 </html>
