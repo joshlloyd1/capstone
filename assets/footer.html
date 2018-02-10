@@ -7,18 +7,25 @@
 </div>
 </section>
 <script>
+    var button = document.querySelector(['body > section > div > div > div > button']);
+    $(button).click(function(){
+        $('.visibleDiv').hide();
+        $('.hidden').show();
+    });
+
     var test = "tested";
-    $(document).ready(function() {
-        var functionTest = "tested";
-        /*
-        var button = document.querySelector("button[name='AddVendor']");
-        $(button).click(function(){
-            $('.visibleDiv').hide();
-            $('.hidden').show();
-        })
-        */
+    /*
+   $(document).ready(function() {
+       var functionTest = "tested";
+
+       $(button['name=addVendor']).click(function(){
+           $('.visibleDiv').hide();
+           $('.hidden').show();
+       })
+
         return functionTest;
     });
+    */
 </script>
 </body>
 </html>
