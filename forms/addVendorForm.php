@@ -7,15 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
-                <div class="dropdown dropDownLoc">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownVendorMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Menu...
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Edit A Vendor</a>
-                        <a class="dropdown-item" href="#">Delete A Vendor</a>
-                    </div>
-                </div>
+
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
@@ -107,6 +99,7 @@
             </div>
         </div>
 </form>
+
 
 
 

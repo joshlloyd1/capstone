@@ -126,19 +126,23 @@ function getVendorsAsTable($db){
                     $displayVendors .= "<div class='col-lg-4'>";
                     $displayVendors .= "</div>";
                     //col 2
-                    $displayVendors .= "<div class='col-lg-4'>";
+                    $displayVendors .= "<div class='col-lg-4' data-toggle='tooltip' title='Edit'>";
                         $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
                         $displayVendors .= "<span>" . "Contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
                         $displayVendors .= "<span>" . "phone: " . $vendor['vendor_phone'] . "</span>" . "</br>";
                         $displayVendors .= "<span>" . "email: " . $vendor['vendor_email'] . "</span>" . "</br>";
                         $displayVendors .= "<span>" .  $vendor['vendor_city'] . ", " . $vendor['vendor_state'] . "</span>" . "</br>";
                         $displayVendors .= "<span>" . $vendor['vendor_country'] . ", " .  $vendor['vendor_zipcode'] . "</span>" . "</br>";
+                        $displayVendors .= "<span class='glyphicon glyphicon-option-horizontal'></span>" . "</span>";
                         $displayVendors .= "</br>";
                         $displayVendors .= "</br>";
                     $displayVendors .= "</div>";
 
                     $displayVendors .= "<div class='col-lg-4'>";
                     $displayVendors .= "</div>";
+                $displayVendors .= "</div>";
+                $displayVendors .= "<div class='my-popper'>";
+                $displayVendors .= "<a href='../forms/editVendorForm.php'>edit</a>" . "</br>";
                 $displayVendors .= "</div>";
             }
             $displayVendors .= "<button type='submit' action='addVendor' class='btn btn-primary' name='addVendor'>Add Vendor</button>" . PHP_EOL;
