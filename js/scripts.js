@@ -11,22 +11,3 @@ $(document).ready(function() {
 
     });
 });
-
-
-var ref = $('.vendor');
-var popper = $('.popper');
-$(popper).hide();
-$(ref).click(function(){
-    $(popper).show();
-
-    /*
-    var anotherPopper = new Popper (ref, popper,{
-        placement:'right'
-    });
-    */
-});
-/*
-$(ref).click(function(){
-    $(this).attr('class', 'vandor vendorChange');
-});
-*/

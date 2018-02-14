@@ -121,7 +121,7 @@ function getVendorsAsTable($db){
                         $displayVendors .= "<div class='col-lg-4'>";
                         $displayVendors .= "</div>";
                         //col 2
-                        $displayVendors .= "<div class='col-lg-4 vendor'>";
+                        $displayVendors .= "<div class='col-lg-4'>";
                             $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
                             $displayVendors .= "<span>" . "Contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
                             $displayVendors .= "<span>" . "phone: " . $vendor['vendor_phone'] . "</span>" . "</br>";
@@ -135,11 +135,7 @@ function getVendorsAsTable($db){
                         $displayVendors .= "<div class='col-lg-4'>";
                         $displayVendors .= "</div>";
                     $displayVendors .= "</div>";
-                    $displayVendors .= "<div class='popper'>";
-                    $displayVendors .= "<p>here is my poppy</p>";
-                    $displayVendors .= "</div>";
                 }
-                $displayVendors .= "<button type='submit' name='action' class='btn btn-primary'>Add Vendor</button>" . PHP_EOL;
                 $displayVendors .= "</div>" . PHP_EOL;
             $displayVendors .= "</div>" . PHP_EOL;
 

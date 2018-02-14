@@ -25,8 +25,13 @@ $vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRIN
 $vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
 echo $vendorCity;
 echo $action;
-?>
-    <h1>Vendors</h1>
+?>  <div class="row">
+        <div class="col-lg-4">
+            <h1>Vendors</h1>
+            <button type='submit' name='action' class='btn btn-primary' value="changeVendor">Add Vendor</button>
+        </div>
+    </div>
+
 <?php
 echo $vendors;
 include_once ("../forms/addVendorForm.php");
