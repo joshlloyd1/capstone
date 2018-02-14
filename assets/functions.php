@@ -104,7 +104,7 @@ function getVendorsDropDown($db){
             $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
 
-                $dropDown .= "<a class='dropdown-item' href='#'>" . $vendor['vendor_name'] . "</a>";
+                $dropDown .= "<a class='dropdown-item' href='#' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name'] . "</a>";
             }
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;

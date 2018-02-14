@@ -32,7 +32,7 @@ $(document).ready(function() {
 
     });
     $(editVendorBtn).click(function(){
-        alert("I am an alert box!");
+        //alert("I am an alert box!");
 
         $(addVendorForm).hide();
         $(editVendorForm).show();

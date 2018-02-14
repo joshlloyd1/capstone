@@ -23,6 +23,10 @@ $vendorCountry = filter_input(INPUT_POST, 'vendorCountry', FILTER_SANITIZE_STRIN
 $vendorCity = filter_input(INPUT_POST, 'vendorCity', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorPk = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) ?? NULL;
+
+
+
 echo $vendorCity;
 echo $action;
 ?>
@@ -30,8 +34,8 @@ echo $action;
         <div class="col-lg-4">
             <h1>Vendors</h1>
             <div class="btn-group" role="group" aria-label="vendorNav">
-                <button type='submit' name='action' class='btn btn-secondary' id="addVendorBtn" value="add">Add</button>
                 <button type='submit' name='action' class='btn btn-secondary' id="viewVendorsBtn" value="view">View</button>
+                <button type='submit' name='action' class='btn btn-secondary' id="addVendorBtn" value="add">Add</button>
                 <button type='submit' name='action' class='btn btn-secondary' id="editVendorBtn" value="edit">Edit</button>
             </div>
         </div>
