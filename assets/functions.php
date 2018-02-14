@@ -1,8 +1,4 @@
-<!--
-<head>
-    <link rel="stylesheet" href="style/style.css">
-</head>
-!-->
+
 <?php
 /**
  * Created by PhpStorm.
@@ -17,7 +13,6 @@ function specialBlock($db) {
     $block .= "</div>";
     return $block;
 }
-
 function aboutusBlock() {
     $block = "<div class=secondBlock><h2>About Us:</h2>";
     $block .= "</div>";
@@ -118,36 +113,36 @@ function getVendorsAsTable($db){
 
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $displayVendors = "<div class='container'>" . PHP_EOL;
-            $displayVendors .= "<div class='visibleDiv'>" . PHP_EOL;
-            foreach($vendors as $vendor){
-                //row
-                $displayVendors .= "<div class='row'>";
-                //col 1
-                    $displayVendors .= "<div class='col-lg-4'>";
-                    $displayVendors .= "</div>";
-                    //col 2
-                    $displayVendors .= "<div class='col-lg-4' data-toggle='tooltip' title='Edit'>";
-                        $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
-                        $displayVendors .= "<span>" . "Contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
-                        $displayVendors .= "<span>" . "phone: " . $vendor['vendor_phone'] . "</span>" . "</br>";
-                        $displayVendors .= "<span>" . "email: " . $vendor['vendor_email'] . "</span>" . "</br>";
-                        $displayVendors .= "<span>" .  $vendor['vendor_city'] . ", " . $vendor['vendor_state'] . "</span>" . "</br>";
-                        $displayVendors .= "<span>" . $vendor['vendor_country'] . ", " .  $vendor['vendor_zipcode'] . "</span>" . "</br>";
-                        $displayVendors .= "<span class='glyphicon glyphicon-option-horizontal'></span>" . "</span>";
-                        $displayVendors .= "</br>";
-                        $displayVendors .= "</br>";
-                    $displayVendors .= "</div>";
+                $displayVendors .= "<div class='visibleDiv'>" . PHP_EOL;
+                foreach($vendors as $vendor){
+                    //row
+                    $displayVendors .= "<div class='row'>";
+                    //col 1
+                        $displayVendors .= "<div class='col-lg-4'>";
+                        $displayVendors .= "</div>";
+                        //col 2
+                        $displayVendors .= "<div class='col-lg-4 vendor'>";
+                            $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
+                            $displayVendors .= "<span>" . "Contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
+                            $displayVendors .= "<span>" . "phone: " . $vendor['vendor_phone'] . "</span>" . "</br>";
+                            $displayVendors .= "<span>" . "email: " . $vendor['vendor_email'] . "</span>" . "</br>";
+                            $displayVendors .= "<span>" .  $vendor['vendor_city'] . ", " . $vendor['vendor_state'] . "</span>" . "</br>";
+                            $displayVendors .= "<span>" . $vendor['vendor_country'] . ", " .  $vendor['vendor_zipcode'] . "</span>" . "</br>";
+                            $displayVendors .= "</br>";
+                            $displayVendors .= "</br>";
+                        $displayVendors .= "</div>";
 
-                    $displayVendors .= "<div class='col-lg-4'>";
+                        $displayVendors .= "<div class='col-lg-4'>";
+                        $displayVendors .= "</div>";
                     $displayVendors .= "</div>";
-                $displayVendors .= "</div>";
-                $displayVendors .= "<div class='my-popper'>";
-                $displayVendors .= "<a href='../forms/editVendorForm.php'>edit</a>" . "</br>";
-                $displayVendors .= "</div>";
-            }
-            $displayVendors .= "<button type='submit' action='addVendor' class='btn btn-primary' name='addVendor'>Add Vendor</button>" . PHP_EOL;
+                    $displayVendors .= "<div class='popper'>";
+                    $displayVendors .= "<p>here is my poppy</p>";
+                    $displayVendors .= "</div>";
+                }
+                $displayVendors .= "<button type='submit' name='action' class='btn btn-primary'>Add Vendor</button>" . PHP_EOL;
+                $displayVendors .= "</div>" . PHP_EOL;
             $displayVendors .= "</div>" . PHP_EOL;
-            $displayVendors .= "</div>" . PHP_EOL;
+
         } else { //if there is not any data, say so.
             $displayVendors = "NO DATA" . PHP_EOL;
         }
@@ -155,5 +150,25 @@ function getVendorsAsTable($db){
 
     }catch(PDOException $e){ //if it fails, throw the exception and display error message.
         die("There was a problem creating drop down");
+    }
+}
+function addVendor($db, $vendorName, $vendorContactFname, $vendorContactLname, $vendorEmail, $vendorPhone, $vendorCountry, $vendorCity, $vendorState, $vendorZipCode){
+    try{
+        $sql = $db->prepare("INSERT INTO `vendors`(`vendor_id`, `vendor_name`, `vendor_contact_fname`, `vendor_contact_lname`, `vendor_email`, `vendor_phone`, `vendor_country`, `vendor_city`, `vendor_state`, vendor_zipcode) VALUES (null, :vendorName, :vendorContactFname, :vendorContactLname, :vendorEmail, :vendorPhone, :vendorCountry, :vendorCity, :vendorState, :vendorZipCode)");
+        $sql->bindParam(':vendorName', $vendorName);
+        $sql->bindParam(':vendorContactFname', $vendorContactFname);
+        $sql->bindParam(':vendorContactLname', $vendorContactLname);
+        $sql->bindParam(':vendorEmail', $vendorEmail);
+        $sql->bindParam(':vendorPhone', $vendorPhone);
+        $sql->bindParam(':vendorCountry', $vendorCountry);
+        $sql->bindParam(':vendorCity', $vendorCity);
+        $sql->bindParam(':vendorState', $vendorState);
+        $sql->bindParam(':vendorZipCode', $vendorZipCode);
+        $sql->execute();
+        $message = $sql->RowCount() . " Rows inserted.";
+
+        return $message;
+    }catch(PDOException $e){
+        die("There was a problem connecting to the database");
     }
 }

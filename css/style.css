@@ -19,54 +19,12 @@
 .hidden {
     display:none;
 }
-
-
-
-
-
-
-
-
-/*
-@charset "UTF-8";
-
-.container {
-    width:100%;
-    height: 1000px;
-    border:1px solid black;
-    background-color:white;
+.vendor{
+    background-color: ghostwhite;
 }
-.navigation {
-    width:900px;
-    height:70px;
-    border:1px solid black;
-    position:absolute;
-    top:30px;
-    left:600px;
+.vendorChange{
+    background-color: #00bf00;
 }
-body{
-    background-color:#696969;
+.popper{
+
 }
-nav a{
-    text-decoration:none;
-    color:black;
-}
-ul{
-    text-align:center;
-    list-style:none;
-    float:left;
-}
-ul li{
-    top:10px;
-    font-size:24px;
-    display:inline-block;
-    margin-right:0px;
-    position:relative;
-    padding:7px 16px;
-    font-family:Arial;
-}
-ul li:hover{
-    background:#009ada;
-    color:#000;
-}
-*/

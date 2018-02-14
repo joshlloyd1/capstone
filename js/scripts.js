@@ -1,6 +1,3 @@
-var reference = document.querySelector('body > section > div > div > div > div:nth-child(1) > div:nth-child(2)');
-var popper = document.querySelector('.my-popper');
-
 $(document).ready(function() {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
@@ -10,15 +7,26 @@ $(document).ready(function() {
     $(addVendorButton).click(function(){
         $('.visibleDiv').hide();
         $('.hidden').show();
-    });
 
-    $(popper).hide();
-    $(reference).click(function(){
-        $(popper).show();
-        var anotherPopper = new Popper(reference, popper,{
-            placement:'right'
-        });
-    });
 
+    });
 });
 
+
+var ref = $('.vendor');
+var popper = $('.popper');
+$(popper).hide();
+$(ref).click(function(){
+    $(popper).show();
+
+    /*
+    var anotherPopper = new Popper (ref, popper,{
+        placement:'right'
+    });
+    */
+});
+/*
+$(ref).click(function(){
+    $(this).attr('class', 'vandor vendorChange');
+});
+*/
