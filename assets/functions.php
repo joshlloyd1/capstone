@@ -104,7 +104,7 @@ function getVendorsDropDown($db){
             $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
 
-                $dropDown .= "<a class=\"dropdown-item\" href=\"#\">" . $vendor['vendor_name'] . "</a>";
+                $dropDown .= "<a class='dropdown-item' href='#'>" . $vendor['vendor_name'] . "</a>";
             }
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
@@ -123,8 +123,7 @@ function getVendorsAsTable($db){
         $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
 
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
-            $displayVendors = "<div class='container'>" . PHP_EOL;
-            $displayVendors .= "<div class='visibleDiv'>" . PHP_EOL;
+            $displayVendors = "<div class='container' id='viewVendors'>" . PHP_EOL;
             foreach($vendors as $vendor){
                 //row
                 $displayVendors .= "<div class='row'>";
@@ -147,7 +146,6 @@ function getVendorsAsTable($db){
                 $displayVendors .= "</div>";
                 $displayVendors .= "</div>";
             }
-            $displayVendors .= "</div>" . PHP_EOL;
             $displayVendors .= "</div>" . PHP_EOL;
 
         } else { //if there is not any data, say so.

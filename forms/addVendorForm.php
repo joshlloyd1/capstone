@@ -3,8 +3,8 @@
  * dropdowns are messed up. Not sure why.
  */
 ?>
-<form method="post" action="#" class="hidden">
-    <div class="container">
+<div class="container" id="addVendorForm">
+    <form method="post" action="#">
         <div class="row">
             <div class="col-lg-4">
 
@@ -97,8 +97,8 @@
             <div class="col-lg-4">
 
             </div>
-        </div>
-</form>
+    </form>
+</div>
 
 
 

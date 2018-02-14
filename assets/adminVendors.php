@@ -25,16 +25,24 @@ $vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRIN
 $vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
 echo $vendorCity;
 echo $action;
-?>  <div class="row">
-    <div class="col-lg-4">
-        <h1>Vendors</h1>
-        <button type='submit' name='action' class='btn btn-primary' value="changeVendor">Add Vendor</button>
+?>
+    <div class="row">
+        <div class="col-lg-4">
+            <h1>Vendors</h1>
+            <div class="btn-group" role="group" aria-label="vendorNav">
+                <button type='submit' name='action' class='btn btn-secondary' id="addVendorBtn" value="add">Add</button>
+                <button type='submit' name='action' class='btn btn-secondary' id="viewVendorsBtn" value="view">View</button>
+                <button type='submit' name='action' class='btn btn-secondary' id="editVendorBtn" value="edit">Edit</button>
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"></div>
     </div>
-</div>
-
 <?php
 echo $vendors;
+
 include_once ("../forms/addVendorForm.php");
+include_once ("../forms/editVendorForm.php");
 
 switch($action){
     case 'Add Vendor':
