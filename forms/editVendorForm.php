@@ -13,7 +13,7 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="dropDownVendor">Vendor</label>
-                    <div class="dropdown">
+                    <div class="dropdown" id="myDropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select Vendor...
                         </button>

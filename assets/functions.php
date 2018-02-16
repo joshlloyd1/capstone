@@ -92,7 +92,8 @@ function getVendorsDropDown($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
-                $dropDown .= "<a class='dropdown-item' href='/adminVendors.php?id=" . '<?php echo $vendor['vendor_id'] . "'>" . $vendor['vendor_name'] . "</a>";
+                $dropDown .= "<button type='submit' class='dropdown-item' name='action' value='" .$vendor['vendor_id'] ."'>" . $vendor['vendor_name']. "</button>";
+                $dropDown .= " <input type=\"text\" name=\"imageName\" hidden value=\"<?php echo $imageName ?>\">"
             }
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
