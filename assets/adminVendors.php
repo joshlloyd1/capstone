@@ -50,7 +50,18 @@ include_once ("../forms/editVendorForm.php");
 
 switch($action){
     case 'Add Vendor':
-        echo addVendor($db, $vendorName, $vendorContactFname, $vendorContactLname, $vendorEmail, $vendorPhone, $vendorCountry, $vendorCity, $vendorState, $vendorZipCode);
+        $vendor = array(
+            "vendorName" => $vendorName,
+            "vendorContactFname" => $vendorContactFname,
+            "vendorContactLname" => $vendorContactLname,
+            "vendorEmail" => $vendorEmail,
+            "vendorPhone" => $vendorPhone,
+            "vendorCountry" => $vendorCountry,
+            "vendorCity" => $vendorCity,
+            "vendorState" => $vendorState,
+            "vendorZipCode" => $vendorZipCode
+        );
+        echo addVendor($db, $vendor);
         break;
 }
 

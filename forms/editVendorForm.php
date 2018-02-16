@@ -100,6 +100,7 @@ $dropdown = getVendorsDropDown($db);
             </div>
             <div class="col-lg-4">
                 <button type="submit" name="action" class="btn btn-primary" value="edit">Update</button>
+                <button type="submit" name="action" class="btn btn-danger" value="delete">Delete</button>
             </div>
             <div class="col-lg-4">
 

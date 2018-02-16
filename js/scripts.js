@@ -14,6 +14,7 @@ $(document).ready(function() {
     $(editVendorForm).hide();
     $(addVendorForm).hide();
 
+
     $(addVendorBtn).click(function(){
         //alert("I am an alert box!");
 

@@ -1,14 +1,4 @@
-<!--
-<head>
-    <link rel="stylesheet" href="style/style.css">
-</head>
-!-->
-<style>
-    tr{
-        font-size: large;
-        border-bottom: double;
-    }
-</style>
+
 <?php
 /**
  * Created by PhpStorm.
@@ -23,7 +13,6 @@ function specialBlock($db) {
     $block .= "</div>";
     return $block;
 }
-
 function aboutusBlock() {
     $block = "<div class=secondBlock><h2>About Us:</h2>";
     $block .= "</div>";
@@ -103,8 +92,7 @@ function getVendorsDropDown($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
-
-                $dropDown .= "<a class='dropdown-item' href='#' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name'] . "</a>";
+                $dropDown .= "<a class='dropdown-item' href='/adminVendors.php?id=" . '<?php echo $vendor['vendor_id'] . "'>" . $vendor['vendor_name'] . "</a>";
             }
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
@@ -245,7 +233,7 @@ function phoneCheck ($phone) {
     }
     return $ret;
 }
-function  AddEmployee($db, $f_name, $l_name, $email, $phone_number, $username, $password0, $photo) {
+function AddEmployee($db, $f_name, $l_name, $email, $phone_number, $username, $password0, $photo) {
     $password = password_hash($password0, PASSWORD_DEFAULT);
 
     $sql = $db->prepare("INSERT INTO employees VALUES (null, :f_name, :l_name, :email, :phone_number, :username, :password, :photo)");
@@ -302,8 +290,22 @@ function theTeam($db) {
     $table .= "</table>";
     return $table;
 }
-function addVendor($db, $vendorName, $vendorContactFname, $vendorContactLname, $vendorEmail, $vendorPhone, $vendorCountry, $vendorCity, $vendorState, $vendorZipCode){
+function addVendor($db, $vendor){
     try{
+
+            $add = $vendor;
+
+            $vendorName = $add['vendorName'];
+            $vendorContactFname = $add['vendorContactFname'];
+            $vendorContactLname = $add['vendorContactLname'];
+            $vendorEmail = $add['vendorEmail'];
+            $vendorPhone = $add['vendorPhone'];
+            $vendorCountry = $add['vendorCountry'];
+            $vendorCity = $add['vendorCity'];
+            $vendorState = $add['vendorState'];
+            $vendorZipCode = $add['vendorZipCode'];
+
+
         $sql = $db->prepare("INSERT INTO `vendors`(`vendor_id`, `vendor_name`, `vendor_contact_fname`, `vendor_contact_lname`, `vendor_email`, `vendor_phone`, `vendor_country`, `vendor_city`, `vendor_state`, vendor_zipcode) VALUES (null, :vendorName, :vendorContactFname, :vendorContactLname, :vendorEmail, :vendorPhone, :vendorCountry, :vendorCity, :vendorState, :vendorZipCode)");
         $sql->bindParam(':vendorName', $vendorName);
         $sql->bindParam(':vendorContactFname', $vendorContactFname);
