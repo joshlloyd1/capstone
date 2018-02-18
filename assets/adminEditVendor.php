@@ -14,6 +14,6 @@ include_once("dbconnect.php");
     <h1>Edit Vendor</h1>
 
 <?php
-include_once ("../forms/editVendorForm.php");
+include_once("../forms/selectVendorForm.php");
 include_once ("footer.html");
 ?>

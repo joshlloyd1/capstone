@@ -1,7 +1,4 @@
 <?php
-if(!isset($_SESSION)){
-    session_start();
-}
 /**
  * Created by PhpStorm.
  * User: iotenti
@@ -34,34 +31,21 @@ echo $action;
         <div class="col-lg-4">
             <h1>Vendors</h1>
             <div class="btn-group" role="group" aria-label="vendorNav">
-                <button type='submit' name='action' class='btn btn-secondary' id="viewVendorsBtn" value="view">View</button>
-                <button type='submit' name='action' class='btn btn-secondary' id="addVendorBtn" value="add">Add</button>
-                <button type='submit' name='action' class='btn btn-secondary' id="editVendorBtn" value="edit">Edit</button>
+                <a class='btn btn-secondary' value="view" role="button" href="adminVendors.php">View</a>
+                <a class='btn btn-secondary' value="view" role="button" href="adminVendors.php">Add</a>
+                <button type='button' class='btn btn-secondary' value="edit">Edit</button>
             </div>
         </div>
         <div class="col-lg-4"></div>
         <div class="col-lg-4"></div>
     </div>
 <?php
-echo $vendors;
-
-include_once ("../forms/addVendorForm.php");
-include_once("../forms/selectVendorForm.php");
-
+//include_once ("../forms/updateVendorsForm.php");
 switch($action){
-    case 'Add Vendor':
-        $vendor = array(
-            "vendorName" => $vendorName,
-            "vendorContactFname" => $vendorContactFname,
-            "vendorContactLname" => $vendorContactLname,
-            "vendorEmail" => $vendorEmail,
-            "vendorPhone" => $vendorPhone,
-            "vendorCountry" => $vendorCountry,
-            "vendorCity" => $vendorCity,
-            "vendorState" => $vendorState,
-            "vendorZipCode" => $vendorZipCode
-        );
-        echo addVendor($db, $vendor);
+    case 'update':
+        echo getVendorUpdateForm($db, $vendorId); //use primary key to get vendor from vendors table
+       // echo updateVendor($vendor); //update
+
         break;
 }
 

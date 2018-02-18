@@ -41,16 +41,9 @@ $(document).ready(function() {
 
     });
 });
-/*
-var thisDropDown = $('#editVendorForm > form > div:nth-child(1) > div:nth-child(2) > div > div > div');
 
-$(thisDropDown).click(function(){
-    let id = $(this).val();
-  console.log(id);
-});
-
-$('#myDropdown').on('show.bs.dropdown', function () {
-    let id = $(this).val();
-    console.log(id);
-})
-*/
+function idIsSet(){
+    $(addVendorForm).hide();
+    $(editVendorForm).show();
+    $(viewVendors).hide();
+}

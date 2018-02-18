@@ -92,9 +92,9 @@ function getVendorsDropDown($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
-                $dropDown .= "<button type='submit' class='dropdown-item' name='action' value='" .$vendor['vendor_id'] ."'>" . $vendor['vendor_name']. "</button>";
-                $dropDown .= " <input type=\"text\" name=\"imageName\" hidden value=\"<?php echo $imageName ?>\">"
+                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name']. "</button>";
             }
+            $dropDown .= "<input type='hidden' name='action' value='update'>";
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
         }
@@ -324,4 +324,129 @@ function addVendor($db, $vendor){
     }catch(PDOException $e){
         die("There was a problem connecting to the database");
     }
+}
+function getVendorUpdateForm($db, $vendorId){ //this will be used to update and delete. Will be used to grab a specific record by primary key number.
+    $sql = $db->prepare("SELECT * FROM vendors WHERE vendor_id = :vendor_id"); //select all with a particular id (primary key)
+    $sql->bindParam(':vendor_id', $vendorId, PDO::PARAM_INT);
+    $sql->execute();
+    $vendor = $sql->fetch(PDO::FETCH_ASSOC);//get all columns in associated array. ? I think
+
+    $db = dbconnect();
+    $dropdown = getVendorsDropDown($db);
+
+    $form = "<div class='container'>";
+        $form .= "<form method='post' action='#'>";
+            $form .= "<div class='row'>";
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='dropDownVendor'>Vendor</label>";
+                        $form .= "<div class='dropdown' id='myDropdown'>";
+                            $form .= "<button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>";
+                                $form .= $vendor['vendor_name'];
+                            $form .= "</button>";
+                            $form .= "<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>";
+                               echo $dropdown; //vendor name in dropdown
+                            $form .= "</div>";
+                         $form .= "</div>";
+                    $form .= "</div>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+            $form .= "</div>";
+
+            $form .= "<div class='row'>";
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorContactFname'>First Name</label>";
+                        $form .= "<input type='text' class='form-control' id='txtVendorContactFname' name='vendorContactFname' value='" . $vendor['vendor_contact_fname']. "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorContactLname'>Last Name</label>";
+                        $form .= "<input type='text' class='form-control' id='txtVendorContactLname' name='vendorContactLname' value='" . $vendor['vendor_contact_lname']. "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+            $form .= "</div>";
+
+            $form .= "<div class='row'>";
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorPhone'>Phone Number</label>";
+                        $form .= "<input type='text' class='form-control' id='txtVendorPhone' name='vendorPhone' value='" . $vendor['vendor_phone'] . "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorEmail'>Email</label>";
+                        $form .= "<input type='text' class='form-control' id='txtVendorEmail' name='vendorEmail' value='" . $vendor['vendor_email'] . "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+            $form .= "</div>";
+
+            $form .= "<div class='row'>";
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorCountry'>Country</label>";
+                        $form .= "<input type='text' class='form-control' id='txtCountry' name='vendorCountry' value='" . $vendor['vendor_country'] . "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorCity'>City</label>";
+                        $form .= "<input type='text' class='form-control' id='txtVendorCity' name='vendorCity' value='" . $vendor['vendor_city'] . "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+            $form .= "</div>";
+
+            $form .= "<div class='row'>";
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorZipCode'>Zip Code</label>";
+                        $form .= "<input type='text' class='form-control' id='txtVendorZipCode' name='vendorZipCode' value='" . $vendor['vendor_zipcode'] . "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<div class='form-group'>";
+                        $form .= "<label for='txtVendorState'>State</label>";
+                        $form .= "<input type='text' class='form-control' id='txtVendorState' name='vendorState' value='" . $vendor['vendor_state'] . "'>";
+                    $form .= "</div>";
+                $form .= "</div>";
+            $form .= "</div>";
+
+            $form .= "<div class='row'>";
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                    $form .= "<button type='submit' name='action' class='btn btn-primary' value='edit'>Update</button>";
+                    $form .= "<button type='submit' name='action' class='btn btn-danger' value='delete'>Delete</button>";
+                $form .= "</div>";
+
+                $form .= "<div class='col-lg-4'>";
+                $form .= "</div>";
+            $form .= "</div>";
+        $form .= "</form>";
+    $form .= "</div>";
+    return $form;
 }
