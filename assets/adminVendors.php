@@ -47,6 +47,7 @@ echo $vendors;
 
 include_once ("../forms/addVendorForm.php");
 include_once("../forms/selectVendorForm.php");
+include_once ("../forms/disabledEditVendorForm.php");
 
 switch($action){
     case 'Add Vendor':

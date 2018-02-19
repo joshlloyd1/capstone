@@ -8,12 +8,11 @@ $(document).ready(function() {
     var viewVendorsBtn = $('#viewVendorsBtn');
 
     var addVendorForm = $('#addVendorForm');
-    var editVendorForm = $('#editVendorForm');
+    var editVendorForm = $('#editVendorForm, #selectVendorForm');
     var viewVendors = $('#viewVendors')
 
     $(editVendorForm).hide();
     $(addVendorForm).hide();
-
 
     $(addVendorBtn).click(function(){
         //alert("I am an alert box!");
@@ -38,12 +37,7 @@ $(document).ready(function() {
         $(addVendorForm).hide();
         $(editVendorForm).show();
         $(viewVendors).hide();
-
     });
-});
 
-function idIsSet(){
-    $(addVendorForm).hide();
-    $(editVendorForm).show();
-    $(viewVendors).hide();
-}
+
+});

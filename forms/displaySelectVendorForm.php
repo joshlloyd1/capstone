@@ -8,7 +8,7 @@ if(!isset($_SESSION['vendor_name'])){
 }
 
 ?>
-<div class="container" id="selectVendorForm">
+<div class="container">
     <form method="get" action="../assets/updateAndDeleteVendors.php">
         <div class="row">
             <div class="col-lg-4">
