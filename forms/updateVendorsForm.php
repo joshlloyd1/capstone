@@ -11,6 +11,18 @@ $dropdown = getVendorsDropDown($db);
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
+                    <label for="txtVendorName">Vendor Name</label>
+                    <input type="text" class="form-control" id="txtVendorName" name="vendorName" value="<?php echo $_SESSION['vendor_name'] ?>">
+                </div>
+            </div>
+            <div class="col-lg-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
                     <label for="txtVendorContactFname">First Name</label>
                     <input type="text" class="form-control" id="txtVendorContactFname" name="vendorContactFname" value="<?php echo $_SESSION['vendor_contact_fname'] ?>">
                 </div>
@@ -77,7 +89,7 @@ $dropdown = getVendorsDropDown($db);
 
             </div>
             <div class="col-lg-4">
-                <button type="submit" name="action" class="btn btn-primary" value="edit">Update</button>
+                <button type="submit" name="action" class="btn btn-primary" value="execute update">Update</button>
                 <button type="submit" name="action" class="btn btn-danger" value="delete">Delete</button>
             </div>
             <div class="col-lg-4">

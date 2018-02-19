@@ -296,15 +296,15 @@ function addVendor($db, $vendor){
 
             $add = $vendor;
 
-            $vendorName = $add['vendorName'];
-            $vendorContactFname = $add['vendorContactFname'];
-            $vendorContactLname = $add['vendorContactLname'];
-            $vendorEmail = $add['vendorEmail'];
-            $vendorPhone = $add['vendorPhone'];
-            $vendorCountry = $add['vendorCountry'];
-            $vendorCity = $add['vendorCity'];
-            $vendorState = $add['vendorState'];
-            $vendorZipCode = $add['vendorZipCode'];
+            $vendorName = $add['vendor_name'];
+            $vendorContactFname = $add['vendor_contact_fname'];
+            $vendorContactLname = $add['vendor_contact_lname'];
+            $vendorEmail = $add['vendor_email'];
+            $vendorPhone = $add['vendor_phone'];
+            $vendorCountry = $add['vendor_country'];
+            $vendorCity = $add['vendor_city'];
+            $vendorState = $add['vendor_state'];
+            $vendorZipCode = $add['vendor_zipcode'];
 
 
         $sql = $db->prepare("INSERT INTO `vendors`(`vendor_id`, `vendor_name`, `vendor_contact_fname`, `vendor_contact_lname`, `vendor_email`, `vendor_phone`, `vendor_country`, `vendor_city`, `vendor_state`, vendor_zipcode) VALUES (null, :vendorName, :vendorContactFname, :vendorContactLname, :vendorEmail, :vendorPhone, :vendorCountry, :vendorCity, :vendorState, :vendorZipCode)");
@@ -333,3 +333,47 @@ function getVendor($db, $vendorId){ //this will be used to update and delete. Wi
 
     return $vendor;
 }
+function updateVendor($db, $vendor){
+    try{
+        $update = $vendor;
+        $vendorId = $update['vendor_id'];
+        $vendorName = $update['vendor_name'];
+        $vendorContactFname = $update['vendor_contact_fname'];
+        $vendorContactLname = $update['vendor_contact_lname'];
+        $vendorEmail = $update['vendor_email'];
+        $vendorPhone = $update['vendor_phone'];
+        $vendorCountry = $update['vendor_country'];
+        $vendorCity = $update['vendor_city'];
+        $vendorState = $update['vendor_state'];
+        $vendorZipCode = $update['vendor_zipcode'];
+
+        $sql = $db->prepare("UPDATE vendors SET vendor_id=:vendor_id, vendor_name=:vendor_name, vendor_contact_fname=:vendor_contact_fname, vendor_contact_lname=:vendor_contact_lname, vendor_email=:vendor_email, vendor_phone=:vendor_phone, vendor_country=:vendor_country, vendor_city=:vendor_city, vendor_state=:vendor_state, vendor_zipcode=:vendor_zipcode WHERE vendor_id='$vendorId'");
+        $sql->bindParam(':vendor_id', $vendorId);
+        $sql->bindParam(':vendor_name', $vendorName); //bind "place holders" to vars passed from forms. helps with security.
+        $sql->bindParam(':vendor_contact_fname', $vendorContactFname);
+        $sql->bindParam(':vendor_contact_lname', $vendorContactLname);
+        $sql->bindParam(':vendor_email', $vendorEmail);
+        $sql->bindParam(':vendor_phone', $vendorPhone);
+        $sql->bindParam(':vendor_country', $vendorCountry);
+        $sql->bindParam(':vendor_city', $vendorCity);
+        $sql->bindParam(':vendor_state', $vendorState);
+        $sql->bindParam(':vendor_zipcode', $vendorZipCode);
+        $sql->execute();
+
+        return $sql->rowCount() . " row updated.";
+    }catch (PDOException $e) { //if it fails, throw the exception and display error message.
+        die($e);
+    }
+}
+function deleteAVendor($db, $vendorId){
+    try{
+        $sql = $db->prepare("DELETE FROM vendors WHERE vendor_id=:vendor_id"); //select all with a particular id (primary key)
+        $sql->bindParam(':vendor_id', $vendorId, PDO::PARAM_INT);
+        $sql->execute();
+        $success = "Record successfully deleted";
+        return $success;
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die($e);
+    }
+}
+

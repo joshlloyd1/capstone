@@ -52,15 +52,16 @@ include_once ("../forms/disabledEditVendorForm.php");
 switch($action){
     case 'Add Vendor':
         $vendor = array(
-            "vendorName" => $vendorName,
-            "vendorContactFname" => $vendorContactFname,
-            "vendorContactLname" => $vendorContactLname,
-            "vendorEmail" => $vendorEmail,
-            "vendorPhone" => $vendorPhone,
-            "vendorCountry" => $vendorCountry,
-            "vendorCity" => $vendorCity,
-            "vendorState" => $vendorState,
-            "vendorZipCode" => $vendorZipCode
+            "vendor_id" => $vendorId,
+            "vendor_name" => $vendorName,
+            "vendor_contact_fname" => $vendorContactFname,
+            "vendor_contact_lname" => $vendorContactLname,
+            "vendor_email" => $vendorEmail,
+            "vendor_phone" => $vendorPhone,
+            "vendor_country" => $vendorCountry,
+            "vendor_city" => $vendorCity,
+            "vendor_state" => $vendorState,
+            "vendor_zipcode" => $vendorZipCode
         );
         echo addVendor($db, $vendor);
         break;

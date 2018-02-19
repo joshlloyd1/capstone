@@ -10,6 +10,15 @@ include_once("functions.php");
 include_once("dbconnect.php");
 $db = dbconnect();
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorName = filter_input(INPUT_POST, 'vendorName', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorContactFname = filter_input(INPUT_POST, 'vendorContactFname', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorContactLname = filter_input(INPUT_POST, 'vendorContactLname', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorPhone = filter_input(INPUT_POST, 'vendorPhone', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorEmail = filter_input(INPUT_POST, 'vendorEmail', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorCountry = filter_input(INPUT_POST, 'vendorCountry', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorCity = filter_input(INPUT_POST, 'vendorCity', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
 
 $vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
@@ -47,6 +56,25 @@ switch($action){
 
        // echo updateVendor($vendor); //update
 
+        break;
+    case 'execute update':
+        $vendor = array(
+            "vendor_id" => $vendorId,
+            "vendor_name" => $vendorName,
+            "vendor_contact_fname" => $vendorContactFname,
+            "vendor_contact_lname" => $vendorContactLname,
+            "vendor_email" => $vendorEmail,
+            "vendor_phone" => $vendorPhone,
+            "vendor_country" => $vendorCountry,
+            "vendor_city" => $vendorCity,
+            "vendor_state" => $vendorState,
+            "vendor_zipcode" => $vendorZipCode
+        );
+        echo updateVendor($db, $vendor);
+        break;
+    case 'delete':
+        $message = deleteAVendor($db, $vendorId);
+        echo "<h1>$message</h1>";
         break;
 }
 
