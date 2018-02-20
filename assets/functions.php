@@ -373,7 +373,15 @@ function deleteAVendor($db, $vendorId){
         $success = "Record successfully deleted";
         return $success;
     }catch(PDOException $e){ //if it fails, throw the exception and display error message.
-        die($e);
+        die("There was an error deleting the record");
     }
 }
+function getMessage($result){
+    $message = "<div class='row'>";
+    $message .= "<div class='col-lg-4'></div>";
+    $message .= "<div class='col-lg-4'><h3>" . $result . "</h3></div>";
+    $message .= "<div class='col-lg-4'></div>";
+    $message .= "</div>";
+    return $message;
 
+}

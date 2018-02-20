@@ -89,11 +89,38 @@ $dropdown = getVendorsDropDown($db);
 
             </div>
             <div class="col-lg-4">
-                <button type="submit" name="action" class="btn btn-primary" value="execute update">Update</button>
-                <button type="submit" name="action" class="btn btn-danger" value="delete">Delete</button>
+                <div class="container">
+                    <button type="submit" name="action" class="btn btn-primary" value="execute update">Update</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#editModal">Delete</button>
+                    <div class="modal fade" id="editModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Are you sure you would like to delete?</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                    <?php $vendor = getVendor($db, $vendorId);
+                                        $displayVendor = "<h2>" . $vendor['vendor_name'] . "</h2>";
+                                        $displayVendor .= "<span>" . "Contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
+                                        $displayVendor .= "<span>" . "phone: " . $vendor['vendor_phone'] . "</span>" . "</br>";
+                                        $displayVendor .= "<span>" . "email: " . $vendor['vendor_email'] . "</span>" . "</br>";
+                                        $displayVendor .= "<span>" .  $vendor['vendor_city'] . ", " . $vendor['vendor_state'] . "</span>" . "</br>";
+                                        $displayVendor .= "<span>" . $vendor['vendor_country'] . ", " .  $vendor['vendor_zipcode'] . "</span>" . "</br>";
+                                        echo $displayVendor
+                                    ?>
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                                    <button type="submit" class="btn btn-danger" name="action" value="delete">delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-4">
-
             </div>
         </div>
     </form>

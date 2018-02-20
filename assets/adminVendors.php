@@ -30,6 +30,7 @@ echo $vendorCity;
 echo $action;
 
 ?>
+
     <div class="row">
         <div class="col-lg-4">
             <h1>Vendors</h1>
@@ -42,6 +43,7 @@ echo $action;
         <div class="col-lg-4"></div>
         <div class="col-lg-4"></div>
     </div>
+
 <?php
 echo $vendors;
 
@@ -63,7 +65,8 @@ switch($action){
             "vendor_state" => $vendorState,
             "vendor_zipcode" => $vendorZipCode
         );
-        echo addVendor($db, $vendor);
+        $result = addVendor($db, $vendor);
+        echo getMessage($result);
         break;
 }
 

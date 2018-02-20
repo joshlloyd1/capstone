@@ -34,8 +34,9 @@ $_SESSION['vendor_city'] = $vendor['vendor_city'];
 $_SESSION['vendor_state'] = $vendor['vendor_state'];
 $_SESSION['vendor_zipcode'] = $vendor['vendor_zipcode'];
 
+
 ?>
-    <div class="row" onload="showSelectVendorForm()">
+    <div class="row">
         <div class="col-lg-4">
             <h1>Vendors</h1>
             <div class="btn-group" role="group" aria-label="vendorNav">
@@ -47,6 +48,7 @@ $_SESSION['vendor_zipcode'] = $vendor['vendor_zipcode'];
         <div class="col-lg-4"></div>
         <div class="col-lg-4"></div>
     </div>
+
 <?php
 
 switch($action){
@@ -70,11 +72,12 @@ switch($action){
             "vendor_state" => $vendorState,
             "vendor_zipcode" => $vendorZipCode
         );
-        echo updateVendor($db, $vendor);
+        $result = updateVendor($db, $vendor);
+        echo getMessage($result);
         break;
     case 'delete':
-        $message = deleteAVendor($db, $vendorId);
-        echo "<h1>$message</h1>";
+        $result = deleteAVendor($db, $vendorId);
+        echo getMessage($result);
         break;
 }
 
