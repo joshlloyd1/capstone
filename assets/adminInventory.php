@@ -9,50 +9,33 @@ include_once ("adminHeader.php");
 include_once("functions.php");
 include_once("dbconnect.php");
 $db = dbconnect();
-$inventory = getInventoryAsTable($db);
+//$inventory = getInventoryAsTable($db);
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
-
-
-
-$vendorName = filter_input(INPUT_POST, 'vendorName', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorContactFname = filter_input(INPUT_POST, 'vendorContactFname', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorContactLname = filter_input(INPUT_POST, 'vendorContactLname', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorPhone = filter_input(INPUT_POST, 'vendorPhone', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorEmail = filter_input(INPUT_POST, 'vendorEmail', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorCountry = filter_input(INPUT_POST, 'vendorCountry', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorCity = filter_input(INPUT_POST, 'vendorCity', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
-
-
-"car_id" => $inventoryId,
-            "vendor_id" => $vendorId,
-            "vin_num" => $VinNum,
-            "trim" => $trim,
-            "make" => $make,
-            "year" => $year,
-            "milage" => $milage,
-            "fuel_type" => $fuelType,
-            "transmission" => $transmission,
-            "mpg" => $mpg,
-            "color" => $color,
-            "drive_train" => $driveTrain,
-            "type_of_car" => $typeOfCar,
-            "date_of_arrival" => $dateOfArrival,
-            "date_sold" => $dateSold,
-            "price" => $price,
-            "description" => $description,
-            "model" => $model
-
+$vendorId = filter_input(INPUT_POST, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
+$vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
+$trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
+$make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
+$year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_STRING) ?? NULL;
+$mileage = filter_input(INPUT_POST, 'mileage', FILTER_SANITIZE_STRING) ?? NULL;
+$fuelType = filter_input(INPUT_POST, 'fuelType', FILTER_SANITIZE_STRING) ?? NULL;
+$transmission = filter_input(INPUT_POST, 'transmission', FILTER_SANITIZE_STRING) ?? NULL;
+$mpg = filter_input(INPUT_POST, 'mpg', FILTER_SANITIZE_STRING) ?? NULL;
+$color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING) ?? NULL;
+$driveTrain = filter_input(INPUT_POST, 'driveTrain', FILTER_SANITIZE_STRING) ?? NULL;
+$typeOfCar = filter_input(INPUT_POST, 'typeOfCar', FILTER_SANITIZE_STRING) ?? NULL;
+$dateOfArrival = filter_input(INPUT_POST, 'dateOfArrival', FILTER_SANITIZE_STRING) ?? NULL;
+$dateSold = filter_input(INPUT_POST, 'dateSold', FILTER_SANITIZE_STRING) ?? NULL;
+$price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING) ?? NULL;
+$description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING) ?? NULL;
+$model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING) ?? NULL;
+$inventoryId = filter_input(INPUT_GET, 'inventoryId', FILTER_SANITIZE_STRING) ?? NULL;
 
 echo $action;
 
 ?>
-
     <div class="row">
         <div class="col-lg-4">
-            <h1>Vendors</h1>
+            <h1>Inventory</h1>
             <div class="btn-group" role="group" aria-label="inventoryNav">
                 <button type='submit' name='action' class='btn btn-secondary' id="viewInventoryBtn" value="view">View</button>
                 <button type='submit' name='action' class='btn btn-secondary' id="addInventoryBtn" value="add">Add</button>
@@ -65,21 +48,19 @@ echo $action;
 
 <?php
 
-
+include_once("../forms/selectVendorForm.php");
 include_once ("../forms/addInventoryForm.php");
-//include_once("../forms/selectVendorForm.php");
-//include_once ("../forms/disabledEditVendorForm.php");
 
 switch($action){
     case 'Add Inventory':
         $inventory = array(
             "car_id" => $inventoryId,
             "vendor_id" => $vendorId,
-            "vin_num" => $VinNum,
+            "vin_num" => $vinNum,
             "trim" => $trim,
             "make" => $make,
             "year" => $year,
-            "milage" => $milage,
+            "mileage" => $mileage,
             "fuel_type" => $fuelType,
             "transmission" => $transmission,
             "mpg" => $mpg,

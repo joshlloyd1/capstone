@@ -293,7 +293,6 @@ function theTeam($db) {
 }
 function addVendor($db, $vendor){
     try{
-
             $add = $vendor;
 
             $vendorName = $add['vendor_name'];
@@ -384,4 +383,51 @@ function getMessage($result){
     $message .= "</div>";
     return $message;
 
+}
+function addInventory($db, $inventory){
+    try{
+        $add = $inventory;
+        $vendorId = $add['vendor_id'];
+        $vinNum = $add['vin_num'];
+        $trim = $add['trim'];
+        $make = $add['make'];
+        $year = $add['year'];
+        $mileage = $add['mileage'];
+        $fuelType = $add['fuel_type'];
+        $transmission = $add['transmission'];
+        $mpg = $add['mpg'];
+        $color = $add['color'];
+        $driveTrain = $add['drive_train'];
+        $typeOfCar = $add['type_of_car'];
+        $dateOfArrival = $add['date_of_arrival'];
+        $dateSold = $add['date_sold'];
+        $price = $add['price'];
+        $description = $add['description'];
+        $model = $add['model'];
+
+        $sql = $db->prepare("INSERT INTO `inventory`(`inventory_id`, `vendor_id`, `vin_num`, `trim`, `make`, `year`, `mileage`, `fuel_type`, `transmission`, `mpg`, `color`, `drive_train`, `type_of_car`, `date_of_arrival`, `date_sold`, `price`, `description`, `model`) VALUES (null, :vendorId, :vinNum, :trim, :make, :year, :mileage, :fuelType, :transmission, :mpg, :color, :driveTrain, :typeOfCar, :dateOfArrival, :dateSold, :price, :description, :model)");
+        $sql->bindParam(':vendorId', $vendorId);
+        $sql->bindParam(':vinNum', $vinNum);
+        $sql->bindParam(':trim', $trim);
+        $sql->bindParam(':make', $make);
+        $sql->bindParam(':year', $year);
+        $sql->bindParam(':mileage', $mileage);
+        $sql->bindParam(':fuelType', $fuelType);
+        $sql->bindParam(':transmission', $transmission);
+        $sql->bindParam(':mpg', $mpg);
+        $sql->bindParam(':color', $color);
+        $sql->bindParam(':driveTrain', $driveTrain);
+        $sql->bindParam(':typeOfCar', $typeOfCar);
+        $sql->bindParam(':dateOfArrival', $dateOfArrival);
+        $sql->bindParam(':dateSold', $dateSold);
+        $sql->bindParam(':price', $price);
+        $sql->bindParam(':description', $description);
+        $sql->bindParam(':model', $model);
+        $sql->execute();
+        $message = $sql->RowCount() . " Rows inserted.";
+
+        return $message;
+    }catch(PDOException $e){
+        die("There was a problem connecting to the database");
+    }
 }

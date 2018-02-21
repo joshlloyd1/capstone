@@ -38,6 +38,40 @@ $(document).ready(function() {
         $(editVendorForm).show();
         $(viewVendors).hide();
     });
+    var addInventoryBtn = $('#addInventoryBtn');
+    var editInventoryBtn = $('#editInventoryBtn');
+    var viewInventoryBtn = $('#viewInventoryBtn');
 
+    var addInventoryForm = $('#addInventoryForm, #selectVendorForm');
+    var editInventoryForm = $('#editInventoryForm');
+    var viewInventory = $('#viewInventory')
+
+    $(editInventoryForm).hide();
+    $(addInventoryForm).hide();
+
+    $(addInventoryBtn).click(function(){
+        //alert("I am an alert box!");
+
+        $(addInventoryForm).show();
+        $(editInventoryForm).hide();
+        $(viewInventory).hide();
+
+    });
+
+    $(viewInventoryBtn).click(function(){
+        //alert("I am an alert box!");
+
+        $(addInventoryForm).hide();
+        $(editInventoryForm).hide();
+        $(viewInventory).show();
+
+    });
+    $(editInventoryBtn).click(function(){
+        //alert("I am an alert box!");
+
+        $(addInventoryForm).hide();
+        $(editInventoryForm).show();
+        $(viewInventory).hide();
+    });
 
 });

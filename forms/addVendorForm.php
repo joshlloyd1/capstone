@@ -1,7 +1,5 @@
 <?php
-/*
- * dropdowns are messed up. Not sure why.
- */
+
 ?>
 <div class="container" id="addVendorForm">
     <form method="post" action="#">

@@ -1,42 +1,11 @@
 <?php
-/*
- * dropdowns are messed up. Not sure why.
- */
+include_once ("../assets/functions.php");
+include_once ("../assets/dbconnect.php");
+$db = dbconnect();
+$dropdown = getVendorsDropDown($db);
 ?>
-<form>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="dropdown show dropDownLoc">
-                    <button class="btn btn-secondary dropdown-toggle backEndMenuDropDown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Menu...
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Add New Inventory</a></br>
-                        <a class="dropdown-item" href="#">Edit A Record</a></br>
-                        <a class="dropdown-item" href="#">Delete A Record</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group">
-                    <label for="dropDownVendor">Vendor</label>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select Vendor...
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Vendor 1</a></br>
-                            <a class="dropdown-item" href="#">Vendor 2</a></br>
-                            <a class="dropdown-item" href="#">Vendor 3</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-            </div>
-        </div>
+<div class="container" id="addInventoryForm">
+    <form method="post" action="#">
         <div class="row">
             <div class="col-lg-4">
 
@@ -155,13 +124,5 @@
 
             </div>
         </div>
-
-
-
-
-</form>
-
-
-
-
-
+    </form>
+</div>
