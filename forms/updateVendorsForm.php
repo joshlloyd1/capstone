@@ -88,7 +88,7 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
 
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4"> <!-- start modal for delete !-->
                 <div class="container">
                     <button type="submit" name="action" class="btn btn-primary" value="execute update">Update</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#editModal">Delete</button>
@@ -96,7 +96,7 @@ $dropdown = getVendorsDropDown($db);
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4>Are you sure you would like to delete?</h4>
+                                    <h4>Are you sure?</h4>
                                 </div>
                                 <div class="modal-body">
                                     <p>

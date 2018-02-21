@@ -9,7 +9,7 @@ if(!isset($_SESSION['vendor_name'])){
 
 ?>
 <div class="container" id="selectVendorForm">
-    <form method="get" action="../assets/updateAndDeleteVendors.php">
+    <form method="get" action="../assets/adminUpdateAndDeleteVendors.php">
         <div class="row">
             <div class="col-lg-4">
 
