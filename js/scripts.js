@@ -45,13 +45,18 @@ $(document).ready(function() {
     var addInventoryForm = $('#addInventoryForm, #selectVendorForm');
     var editInventoryForm = $('#editInventoryForm');
     var viewInventory = $('#viewInventory')
+    var view = "";
+    var add = "";
+    var edit = "";
 
     $(editInventoryForm).hide();
     $(addInventoryForm).hide();
 
     $(addInventoryBtn).click(function(){
         //alert("I am an alert box!");
-
+        view = "FALSE";
+        add = "TRUE";
+        edit = "FALSE";
         $(addInventoryForm).show();
         $(editInventoryForm).hide();
         $(viewInventory).hide();
@@ -60,7 +65,9 @@ $(document).ready(function() {
 
     $(viewInventoryBtn).click(function(){
         //alert("I am an alert box!");
-
+        view = "TRUE";
+        add = "FALSE";
+        edit = "FALSE";
         $(addInventoryForm).hide();
         $(editInventoryForm).hide();
         $(viewInventory).show();
@@ -68,10 +75,18 @@ $(document).ready(function() {
     });
     $(editInventoryBtn).click(function(){
         //alert("I am an alert box!");
-
+        view = "FALSE";
+        add = "FALSE";
+        edit = "TRUE";
         $(addInventoryForm).hide();
         $(editInventoryForm).show();
         $(viewInventory).hide();
     });
 
+});
+if(window.location.pathname === '/htdocs/capstone/assets/adminInventory.php') {
+
+}
+$('.dropdown-menu a').click(function(){
+    $('#selected').text($(this).text());
 });

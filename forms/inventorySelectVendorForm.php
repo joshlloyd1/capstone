@@ -2,14 +2,14 @@
 include_once ("../assets/functions.php");
 include_once ("../assets/dbconnect.php");
 $db = dbconnect();
-$dropdown = getVendorsDropDown($db);
+$dropdown = getVendorsDropDownAddInventoryForm($db);
 if(!isset($_SESSION['vendor_name'])){
     $_SESSION['vendor_name'] = "Select Vendor...";
 }
 
 ?>
-<div class="container" id="selectVendorForm">
-    <form method="get" action="../assets/adminUpdateAndDeleteVendors.php">
+<div class="container" id="inventorySelectVendorForm">
+    <form method="get" action="adminAddInventory.php">
         <div class="row">
             <div class="col-lg-4">
             </div>

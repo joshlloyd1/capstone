@@ -53,7 +53,7 @@ echo $vendorId;
 <?php
 
 include_once("../forms/inventorySelectVendorForm.php");
-include_once("../forms/addInventoryFormDisabled.php");
+include_once("../forms/addInventoryForm.php");
 
 switch($action){
     case 'Add Inventory':

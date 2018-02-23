@@ -94,6 +94,28 @@ function getVendorsDropDown($db){
             foreach($vendors as $vendor){
                 $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name']. "</button>";
             }
+            $dropDown .= "<input type='hidden' name='action' value='add'>";
+        } else { //if there is not any data, say so.
+            $dropDown = "NO DATA" . PHP_EOL;
+        }
+        return $dropDown; //return it.
+
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die("There was a problem creating drop down");
+    }
+}
+function getVendorsDropDownAddInventoryForm($db){
+    try{
+        $sql = "SELECT * FROM vendors";
+        $sql = $db->prepare($sql);
+        $sql->execute(); //executes statement
+        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+
+        if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
+            $dropDown = "" . PHP_EOL;
+            foreach($vendors as $vendor){
+                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name']. "</button>";
+            }
             $dropDown .= "<input type='hidden' name='action' value='update'>";
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
@@ -394,6 +416,7 @@ function addInventory($db, $inventory){
         $year = $add['year'];
         $mileage = $add['mileage'];
         $fuelType = $add['fuel_type'];
+        $engineType = $add['engine_type'];
         $transmission = $add['transmission'];
         $mpg = $add['mpg'];
         $color = $add['color'];
@@ -405,14 +428,15 @@ function addInventory($db, $inventory){
         $description = $add['description'];
         $model = $add['model'];
 
-        $sql = $db->prepare("INSERT INTO `inventory`(`inventory_id`, `vendor_id`, `vin_num`, `trim`, `make`, `year`, `mileage`, `fuel_type`, `transmission`, `mpg`, `color`, `drive_train`, `type_of_car`, `date_of_arrival`, `date_sold`, `price`, `description`, `model`) VALUES (null, :vendorId, :vinNum, :trim, :make, :year, :mileage, :fuelType, :transmission, :mpg, :color, :driveTrain, :typeOfCar, :dateOfArrival, :dateSold, :price, :description, :model)");
+        $sql = $db->prepare("INSERT INTO `inventory`(`car_id`, `vendor_id`, `vin_num`, `trim`, `make`, `year`, `mileage`, `fuel_type`, `engine_type`, `transmission`, `mpg`, `color`, `drive_train`, `type_of_car`, `date_of_arrival`, `date_sold`, `price`, `description`, `model`) VALUES (null, :vendorId, :vinNum, :inventoryTrim, :make, :inventoryYear, :mileage, :fuelType, :engineType, :transmission, :mpg, :color, :driveTrain, :typeOfCar, :dateOfArrival, :dateSold, :price, :description, :model)");
         $sql->bindParam(':vendorId', $vendorId);
         $sql->bindParam(':vinNum', $vinNum);
-        $sql->bindParam(':trim', $trim);
+        $sql->bindParam(':inventoryTrim', $trim);
         $sql->bindParam(':make', $make);
-        $sql->bindParam(':year', $year);
+        $sql->bindParam(':inventoryYear', $year);
         $sql->bindParam(':mileage', $mileage);
         $sql->bindParam(':fuelType', $fuelType);
+        $sql->bindParam(':engineType', $engineType);
         $sql->bindParam(':transmission', $transmission);
         $sql->bindParam(':mpg', $mpg);
         $sql->bindParam(':color', $color);
@@ -428,6 +452,6 @@ function addInventory($db, $inventory){
 
         return $message;
     }catch(PDOException $e){
-        die("There was a problem connecting to the database");
+        die($e);
     }
 }
