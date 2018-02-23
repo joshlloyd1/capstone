@@ -30,7 +30,7 @@ echo $vendorCity;
 echo $action;
 
 ?>
-
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-4">
             <h1>Vendors</h1>
@@ -43,7 +43,7 @@ echo $action;
         <div class="col-lg-4"></div>
         <div class="col-lg-4"></div>
     </div>
-
+</div>
 <?php
 echo $vendors;
 

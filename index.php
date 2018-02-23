@@ -1,19 +1,15 @@
 <?php
-include_once ("assets/header.html");
+include_once ("assets/header.php");
 include_once("assets/functions.php");
 include_once("assets/dbconnect.php");
 ?>
-
-<h1>Index</h1>
-
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-2">Fluid jumbotron</h1>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+    </div>
 <?php
 
-/*
-echo "<br><br>";
-echo specialBlock();
-
-echo "<br><br>";
-echo aboutusBlock();
-*/
 include_once ("assets/footer.html");
 ?>
