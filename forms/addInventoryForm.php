@@ -4,12 +4,10 @@ include_once ("../assets/dbconnect.php");
 $db = dbconnect();
 $dropdown = getVendorsDropDown($db);
 ?>
-<div class="container" id="addInventoryForm">
+<div class="container">
     <form method="post" action="#">
         <div class="row">
-            <div class="col-lg-4">
 
-            </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMake">Make</label>
@@ -18,15 +16,14 @@ $dropdown = getVendorsDropDown($db);
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label for="txtColor">Model</label>
-                    <input type="text" class="form-control" id="txtColor" name="color " placeholder="Color">
+                    <label for="txtModel">Model</label>
+                    <input type="text" class="form-control" id="txtModel" name="model" placeholder="Model">
                 </div>
+            </div>
+            <div class="col-lg-4">
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-
-            </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtTrim">Trim</label>
@@ -39,11 +36,11 @@ $dropdown = getVendorsDropDown($db);
                     <input type="text" class="form-control" id="txtPrice" name="price" placeholder="Price">
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-4">
 
             </div>
+        </div>
+        <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtEngine">Engine</label>
@@ -56,10 +53,11 @@ $dropdown = getVendorsDropDown($db);
                     <input type="text" class="form-control" id="txtVinNum" name="vinNum" placeholder="Vin Number">
                 </div>
             </div>
+            <div class="col-lg-4">
+
+            </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-            </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMileage">Mileage</label>
@@ -72,38 +70,70 @@ $dropdown = getVendorsDropDown($db);
                     <input type="text" class="form-control" id="txtColor" name="color" placeholder="Color">
                 </div>
             </div>
+            <div class="col-lg-4">
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="txtMpg">Miles Per Gallon</label>
+                    <input type="text" class="form-control" id="txtMpg" name="mpg" placeholder="Miles Per Gallon">
+                </div>
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label for="dropDownVendor">Fuel Type</label>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Fuel Type...
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button type="button" class="dropdown-item" name="fuelType" value="Gas">Gas</button>
-                            <button type="button" class="dropdown-item" name="fuelType" value="Diesel">Diesel</button>
-                            <button type="button" class="dropdown-item" name="fuelType" value="Electric">Electric</button>
-                            <button type="button" class="dropdown-item" name="fuelType" value="Hybrid">Hybrid</button>
-                        </div>
-                    </div>
+                    <label for="txtDriveTrain">Drive Train</label>
+                    <input type="text" class="form-control" id="txtDriveTrain" name="driveTrain" placeholder="Drive Train">
                 </div>
             </div>
+            <div class="col-lg-4">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="fuelType">Fuel Type</label>
+                        <select class="form-control" id="fuelType" name="fuelType">
+                            <option value="" selected disabled hidden>Fuel Type...</option>
+                            <option name="fuelType" value="Gas">Gas</option>
+                            <option name="fuelType" value="Diesel">Diesel</option>
+                            <option name="fuelType" value="Electric">Electric</option>
+                            <option name="fuelType" value="Hybrid">Hybrid</option>
+                        </select>
+                </div>
+            </div><!-- MOVE IMAGE UPLOAD TO LEFT COL
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="fileUpImage">Images</label>
                     <input type="file" class="form-control-file" id="fileUpImage" aria-describedby="fileHelp">
                     <small id="fileHelp" class="form-text text-muted">Upload an image</small>
                 </div>
+            </div>!-->
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="typeOfCar">Type</label>
+                        <select class="form-control" id="typeOfCar" name="typeOfCar">
+                            <option value="" selected disabled hidden>Type...</option>
+                            <option name="typeOfCar" value="Sedan">Sedan</option>
+                            <option name="typeOfCar" value="Coupe">Coupe</option>
+                            <option name="typeOfCar" value="Convertible">Convertible</option>
+                            <option name="typeOfCar" value="Wagon">Wagon</option>
+                            <option name="typeOfCar" value="Hatchback">Hatchback</option>
+                            <option name="typeOfCar" value="Sports Utility">Sports Utility</option>
+                            <option name="typeOfCar" value="Cross Over">Cross Over</option>
+                            <option name="typeOfCar" value="Pick Up">Pick Up</option>
+                            <option name="typeOfCar" value="Mini Van">Mini Van</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4">
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-
-            </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtDescription">Description</label>
@@ -111,18 +141,26 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-
+                <div class="form-group">
+                    <label for="txtTransmission">Transmission</label>
+                    <input type="text" class="form-control" id="txtTransmission" name="transmission" placeholder="Transmission">
+                </div>
+                <div class="form-group">
+                    <label for="txtYear">Year</label>
+                    <input type="text" class="form-control" id="txtYear" name="year" placeholder="Year">
+                </div>
+            </div>
+            <div class="col-lg-4">
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-
-            </div>
             <div class="col-lg-4">
                 <button type="submit" class="btn btn-primary" name="action" value="Add Inventory">Add Inventory</button>
             </div>
             <div class="col-lg-4">
 
+            </div>
+            <div class="col-lg-4">
             </div>
         </div>
     </form>

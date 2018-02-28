@@ -11,7 +11,7 @@ include_once("dbconnect.php");
 $db = dbconnect();
 //$inventory = getInventoryAsTable($db);
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorId = filter_input(INPUT_POST, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
 $make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
@@ -31,9 +31,7 @@ $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING) ?
 $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING) ?? NULL;
 $inventoryId = filter_input(INPUT_GET, 'inventoryId', FILTER_SANITIZE_STRING) ?? NULL;
 
-echo $action;
-echo $fuelType;
-echo $price;
+
 echo $vendorId;
 
 ?>
@@ -81,6 +79,9 @@ switch($action){
         $result = addInventory($db, $inventory);
         echo getMessage($result);
         break;
+    case 'Add':
+        include_once("../forms/addInventoryForm.php");
+
 }
 
 

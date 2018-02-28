@@ -116,7 +116,7 @@ function getVendorsDropDownAddInventoryForm($db){
             foreach($vendors as $vendor){
                 $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name']. "</button>";
             }
-            $dropDown .= "<input type='hidden' name='action' value='update'>";
+            $dropDown .= "<input type='hidden' name='action' value='Add'>";
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
         }
