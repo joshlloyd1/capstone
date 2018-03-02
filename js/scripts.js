@@ -38,6 +38,8 @@ $(document).ready(function() {
         $(editVendorForm).show();
         $(viewVendors).hide();
     });
+
+
     var addInventoryBtn = $('#addInventoryBtn');
     var editInventoryBtn = $('#editInventoryBtn');
     var viewInventoryBtn = $('#viewInventoryBtn');
@@ -83,10 +85,4 @@ $(document).ready(function() {
         $(viewInventory).hide();
     });
 
-});
-if(window.location.pathname === '/htdocs/capstone/assets/adminInventory.php') {
-
-}
-$('.dropdown-menu a').click(function(){
-    $('#selected').text($(this).text());
 });

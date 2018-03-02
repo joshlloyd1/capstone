@@ -11,10 +11,12 @@ include_once("dbconnect.php");
 $db = dbconnect();
 //$inventory = getInventoryAsTable($db);
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorId = filter_input(INPUT_POST, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
+
 $make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
+
 $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_STRING) ?? NULL;
 $mileage = filter_input(INPUT_POST, 'mileage', FILTER_SANITIZE_STRING) ?? NULL;
 $fuelType = filter_input(INPUT_POST, 'fuelType', FILTER_SANITIZE_STRING) ?? NULL;
@@ -31,10 +33,8 @@ $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING) ?
 $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING) ?? NULL;
 $inventoryId = filter_input(INPUT_GET, 'inventoryId', FILTER_SANITIZE_STRING) ?? NULL;
 
-echo $action;
-echo $fuelType;
-echo $price;
-echo $vendorId;
+
+echo $vendorId . "</br>";
 
 ?>
     <div class="row">
@@ -52,10 +52,42 @@ echo $vendorId;
 
 <?php
 
-include_once("../forms/inventorySelectVendorForm.php");
-include_once("../forms/addInventoryForm.php");
 
 switch($action){
+    case 'Add':
+        include_once("../forms/inventorySelectVendorForm.php");
+
+        $explodeResult = explode("|", $vendorId);
+        $vendorId = $explodeResult[0];
+        $_SESSION['vendor_name'] = $explodeResult[1];
+        $make = $_SESSION['vendor_name'];
+
+
+        //if no files have been uploaded here set $_FILE to null
+        /*if(!isset($_FILES['file'])){
+            $_FILES['file']['name'] = null;
+        } else{
+            //if something is there, name it and get the temp location
+            $imageName = $_FILES['file']['name'];
+            $temp_name = $_FILES['file']['tmp_name'];
+        }
+        //if there is a name
+        if(isset($imageName)){
+            //and the name is not empty
+            if(!empty($imageName)){
+                //make a location
+                $location = 'uploads/';
+                //move image to no location
+                if(move_uploaded_file($temp_name, $location . $imageName)){
+
+                }
+            }else{
+                echo "please choose a file";
+            }
+        }*/
+        include_once("../forms/addInventoryForm.php");
+
+        break;
     case 'Add Inventory':
         $inventory = array(
             "car_id" => $inventoryId,

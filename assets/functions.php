@@ -114,7 +114,7 @@ function getVendorsDropDownAddInventoryForm($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
-                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name']. "</button>";
+                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "|" . $vendor['vendor_name'] . "'>" . $vendor['vendor_name']. "</button>";
             }
             $dropDown .= "<input type='hidden' name='action' value='Add'>";
         } else { //if there is not any data, say so.
@@ -428,7 +428,7 @@ function addInventory($db, $inventory){
         $description = $add['description'];
         $model = $add['model'];
 
-        $sql = $db->prepare("INSERT INTO `inventory`(`car_id`, `vendor_id`, `vin_num`, `trim`, `make`, `year`, `mileage`, `fuel_type`, `engine_type`, `transmission`, `mpg`, `color`, `drive_train`, `type_of_car`, `date_of_arrival`, `date_sold`, `price`, `description`, `model`) VALUES (null, :vendorId, :vinNum, :inventoryTrim, :make, :inventoryYear, :mileage, :fuelType, :engineType, :transmission, :mpg, :color, :driveTrain, :typeOfCar, :dateOfArrival, :dateSold, :price, :description, :model)");
+        $sql = $db->prepare("INSERT INTO `inventory`(`car_id`, `vendor_id`, `vin_num`, `trim`, `make`, `year`, `mileage`, `fuel_type`, `engine_type`, `transmission`, `mpg`, `color`, `drive_train`, `type_of_car`, `date_of_arrival`, `date_sold`, `price`, `description`, `model`) VALUES (null, :vendorId, :vinNum, :inventoryTrim, :make, :inventoryYear, :mileage, :fuelType, :engineType, :transmission, :mpg, :color, :driveTrain, :typeOfCar, NOW(), :dateSold, :price, :description, :model)");
         $sql->bindParam(':vendorId', $vendorId);
         $sql->bindParam(':vinNum', $vinNum);
         $sql->bindParam(':inventoryTrim', $trim);
@@ -442,7 +442,6 @@ function addInventory($db, $inventory){
         $sql->bindParam(':color', $color);
         $sql->bindParam(':driveTrain', $driveTrain);
         $sql->bindParam(':typeOfCar', $typeOfCar);
-        $sql->bindParam(':dateOfArrival', $dateOfArrival);
         $sql->bindParam(':dateSold', $dateSold);
         $sql->bindParam(':price', $price);
         $sql->bindParam(':description', $description);

@@ -11,7 +11,7 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMake">Make</label>
-                    <input type="text" class="form-control" id="txtMake" name="make" placeholder="Make">
+                    <input type="text" class="form-control" id="txtMake" name="make" placeholder="Make" value="<?php echo $_SESSION['vendor_name']?>">
                 </div>
             </div>
             <div class="col-lg-4">
@@ -21,6 +21,11 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="fileUpImage">Images</label>
+                    <input type="file" class="form-control-file" id="fileUpImage" aria-describedby="fileHelp">
+                    <small id="fileHelp" class="form-text text-muted">Upload an image</small>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -102,14 +107,7 @@ $dropdown = getVendorsDropDown($db);
                             <option name="fuelType" value="Hybrid">Hybrid</option>
                         </select>
                 </div>
-            </div><!-- MOVE IMAGE UPLOAD TO LEFT COL
-            <div class="col-lg-4">
-                <div class="form-group">
-                    <label for="fileUpImage">Images</label>
-                    <input type="file" class="form-control-file" id="fileUpImage" aria-describedby="fileHelp">
-                    <small id="fileHelp" class="form-text text-muted">Upload an image</small>
-                </div>
-            </div>!-->
+            </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <div class="form-group">

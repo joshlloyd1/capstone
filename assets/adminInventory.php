@@ -14,7 +14,9 @@ $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_i
 $vendorId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
-$make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
+
+$make = filter_input(INPUT_GET, 'vendor_name', FILTER_SANITIZE_STRING) ?? NULL;
+
 $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_STRING) ?? NULL;
 $mileage = filter_input(INPUT_POST, 'mileage', FILTER_SANITIZE_STRING) ?? NULL;
 $fuelType = filter_input(INPUT_POST, 'fuelType', FILTER_SANITIZE_STRING) ?? NULL;
@@ -31,6 +33,7 @@ $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING) ?
 $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING) ?? NULL;
 $inventoryId = filter_input(INPUT_GET, 'inventoryId', FILTER_SANITIZE_STRING) ?? NULL;
 
+$_SESSION['vendor_name'] = $make;
 
 echo $vendorId;
 
