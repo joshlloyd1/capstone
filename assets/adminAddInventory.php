@@ -32,7 +32,7 @@ $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING) ?? NULL;
 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING) ?? NULL;
 $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING) ?? NULL;
 $inventoryId = filter_input(INPUT_GET, 'inventoryId', FILTER_SANITIZE_STRING) ?? NULL;
-
+$imageName = filter_input(INPUT_POST, 'imageName', FILTER_SANITIZE_STRING) ?? NULL;
 
 echo $vendorId . "</br>";
 
@@ -51,7 +51,7 @@ echo $vendorId . "</br>";
     </div>
 
 <?php
-
+/* javascript: $('<pre>FARTS</pre>').insertAfter('.form-control-file'); */
 
 switch($action){
     case 'Add':
@@ -62,29 +62,6 @@ switch($action){
         $_SESSION['vendor_name'] = $explodeResult[1];
         $make = $_SESSION['vendor_name'];
 
-
-        //if no files have been uploaded here set $_FILE to null
-        /*if(!isset($_FILES['file'])){
-            $_FILES['file']['name'] = null;
-        } else{
-            //if something is there, name it and get the temp location
-            $imageName = $_FILES['file']['name'];
-            $temp_name = $_FILES['file']['tmp_name'];
-        }
-        //if there is a name
-        if(isset($imageName)){
-            //and the name is not empty
-            if(!empty($imageName)){
-                //make a location
-                $location = 'uploads/';
-                //move image to no location
-                if(move_uploaded_file($temp_name, $location . $imageName)){
-
-                }
-            }else{
-                echo "please choose a file";
-            }
-        }*/
         include_once("../forms/addInventoryForm.php");
 
         break;
@@ -110,8 +87,34 @@ switch($action){
             "description" => $description,
             "model" => $model
         );
-        $result = addInventory($db, $inventory);
-        echo getMessage($result);
+        //if no files have been uploaded here set $_FILE to null
+        if(!isset($_FILES['file'])){
+            $_FILES['file']['name'] = null;
+        } else{
+
+            //if something is there, name it and get the temp location
+            $imageName = $_FILES['file']['name'];
+            $tempName = $_FILES['file']['tmp_name'];
+        }
+        //if there is a name
+        if(isset($imageName)){
+            //and the name is not empty
+            if(!empty($imageName)){
+                //make a location
+                $location = '../images/';
+                //move image to new location
+                if(move_uploaded_file($tempName, $location . $imageName)){
+
+                }
+            }else{
+                echo "please choose a file";
+            }
+        }
+
+        echo $imageName;
+
+        //$result = addInventory($db, $inventory);
+        //echo getMessage($result);
         break;
 }
 

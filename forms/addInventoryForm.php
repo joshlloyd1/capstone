@@ -5,7 +5,7 @@ $db = dbconnect();
 $dropdown = getVendorsDropDown($db);
 ?>
 <div class="container">
-    <form method="post" action="#">
+    <form method="post" action="#" enctype="multipart/form-data">
         <div class="row">
 
             <div class="col-lg-4">
@@ -23,7 +23,8 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="fileUpImage">Images</label>
-                    <input type="file" class="form-control-file" id="fileUpImage" aria-describedby="fileHelp">
+                    <input type="file" multiple="multiple" class="form-control-file" name="file" id="fileUpImage" aria-describedby="fileHelp">
+                    <input type="text" name="photoName" hidden>
                     <small id="fileHelp" class="form-text text-muted">Upload an image</small>
                 </div>
             </div>
