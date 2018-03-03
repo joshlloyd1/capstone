@@ -7,11 +7,10 @@ $dropdown = getVendorsDropDown($db);
 <div class="container">
     <form method="post" action="#" enctype="multipart/form-data">
         <div class="row">
-
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMake">Make</label>
-                    <input type="text" class="form-control" id="txtMake" name="make" placeholder="Make" value="<?php echo $_SESSION['vendor_name']?>">
+                    <input type="text" class="form-control" id="txtMake" name="make" placeholder="Make" value="<?php echo $_SESSION['vendor_name']?>" disabled>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -22,10 +21,8 @@ $dropdown = getVendorsDropDown($db);
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label for="fileUpImage">Images</label>
-                    <input type="file" multiple="multiple" class="form-control-file" name="file" id="fileUpImage" aria-describedby="fileHelp">
-                    <input type="text" name="photoName" hidden>
-                    <small id="fileHelp" class="form-text text-muted">Upload an image</small>
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp"></p>
                 </div>
             </div>
         </div>
@@ -43,7 +40,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp"></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -60,7 +60,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-
+                <div class="form-group">
+                    <label for="fileUpImage">Image </label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp"></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -77,6 +80,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp"></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -93,7 +100,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp"></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -150,8 +160,8 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
+                </div>
             </div>
-        </div>
         <div class="row">
             <div class="col-lg-4">
                 <button type="submit" class="btn btn-primary" name="action" value="Add Inventory">Add Inventory</button>

@@ -21,6 +21,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp" disabled></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -37,7 +41,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp" disabled></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -54,7 +61,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp" disabled></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -71,6 +81,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp" disabled></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -87,7 +101,10 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-
+                <div class="form-group">
+                    <label for="fileUpImage">Image</label>
+                    <p><input type="file" class="btn btn-secondary" name="image[]" id="fileUpImage" aria-describedby="fileHelp" disabled></p>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -102,14 +119,7 @@ $dropdown = getVendorsDropDown($db);
                         <option name="fuelType" value="Hybrid">Hybrid</option>
                     </select>
                 </div>
-            </div><!-- MOVE IMAGE UPLOAD TO LEFT COL
-            <div class="col-lg-4">
-                <div class="form-group">
-                    <label for="fileUpImage">Images</label>
-                    <input type="file" class="form-control-file" id="fileUpImage" aria-describedby="fileHelp">
-                    <small id="fileHelp" class="form-text text-muted">Upload an image</small>
-                </div>
-            </div>!-->
+            </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <div class="form-group">
@@ -128,7 +138,6 @@ $dropdown = getVendorsDropDown($db);
                         </select>
                     </div>
                 </div>
-
             </div>
             <div class="col-lg-4">
             </div>

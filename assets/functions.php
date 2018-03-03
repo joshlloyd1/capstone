@@ -422,7 +422,6 @@ function addInventory($db, $inventory){
         $color = $add['color'];
         $driveTrain = $add['drive_train'];
         $typeOfCar = $add['type_of_car'];
-        $dateOfArrival = $add['date_of_arrival'];
         $dateSold = $add['date_sold'];
         $price = $add['price'];
         $description = $add['description'];
@@ -447,8 +446,43 @@ function addInventory($db, $inventory){
         $sql->bindParam(':description', $description);
         $sql->bindParam(':model', $model);
         $sql->execute();
-        $message = $sql->RowCount() . " Rows inserted.";
+        $pk = $db->lastInsertId();
 
+        return $pk;
+    }catch(PDOException $e){
+        die($e);
+    }
+}
+/*
+function getPK($db, $vinNum){ //passed vinNumber to get pk
+    try{
+        $sql = $db->prepare("SELECT car_id FROM inventory WHERE :vin_num='$vinNum'"); //ping the db to get the primary key
+        $sql->bindParam(':vin_num', $vinNum);
+        $sql->execute();
+        $pk = $sql->fetchALL(PDO::FETCH_ASSOC);
+
+        foreach ($pk as $primaryKey){ //assign primary key to a variable to return.
+            $result = $primaryKey['site_id'];
+        }
+    }catch(PDOException $e){
+        die("There was a problem getting records from the db");
+    }
+    return $result;
+}*/
+function addImages($db, $pk, $imagePath){
+    try{
+
+        for($i = 0; $i < count($imagePath); $i++) {
+
+            $image_location = $imagePath[$i];
+
+            $sql = $db->prepare("INSERT INTO images (`car_id`, `image_location`) VALUES (:car_id, :image_location)"); //loop through and insert each image path into images table
+            $sql->bindParam(':car_id', $pk);
+            $sql->bindParam(':image_location', $image_location);
+            $sql->execute();
+            $message = $sql->rowCount() . " records added.";
+
+        }
         return $message;
     }catch(PDOException $e){
         die($e);
