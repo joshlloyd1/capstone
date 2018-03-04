@@ -75,7 +75,7 @@ function save_file($tmp_name, $name, $location){
                 echo "passwords must match!";
             } else {
                 echo 'Success! ';
-                echo AddEmployee($db, $firstName, $lastName, $email, $phoneNum, $username, $password, $og_name);
+                echo addEmployee($db, $firstName, $lastName, $email, $phoneNum, $username, $password, $og_name);
             }
         }
         else {

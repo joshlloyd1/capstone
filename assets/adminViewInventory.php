@@ -18,7 +18,7 @@ $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? "";
 
 switch($action){
     default:
-        echo employeejobs();
+        echo employeeJobs();
         break;
 }
 

@@ -28,7 +28,7 @@ switch($action) {
         }
         if($valid == -1) { // user exists but gave wrong password brings back to log in
             $_SESSION['access'] = false;
-            $form = LoginForm($username, $password);
+            $form = loginForm($username, $password);
             echo $form;
             echo "<h3 style='text-align: center'>Incorrect password</h3>";
         }
@@ -43,14 +43,14 @@ switch($action) {
             if($admin = -1) {
                 $_SESSION['access'] = false;
                 $_SESSION['adminaccess'] = false;
-                $form = LoginForm($username, $password);
+                $form = loginForm($username, $password);
                 echo $form;
                 echo "<h3 style='text-align: center'>Incorrect password</h3>";
             }
             if($admin == 0) {
                 $_SESSION['access'] = false;
                 $_SESSION['adminaccess'] = false;
-                $form = LoginForm($username, $password);
+                $form = loginForm($username, $password);
                 echo $form;
                 echo "<h3 style='text-align: center'>User doesn't exist</h3>";
             }
@@ -67,8 +67,8 @@ switch($action) {
         break;
     default:
         $_SESSION['access'] = false;
-        echo NewUser("register");
-        echo LoginForm();
+        echo newUser("register");
+        echo loginForm();
         break;
 }
 include_once("footer.html");

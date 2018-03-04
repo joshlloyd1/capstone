@@ -4,7 +4,7 @@ include_once ("../assets/dbconnect.php");
 $db = dbconnect();
 $dropdown = getVendorsDropDown($db);
 ?>
-<div class="container">
+<div class="container" id="addInventoryFormDisabled">
     <form method="post" action="#">
         <div class="row">
 

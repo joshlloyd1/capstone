@@ -13,12 +13,12 @@ function specialBlock($db) {
     $block .= "</div>";
     return $block;
 }
-function aboutusBlock() {
+function aboutUsBlock() {
     $block = "<div class=secondBlock><h2>About Us:</h2>";
     $block .= "</div>";
     return $block;
 }
-function LoginForm($username = "", $password = "") { // displays the login form
+function loginForm($username = "", $password = "") { // displays the login form
     $form = "<div style='position:relative; margin:auto; text-align:center; border:1px solid black; width:400px; margin-top: 65px;'><section>
     <form method='post' action='LogIn.php'>
         <h1>Log In</h1>
@@ -77,7 +77,7 @@ function checkUserEmployee($db, $username, $password, $hash) {
     }
     return $bln;
 }
-function NewUser($newpage) { // brings user to a new page based on what the $newpage variable supplied is
+function newUser($newpage) { // brings user to a new page based on what the $newpage variable supplied is
     $form = "<div style='float:right'><form method='post' action='LogIn.php' ";
     $form .= "<input type='hidden' name='action' value='register' /><input type='submit' name='action' value='$newpage' class='btn btn-success'/></form></div>";
     return $form;
@@ -117,6 +117,28 @@ function getVendorsDropDownAddInventoryForm($db){
                 $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "|" . $vendor['vendor_name'] . "'>" . $vendor['vendor_name']. "</button>";
             }
             $dropDown .= "<input type='hidden' name='action' value='Add'>";
+        } else { //if there is not any data, say so.
+            $dropDown = "NO DATA" . PHP_EOL;
+        }
+        return $dropDown; //return it.
+
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die("There was a problem creating drop down");
+    }
+}
+function getVendorsDropDownEditInventoryForm($db){
+    try{
+        $sql = "SELECT * FROM vendors";
+        $sql = $db->prepare($sql);
+        $sql->execute(); //executes statement
+        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+
+        if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
+            $dropDown = "" . PHP_EOL;
+            foreach($vendors as $vendor){
+                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "|" . $vendor['vendor_name'] . "'>" . $vendor['vendor_name']. "</button>";
+            }
+            $dropDown .= "<input type='hidden' name='action' value='update'>";
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
         }
@@ -168,7 +190,101 @@ function getVendorsAsTable($db){
         die("There was a problem creating drop down");
     }
 }
-function AddUser($firstName = "", $lastName = "", $phoneNum = "", $email = "", $username = "", $password = "", $passwordRE = "") {
+function getImages($db, $pk){
+    try{
+        $sql = "SELECT * FROM images WHERE car_id=$pk";
+        $sql = $db->prepare($sql);
+        $sql->execute(); //executes statement
+        $images = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+
+        return $images; //return it.
+
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die($e . "There was a problem finding inventory");
+    }
+}
+function getInventoryAsTable($db){
+    try{
+
+        $sql = "SELECT 
+        inventory.car_id as car_id, 
+        inventory.vendor_id as vendor_id,
+        inventory.vin_num as vin_num, 
+        inventory.trim as trim, 
+        inventory.make as make,
+        inventory.year as year, 
+        inventory.mileage as mileage, 
+        inventory.fuel_type as fuel_type, 
+        inventory.engine_type as engine_type, 
+        inventory.transmission as transmission, 
+        inventory.mpg as mpg, 
+        inventory.color as color, 
+        inventory.drive_train as drive_train, 
+        inventory.type_of_car as type_of_car, 
+        inventory.date_of_arrival as date_of_arrival,  
+        inventory.description as description,  
+        inventory.price as price,
+        inventory.model as model,
+        vendors.vendor_id as vendor_id, 
+        vendors.vendor_name as vendor_name
+    FROM inventory
+    INNER JOIN vendors
+    ON inventory.vendor_id = vendors.vendor_id
+        ";
+        $sql = $db->prepare($sql);
+        $sql->execute(); //executes statement
+        $products = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+
+        if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
+            $displayProds = "<div class='container' id='viewInventory'>" . PHP_EOL;
+            foreach($products as $product){
+                $pk = $product['car_id'];
+                $images = getImages($db, $pk);
+                //row
+                $displayProds .= "<div class='row'>";
+                //col 1
+                $displayProds .= "<div class='col-lg-4'>";
+                $displayProds .= "<h2>" . $product['vendor_name'] . "</h2>";
+                $displayProds .= "<h6>" . $product['year']  . " " .  $product['model'] . ", " . $product['trim'] . ", " . $product['type_of_car'] . "</h6>". "</br>";
+                $displayProds .= "<span>" . "<h6>Description:</h6> " . $product['description'] . "</span>" . "</br>" . "</br>";
+                $displayProds .= "<span>" . "Vin Number: " . $product['vin_num'] . "</span>" . "</br>";
+                $displayProds .= "<span>" . "Date of arrival: " . $product['date_of_arrival'] . "</span>" . "</br>";
+                $displayProds .= "<span>" . "Price: " . $product['price'] . "</span>" . "</br>";
+                $displayProds .= "</br>";
+                $displayProds .= "</br>";
+                $displayProds .= "</div>";
+
+                //col 2
+                $displayProds .= "<div class='col-lg-4'>";
+                $displayProds .= "<div class='flex-container'>";
+                    foreach($images as $image){
+                        $displayProds .= "<div>";
+                        $displayProds .= "<img src='.." . $image['image_location'] . "' alt='' height='140px' width='auto'>";
+                        $displayProds .= "</div>";
+
+                    }
+                $displayProds .= "</div>";
+                $displayProds .= "</div>";
+
+                //col 3
+                $displayProds .= "<div class='col-lg-4'>";
+                $displayProds .= "</div>";
+
+                //close row
+                $displayProds .= "</div>";
+            }
+            $displayProds .= "</div>" . PHP_EOL;
+
+        } else { //if there is not any data, say so.
+            $displayProds = "NO DATA" . PHP_EOL;
+        }
+        return $displayProds; //return it.
+
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die($e . "There was a problem finding inventory");
+    }
+}
+function addUser($firstName = "", $lastName = "", $phoneNum = "", $email = "", $username = "", $password = "", $passwordRE = "") {
     $form = "<div style='position:relative; margin:auto; text-align:center; border:1px solid black; width:400px;'><section><form method='post' action='NewUser.php'>
         <h1>New User</h1>
         <label for='firstName'>First Name: </label><br>
@@ -209,7 +325,7 @@ function validate($firstName, $lastName, $username, $password) {
     }
     return $ret;
 }
-function StoreNewUser($db, $customer_fname, $customer_lname, $customer_email, $customer_phone, $customer_username, $customer_password) {
+function storeNewUser($db, $customer_fname, $customer_lname, $customer_email, $customer_phone, $customer_username, $customer_password) {
     $sql = $db->prepare("SELECT customer_username FROM customers WHERE customer_username = :customer_username");
     $sql->bindParam('customer_username', $customer_username);
     $sql->execute();
@@ -256,7 +372,7 @@ function phoneCheck ($phone) {
     }
     return $ret;
 }
-function AddEmployee($db, $f_name, $l_name, $email, $phone_number, $username, $password0, $photo) {
+function addEmployee($db, $f_name, $l_name, $email, $phone_number, $username, $password0, $photo) {
     $password = password_hash($password0, PASSWORD_DEFAULT);
 
     $sql = $db->prepare("INSERT INTO employees VALUES (null, :f_name, :l_name, :email, :phone_number, :username, :password, :photo)");
@@ -276,7 +392,7 @@ function AddEmployee($db, $f_name, $l_name, $email, $phone_number, $username, $p
     }
     return $str;
 }
-function employeejobs() {
+function employeeJobs() {
     $btns = "<input type='hidden' name='action' value='newcar' /><input type='submit' value='New Car' style='height: 50px; width: 100px; font-size : 20px;'>
     </form><input type='hidden' name='action' value='editcar' /><input type='submit' value='Edit Car' style='height: 50px; width: 100px; font-size : 20px;'>
     </form>";

@@ -38,18 +38,18 @@ $imagePath = [];
 
 
 ?>
-    <div class="row">
-        <div class="col-lg-4">
-            <h1>Inventory</h1>
-            <div class="btn-group" role="group" aria-label="inventoryNav">
-                <button type='submit' name='action' class='btn btn-secondary' id="viewInventoryBtn" value="view">View</button>
-                <button type='submit' name='action' class='btn btn-secondary' id="addInventoryBtn" value="add">Add</button>
-                <button type='submit' name='action' class='btn btn-secondary' id="editInventoryBtn" value="edit">Edit</button>
-            </div>
+<div class="row">
+    <div class="col-lg-4">
+        <h1>Inventory</h1>
+        <div class="btn-group" role="group" aria-label="inventoryNav">
+            <button type='submit' name='action' class='btn btn-secondary' id="viewInventoryBtn" value="view">View</button>
+            <button type='submit' name='action' class='btn btn-secondary' id="addInventoryBtn" value="add">Add</button>
+            <button type='submit' name='action' class='btn btn-secondary' id="editInventoryBtn" value="edit">Edit</button>
         </div>
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4"></div>
     </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4"></div>
+</div>
 
 <?php
 
