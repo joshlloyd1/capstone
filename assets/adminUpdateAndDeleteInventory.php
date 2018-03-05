@@ -13,7 +13,9 @@ $db = dbconnect();
 //$inventory = getInventoryAsTable($db);
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
 
-$vendorId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorId = filter_input(INPUT_POST, 'vendorId', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
+$carId = filter_input(INPUT_POST, 'carId', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'carId', FILTER_SANITIZE_STRING) ?? NULL;
+
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
 $make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
@@ -31,10 +33,34 @@ $dateSold = filter_input(INPUT_POST, 'dateSold', FILTER_SANITIZE_STRING) ?? NULL
 $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING) ?? NULL;
 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING) ?? NULL;
 $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING) ?? NULL;
-$inventoryId = filter_input(INPUT_GET, 'inventoryId', FILTER_SANITIZE_STRING) ?? NULL;
 $imagePath = [];
 
-echo $action;
+$vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
+$_SESSION['vendor_name'] = $vendor['vendor_name'];
+
+
+$inventoryModel = getModel($db, $carId);
+
+$_SESSION['car_id'] = $inventoryModel['car_id'];
+$_SESSION['vendor_id'] = $inventoryModel['vendor_id'];
+$_SESSION['vin_num'] = $inventoryModel['vin_num'];
+$_SESSION['trim'] = $inventoryModel['trim'];
+$_SESSION['make'] = $inventoryModel['make'];
+$_SESSION['year'] = $inventoryModel['year'];
+$_SESSION['mileage'] = $inventoryModel['mileage'];
+$_SESSION['fuel_type'] = $inventoryModel['fuel_type'];
+$_SESSION['engine_type'] = $inventoryModel['engine_type'];
+$_SESSION['transmission'] = $inventoryModel['transmission'];
+$_SESSION['mpg'] = $inventoryModel['mpg'];
+$_SESSION['color'] = $inventoryModel['color'];
+$_SESSION['drive_train'] = $inventoryModel['drive_train'];
+$_SESSION['type_of_car'] = $inventoryModel['type_of_car'];
+$_SESSION['date_of_arrival'] = $inventoryModel['date_of_arrival'];
+$_SESSION['date_sold'] = $inventoryModel['date_sold'];
+$_SESSION['price'] = $inventoryModel['price'];
+$_SESSION['description'] = $inventoryModel['description'];
+$_SESSION['model'] = $inventoryModel['model'];
+
 ?>
     <div class="row">
         <div class="col-lg-4">
@@ -54,31 +80,38 @@ echo $action;
 
 
 switch($action){
-    case 'update':
-        include_once("../forms/inventorySelectVendorForm.php");
-        include_once("../forms/addInventoryFormDisabled.php");
-
-        // echo updateVendor($vendor); //update
+    case 'got model':
+        //include filled out update form
+        include_once("../forms/updateInventoryForm.php");
 
         break;
     case 'execute update':
-        $vendor = array(
+        $inventory = array(
+            "car_id" => $carId,
             "vendor_id" => $vendorId,
-            "vendor_name" => $vendorName,
-            "vendor_contact_fname" => $vendorContactFname,
-            "vendor_contact_lname" => $vendorContactLname,
-            "vendor_email" => $vendorEmail,
-            "vendor_phone" => $vendorPhone,
-            "vendor_country" => $vendorCountry,
-            "vendor_city" => $vendorCity,
-            "vendor_state" => $vendorState,
-            "vendor_zipcode" => $vendorZipCode
+            "vin_num" => $vinNum,
+            "trim" => $trim,
+            "make" => $make,
+            "year" => $year,
+            "mileage" => $mileage,
+            "fuel_type" => $fuelType,
+            "engine_type" => $engineType,
+            "transmission" => $transmission,
+            "mpg" => $mpg,
+            "color" => $color,
+            "drive_train" => $driveTrain,
+            "type_of_car" => $typeOfCar,
+            "date_of_arrival" => $dateOfArrival,
+            "date_sold" => $dateSold,
+            "price" => $price,
+            "description" => $description,
+            "model" => $model
         );
-        $result = updateVendor($db, $vendor);
+        $result = updateInventory($db, $inventory);
         echo getMessage($result);
         break;
     case 'delete':
-        $result = deleteAVendor($db, $vendorId);
+        $result = deleteInventory($db, $carId);
         echo getMessage($result);
         break;
 }

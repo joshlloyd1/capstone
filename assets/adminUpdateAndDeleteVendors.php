@@ -19,7 +19,7 @@ $vendorCountry = filter_input(INPUT_POST, 'vendorCountry', FILTER_SANITIZE_STRIN
 $vendorCity = filter_input(INPUT_POST, 'vendorCity', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorId = filter_input(INPUT_GET, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
 
 $vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
 //assign values to session vars
@@ -34,7 +34,7 @@ $_SESSION['vendor_city'] = $vendor['vendor_city'];
 $_SESSION['vendor_state'] = $vendor['vendor_state'];
 $_SESSION['vendor_zipcode'] = $vendor['vendor_zipcode'];
 
-
+echo $action;
 ?>
     <div class="row">
         <div class="col-lg-4">
@@ -52,11 +52,9 @@ $_SESSION['vendor_zipcode'] = $vendor['vendor_zipcode'];
 <?php
 
 switch($action){
-    case 'update':
+    case 'got vendor':
         include_once("../forms/displaySelectVendorForm.php");
         include_once ("../forms/updateVendorsForm.php");
-
-       // echo updateVendor($vendor); //update
 
         break;
     case 'execute update':

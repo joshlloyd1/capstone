@@ -45,20 +45,21 @@ $(document).ready(function() {
 
     var addInventoryForm = $('#addInventoryFormDisabled');
     var selectVendorForm = $('#inventorySelectVendorForm');
-    var selectVendorFormForEdit = $('#inventoryUpateAndDeleteSelectVendorForm'); /*things are getting out of hand*/
+    var selectModelForm = $('#selectModelForm'); /*things are getting out of hand*/
     var editInventoryForm = $('#editInventoryForm');
     var viewInventory = $('#viewInventory')
 
     $(editInventoryForm).hide();
     $(addInventoryForm).hide();
     $(selectVendorForm).hide();
-    $(selectVendorFormForEdit).hide();
+    $(selectModelForm).hide();
 
     $(addInventoryBtn).click(function(){
         //alert("I am an alert box!");
 
         $(addInventoryForm).show();
         $(selectVendorForm).show();
+        $(selectModelForm).hide();
         $(editInventoryForm).hide();
         $(viewInventory).hide();
 
@@ -68,7 +69,7 @@ $(document).ready(function() {
 
         $(addInventoryForm).hide();
         $(selectVendorForm).hide();
-        $(selectVendorFormForEdit).hide();
+        $(selectModelForm).hide();
         $(editInventoryForm).hide();
         $(viewInventory).show();
 
@@ -78,7 +79,7 @@ $(document).ready(function() {
 
         $(addInventoryForm).hide();
         $(selectVendorForm).hide();
-        $(selectVendorFormForEdit).show();
+        $(selectModelForm).show();
         $(editInventoryForm).show();
         $(viewInventory).hide();
     });

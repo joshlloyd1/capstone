@@ -87,14 +87,14 @@ function getVendorsDropDown($db){
         $sql = "SELECT * FROM vendors";
         $sql = $db->prepare($sql);
         $sql->execute(); //executes statement
-        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called vendors.
 
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
             foreach($vendors as $vendor){
-                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name']. "</button>";
-            }
-            $dropDown .= "<input type='hidden' name='action' value='add'>";
+                $dropDown .= "<button type='submit' class='dropdown-item' name='vendorId' value='" . $vendor['vendor_id'] . "'>" . $vendor['vendor_name']. "</button>";
+            }  //passes vendor id and vendor name
+            $dropDown .= "<input type='hidden' name='action' value='got vendor'>"; //passes "got vendor" to action
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
         }
@@ -104,41 +104,19 @@ function getVendorsDropDown($db){
         die("There was a problem creating drop down");
     }
 }
-function getVendorsDropDownAddInventoryForm($db){
+function getModelsDropDown($db){
     try{
-        $sql = "SELECT * FROM vendors";
+        $sql = "SELECT * FROM inventory";
         $sql = $db->prepare($sql);
         $sql->execute(); //executes statement
-        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
+        $models = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called vendors.
 
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
-            foreach($vendors as $vendor){
-                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "|" . $vendor['vendor_name'] . "'>" . $vendor['vendor_name']. "</button>";
-            }
-            $dropDown .= "<input type='hidden' name='action' value='Add'>";
-        } else { //if there is not any data, say so.
-            $dropDown = "NO DATA" . PHP_EOL;
-        }
-        return $dropDown; //return it.
-
-    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
-        die("There was a problem creating drop down");
-    }
-}
-function getVendorsDropDownEditInventoryForm($db){
-    try{
-        $sql = "SELECT * FROM vendors";
-        $sql = $db->prepare($sql);
-        $sql->execute(); //executes statement
-        $vendors = $sql->fetchALL(PDO::FETCH_ASSOC); //gets data and dumps it into array called corps.
-
-        if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
-            $dropDown = "" . PHP_EOL;
-            foreach($vendors as $vendor){
-                $dropDown .= "<button type='submit' class='dropdown-item' name='id' value='" . $vendor['vendor_id'] . "|" . $vendor['vendor_name'] . "'>" . $vendor['vendor_name']. "</button>";
-            }
-            $dropDown .= "<input type='hidden' name='action' value='update'>";
+            foreach($models as $model){
+                $dropDown .= "<button type='submit' class='dropdown-item' name='carId' value='" . $model['car_id'] . "'>" . $model['year']  . " " .  $model['model'] . ", " . $model['trim'] . ", " . $model['type_of_car'] . "</button>";
+            }  //passes vendor id and vendor name
+            $dropDown .= "<input type='hidden' name='action' value='got model'>"; //passes "got vendor" to action
         } else { //if there is not any data, say so.
             $dropDown = "NO DATA" . PHP_EOL;
         }
@@ -470,6 +448,14 @@ function getVendor($db, $vendorId){ //this will be used to update and delete. Wi
 
     return $vendor;
 }
+function getModel($db, $carId){ //this will be used to update and delete. Will be used to grab a specific record by primary key number.
+    $sql = $db->prepare("SELECT * FROM inventory WHERE car_id = :car_id"); //select all with a particular id (primary key)
+    $sql->bindParam(':car_id', $carId, PDO::PARAM_INT);
+    $sql->execute();
+    $model = $sql->fetch(PDO::FETCH_ASSOC);//get all columns in associated array. ? I think
+
+    return $model;
+}
 function updateVendor($db, $vendor){
     try{
         $update = $vendor;
@@ -502,10 +488,71 @@ function updateVendor($db, $vendor){
         die($e);
     }
 }
+function updateInventory($db, $inventory){
+    try{
+        $update = $inventory;
+        $carId = $update['car_id'];
+        $vendorId = $update['vendor_id'];
+        $vinNum = $update['vin_num'];
+        $trim = $update['trim'];
+        $make = $update['make'];
+        $year = $update['year'];
+        $mileage = $update['mileage'];
+        $fuelType = $update['fuel_type'];
+        $engineType = $update['engine_type'];
+        $transmission = $update['transmission'];
+        $mpg = $update['mpg'];
+        $color = $update['color'];
+        $driveTrain = $update['drive_train'];
+        $typeOfCar = $update['type_of_car'];
+        $dateSold = $update['date_sold'];
+        $price = $update['price'];
+        $description = $update['description'];
+        $model = $update['model'];
+
+        $sql = $db->prepare("UPDATE inventory SET vendor_id=:vendor_id, vin_num=:vin_num, trim=:trim, make=:make, 
+                                year=:year, mileage=:mileage, fuel_type=:fuel_type, engine_type=:engine_type, 
+                                transmission=:transmission, mpg=:mpg, color=:color, drive_train=:drive_train, type_of_car=:type_of_car, 
+                                date_sold=:date_sold, price=:price, description=:description, model=:model WHERE car_id='$carId'");
+        $sql->bindParam(':vendor_id', $vendorId);
+        $sql->bindParam(':vin_num', $vinNum);
+        $sql->bindParam(':trim', $trim);
+        $sql->bindParam(':make', $make);
+        $sql->bindParam(':year', $year);
+        $sql->bindParam(':mileage', $mileage);
+        $sql->bindParam(':fuel_type', $fuelType);
+        $sql->bindParam(':engine_type', $engineType);
+        $sql->bindParam(':transmission', $transmission);
+        $sql->bindParam(':mpg', $mpg);
+        $sql->bindParam(':color', $color);
+        $sql->bindParam(':drive_train', $driveTrain);
+        $sql->bindParam(':type_of_car', $typeOfCar);
+        $sql->bindParam(':date_sold', $dateSold);
+        $sql->bindParam(':price', $price);
+        $sql->bindParam(':description', $description);
+        $sql->bindParam(':model', $model);
+        $sql->execute();
+
+        return $sql->rowCount() . " row updated.";
+    }catch (PDOException $e) { //if it fails, throw the exception and display error message.
+        die($e);
+    }
+}
 function deleteAVendor($db, $vendorId){
     try{
         $sql = $db->prepare("DELETE FROM vendors WHERE vendor_id=:vendor_id"); //select all with a particular id (primary key)
         $sql->bindParam(':vendor_id', $vendorId, PDO::PARAM_INT);
+        $sql->execute();
+        $success = "Record successfully deleted";
+        return $success;
+    }catch(PDOException $e){ //if it fails, throw the exception and display error message.
+        die("There was an error deleting the record");
+    }
+}
+function deleteInventory($db, $carId){
+    try{
+        $sql = $db->prepare("DELETE FROM inventory WHERE car_id=:car_id"); //select all with a particular id (primary key)
+        $sql->bindParam(':car_id', $carId, PDO::PARAM_INT);
         $sql->execute();
         $success = "Record successfully deleted";
         return $success;
@@ -569,22 +616,6 @@ function addInventory($db, $inventory){
         die($e);
     }
 }
-/*
-function getPK($db, $vinNum){ //passed vinNumber to get pk
-    try{
-        $sql = $db->prepare("SELECT car_id FROM inventory WHERE :vin_num='$vinNum'"); //ping the db to get the primary key
-        $sql->bindParam(':vin_num', $vinNum);
-        $sql->execute();
-        $pk = $sql->fetchALL(PDO::FETCH_ASSOC);
-
-        foreach ($pk as $primaryKey){ //assign primary key to a variable to return.
-            $result = $primaryKey['site_id'];
-        }
-    }catch(PDOException $e){
-        die("There was a problem getting records from the db");
-    }
-    return $result;
-}*/
 function addImages($db, $pk, $imagePath){
     try{
 

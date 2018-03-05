@@ -13,7 +13,7 @@ $db = dbconnect();
 $inventory = getInventoryAsTable($db);
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorId = filter_input(INPUT_POST, 'vendorId', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
 
@@ -54,10 +54,10 @@ $_SESSION['vendor_name'] = $make;
 
 <?php
 
-include_once("../forms/inventorySelectVendorForm.php");
-include_once("../forms/inventorySelectVendorFormForUpdate.php");
-include_once("../forms/addInventoryFormDisabled.php");
-include_once("../forms/updateAndDeleteInventoryDisabled.php");
+include_once("../forms/selectVendorFormForInventoryAdd.php");
+include_once("../forms/selectModelFormForInventoryUpdate.php");
+include_once("../forms/disabledAddInventoryForm.php");
+include_once("../forms/disabledEditInventoryForm.php");
 
 echo $inventory;
 

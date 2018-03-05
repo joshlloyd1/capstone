@@ -11,7 +11,7 @@ include_once("dbconnect.php");
 $db = dbconnect();
 //$inventory = getInventoryAsTable($db);
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorId = filter_input(INPUT_POST, 'vendorId', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
 
@@ -54,8 +54,8 @@ $imagePath = [];
 <?php
 
 switch($action){
-    case 'Add':
-        include_once("../forms/inventorySelectVendorForm.php");
+    case 'vendor':
+        include_once("../forms/selectVendorFormForInventoryAdd.php");
 
         $explodeResult = explode("|", $vendorId);
         $vendorId = $explodeResult[0];

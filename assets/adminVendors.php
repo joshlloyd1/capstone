@@ -25,7 +25,7 @@ $vendorCountry = filter_input(INPUT_POST, 'vendorCountry', FILTER_SANITIZE_STRIN
 $vendorCity = filter_input(INPUT_POST, 'vendorCity', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
-$vendorId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?? NULL;
+$vendorId = filter_input(INPUT_GET, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
 
 ?>
 <div class="container-fluid">

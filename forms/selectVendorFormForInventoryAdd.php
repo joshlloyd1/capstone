@@ -2,7 +2,7 @@
 include_once ("../assets/functions.php");
 include_once ("../assets/dbconnect.php");
 $db = dbconnect();
-$dropdown = getVendorsDropDownAddInventoryForm($db);
+$dropdown = getVendorsDropDown($db);
 if(!isset($_SESSION['vendor_name'])){
     $_SESSION['vendor_name'] = "Select Vendor...";
 }
