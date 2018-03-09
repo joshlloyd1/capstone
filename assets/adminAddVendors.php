@@ -1,4 +1,7 @@
 <?php
+if(!isset($_SESSION)){
+    session_start();
+}
 /**
  * Created by PhpStorm.
  * User: iotenti
@@ -9,6 +12,7 @@ include_once ("adminHeader.php");
 include_once("functions.php");
 include_once("dbconnect.php");
 $db = dbconnect();
+
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorName = filter_input(INPUT_POST, 'vendorName', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorContactFname = filter_input(INPUT_POST, 'vendorContactFname', FILTER_SANITIZE_STRING) ?? NULL;
@@ -21,20 +25,6 @@ $vendorZipCode = filter_input(INPUT_POST, 'vendorZipCode', FILTER_SANITIZE_STRIN
 $vendorState = filter_input(INPUT_POST, 'vendorState', FILTER_SANITIZE_STRING) ?? NULL;
 $vendorId = filter_input(INPUT_GET, 'vendorId', FILTER_SANITIZE_STRING) ?? NULL;
 
-$vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
-//assign values to session vars
-$_SESSION['vendor_id'] = $vendor['vendor_id'];
-$_SESSION['vendor_name'] = $vendor['vendor_name'];
-$_SESSION['vendor_contact_fname'] = $vendor['vendor_contact_fname'];
-$_SESSION['vendor_contact_lname'] = $vendor['vendor_contact_lname'];
-$_SESSION['vendor_email'] = $vendor['vendor_email'];
-$_SESSION['vendor_phone'] = $vendor['vendor_phone'];
-$_SESSION['vendor_country'] = $vendor['vendor_country'];
-$_SESSION['vendor_city'] = $vendor['vendor_city'];
-$_SESSION['vendor_state'] = $vendor['vendor_state'];
-$_SESSION['vendor_zipcode'] = $vendor['vendor_zipcode'];
-
-echo $action;
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -45,22 +35,17 @@ echo $action;
                 <a class='btn btn-secondary' href="adminUpdateAndDeleteVendors.php" role="button">Edit</a>
             </div>
         </div>
-        <h1>Update Vendors</h1>
+        <h1>Add Vendors</h1>
     </div>
 </div>
 <?php
 
+
 switch($action){
     default:
-        include_once("../forms/selectVendorForm.php");
-        include_once ("../forms/disabledEditVendorForm.php");
+        include_once ("../forms/addVendorForm.php");
         break;
-    case 'got vendor':
-        include_once("../forms/displaySelectVendorForm.php");
-        include_once ("../forms/updateVendorsForm.php");
-
-        break;
-    case 'execute update':
+    case 'Add Vendor':
         $vendor = array(
             "vendor_id" => $vendorId,
             "vendor_name" => $vendorName,
@@ -73,16 +58,10 @@ switch($action){
             "vendor_state" => $vendorState,
             "vendor_zipcode" => $vendorZipCode
         );
-        $result = updateVendor($db, $vendor);
-        echo getMessage($result);
-        break;
-    case 'delete':
-        $result = deleteAVendor($db, $vendorId);
+        $result = addVendor($db, $vendor);
         echo getMessage($result);
         break;
 }
-
-
 
 include_once ("footer.html");
 ?>

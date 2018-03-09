@@ -23,6 +23,11 @@
     display:flex;
     justify-content:right;
     flex-wrap:wrap;
+}
+.crudNav{
+    background-color:#6f7784;
+    margin-left: -15px;
+    padding:9px 9px 9px 68px;
 
 
 }

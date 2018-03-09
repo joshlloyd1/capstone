@@ -35,6 +35,8 @@ $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING) ?
 $model = filter_input(INPUT_POST, 'model', FILTER_SANITIZE_STRING) ?? NULL;
 $imagePath = [];
 
+$keepImage = filter_input(INPUT_POST, 'keepImage', FILTER_SANITIZE_STRING) ?? NULL;
+
 $vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
 $_SESSION['vendor_name'] = $vendor['vendor_name'];
 
@@ -62,24 +64,29 @@ $_SESSION['description'] = $inventoryModel['description'];
 $_SESSION['model'] = $inventoryModel['model'];
 
 ?>
-    <div class="row">
-        <div class="col-lg-4">
-            <h1>Inventory</h1>
-            <div class="btn-group" role="group" aria-label="inventoryNav">
-                <button type='submit' name='action' class='btn btn-secondary' id="viewInventoryBtn" value="view">View</button>
-                <button type='submit' name='action' class='btn btn-secondary' id="addInventoryBtn" value="add">Add</button>
-                <button type='submit' name='action' class='btn btn-secondary' id="editInventoryBtn" value="edit">Edit</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 crudNav">
+                <div class="btn-group" role="group" aria-label="inventoryNav">
+                    <a class='btn btn-secondary' href="adminInventory.php" role="button">View</a>
+                    <a class='btn btn-secondary' href="adminAddInventory.php" role="button">Add</a>
+                    <a class='btn btn-secondary' href="adminUpdateAndDeleteInventory.php" role="button">Edit</a>
+                </div>
             </div>
+            <h1>Update Inventory</h1>
         </div>
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4"></div>
     </div>
 
 <?php
 
 
 
+
 switch($action){
+    default:
+        include_once("../forms/selectModelFormForInventoryUpdate.php");
+        include_once("../forms/disabledEditInventoryForm.php");
+        break;
     case 'got model':
         //include filled out update form
         include_once("../forms/updateInventoryForm.php");
@@ -107,10 +114,45 @@ switch($action){
             "description" => $description,
             "model" => $model
         );
-        $result = updateInventory($db, $inventory);
-        echo getMessage($result);
+        if(!isset($_POST['keepImage'])) {
+            //if keep image checkbox not checked - user does not want to keep images
+            //delete all images with inventory PK
+            $deleteImages = deleteImages($db, $carId);
+
+            //add new images with PK
+            //if no files have been uploaded here set $_FILE to null
+            if (!isset($_FILES['image'])) {
+                $_FILES['image']['name'] = null;
+            } else {
+                //if something is there, name it and get the temp location
+                $imageName = $_FILES['image']['name'];
+                $tempName = $_FILES['image']['tmp_name'];
+
+                //if there is a name
+                if (isset($imageName)) {
+                    //and the name is not empty
+                    if (!empty($imageName)) {
+                        //make a location
+                        $location = '../images/';
+                        //move image to new location
+                        for ($i = 0; $i < count($imageName); $i++) {
+                            if (move_uploaded_file($tempName[$i], $location . $imageName[$i])) {
+                                $imagePath[$i] = "/images/" . $imageName[$i];
+                            }
+                        }
+                    } else {
+                        echo "please choose a file";
+                    }
+                }
+            }
+            addImages($db, $_SESSION['car_id'], $imagePath);
+        } else{ //checkbox is checked - do want to keep images
+            $result = updateInventory($db, $inventory);
+            echo getMessage($result);
+        }
         break;
     case 'delete':
+        deleteImages($db, $carId);
         $result = deleteInventory($db, $carId);
         echo getMessage($result);
         break;

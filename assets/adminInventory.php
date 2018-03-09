@@ -39,25 +39,21 @@ $_SESSION['vendor_name'] = $make;
 
 
 ?>
-<div class="row">
-    <div class="col-lg-4">
-        <h1>Inventory</h1>
-        <div class="btn-group" role="group" aria-label="inventoryNav">
-            <button type='submit' name='action' class='btn btn-secondary' id="viewInventoryBtn" value="view">View</button>
-            <button type='submit' name='action' class='btn btn-secondary' id="addInventoryBtn" value="add">Add</button>
-            <button type='submit' name='action' class='btn btn-secondary' id="editInventoryBtn" value="edit">Edit</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 crudNav">
+            <div class="btn-group" role="group" aria-label="inventoryNav">
+                <a class='btn btn-secondary' href="adminInventory.php" role="button">View</a>
+                <a class='btn btn-secondary' href="adminAddInventory.php" role="button">Add</a>
+                <a class='btn btn-secondary' href="adminUpdateAndDeleteInventory.php" role="button">Edit</a>
+            </div>
         </div>
+        <h1>View Inventory</h1>
     </div>
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4"></div>
 </div>
 
-<?php
 
-include_once("../forms/selectVendorFormForInventoryAdd.php");
-include_once("../forms/selectModelFormForInventoryUpdate.php");
-include_once("../forms/disabledAddInventoryForm.php");
-include_once("../forms/disabledEditInventoryForm.php");
+<?php
 
 echo $inventory;
 

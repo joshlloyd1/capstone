@@ -8,7 +8,7 @@ if(!isset($_SESSION['model'])){
 }
 
 ?>
-<div class="container" id="selectModelForm">
+<div class="container">
     <form method="get" action="../assets/adminUpdateAndDeleteInventory.php">
         <div class="row">
             <div class="col-lg-4">

@@ -4,12 +4,9 @@ include_once ("../assets/dbconnect.php");
 $db = dbconnect();
 $dropdown = getVendorsDropDown($db);
 ?>
-<div class="container" id="editVendorForm">
+<div class="container">
     <form>
         <div class="row">
-            <div class="col-lg-4">
-
-            </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorContactFname">First Name</label>
@@ -22,10 +19,11 @@ $dropdown = getVendorsDropDown($db);
                     <input type="text" class="form-control" id="txtVendorContactLname" name="vendorContactLname" placeholder="Contact Last Name" disabled>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-4">
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorPhone">Phone Number</label>
@@ -38,11 +36,11 @@ $dropdown = getVendorsDropDown($db);
                     <input type="text" class="form-control" id="txtVendorEmail" name="vendorEmail" placeholder="Email" disabled>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-4">
-
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorCountry">Country</label>
@@ -55,11 +53,11 @@ $dropdown = getVendorsDropDown($db);
                     <input type="text" class="form-control" id="txtVendorCity" name="vendorCity" placeholder="City" disabled>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-4">
-
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorZipCode">Zip Code</label>
@@ -72,17 +70,18 @@ $dropdown = getVendorsDropDown($db);
                     <input type="text" class="form-control" id="txtVendorState" name="vendorState" placeholder="State" disabled>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-4">
-
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-4">
                 <button type="submit" name="action" class="btn btn-primary" value="edit" disabled>Update</button>
                 <button type="submit" name="action" class="btn btn-danger" value="delete" disabled>Delete</button>
             </div>
             <div class="col-lg-4">
-
+            </div>
+            <div class="col-lg-4">
             </div>
         </div>
     </form>

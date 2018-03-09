@@ -12,9 +12,6 @@ if(!isset($_SESSION['vendor_name'])){
     <form method="get" action="../assets/adminUpdateAndDeleteVendors.php">
         <div class="row">
             <div class="col-lg-4">
-
-            </div>
-            <div class="col-lg-4">
                 <div class="form-group">
                     <label for="dropDownVendor">Vendor</label>
                     <div class="dropdown" id="myDropdown">
@@ -26,6 +23,8 @@ if(!isset($_SESSION['vendor_name'])){
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-4">
             </div>
             <div class="col-lg-4">
             </div>

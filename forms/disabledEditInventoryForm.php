@@ -10,7 +10,7 @@ include_once ("../assets/dbconnect.php");
 $db = dbconnect();
 $dropdown = getVendorsDropDown($db);
 ?>
-<div class="container" id="editInventoryForm">
+<div class="container">
     <form method="post" action="#" enctype="multipart/form-data">
         <div class="row">
             <div class="col-lg-4">

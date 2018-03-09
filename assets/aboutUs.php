@@ -14,6 +14,6 @@ $db = dbconnect();
     <p>our location</p>
 <h1>Meet our team!</h1>
 <?php
-echo theTeam($db);
+echo getTheTeam($db);
 include_once ("footer.html");
 ?>
