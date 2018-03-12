@@ -15,7 +15,7 @@ $vendorId = filter_input(INPUT_POST, 'vendorId', FILTER_SANITIZE_STRING) ?? filt
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
 
-$make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
+//$make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
 
 $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_STRING) ?? NULL;
 $mileage = filter_input(INPUT_POST, 'mileage', FILTER_SANITIZE_STRING) ?? NULL;
@@ -89,7 +89,7 @@ switch($action){
                 "vendor_id" => $vendorId,
                 "vin_num" => $vinNum,
                 "trim" => $trim,
-                "make" => $make,
+
                 "year" => $cleanYear,
                 "mileage" => $cleanMileage,
                 "fuel_type" => $fuelType,

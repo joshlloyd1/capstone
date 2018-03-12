@@ -18,7 +18,7 @@ $carId = filter_input(INPUT_POST, 'carId', FILTER_SANITIZE_STRING) ?? filter_inp
 
 $vinNum = filter_input(INPUT_POST, 'vinNum', FILTER_SANITIZE_STRING) ?? NULL;
 $trim = filter_input(INPUT_POST, 'trim', FILTER_SANITIZE_STRING) ?? NULL;
-$make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
+//$make = filter_input(INPUT_POST, 'make', FILTER_SANITIZE_STRING) ?? NULL;
 $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_STRING) ?? NULL;
 $mileage = filter_input(INPUT_POST, 'mileage', FILTER_SANITIZE_STRING) ?? NULL;
 $fuelType = filter_input(INPUT_POST, 'fuelType', FILTER_SANITIZE_STRING) ?? NULL;
@@ -37,17 +37,15 @@ $imagePath = [];
 
 $keepImage = filter_input(INPUT_POST, 'keepImage', FILTER_SANITIZE_STRING) ?? NULL;
 
-$vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
-$_SESSION['vendor_name'] = $vendor['vendor_name'];
-
-
 $inventoryModel = getModel($db, $carId);
 
 $_SESSION['car_id'] = $inventoryModel['car_id'];
 $_SESSION['vendor_id'] = $inventoryModel['vendor_id'];
 $_SESSION['vin_num'] = $inventoryModel['vin_num'];
 $_SESSION['trim'] = $inventoryModel['trim'];
-$_SESSION['make'] = $inventoryModel['make'];
+
+//$_SESSION['make'] = $vendor['vendor_name'];
+
 $_SESSION['year'] = $inventoryModel['year'];
 $_SESSION['mileage'] = $inventoryModel['mileage'];
 $_SESSION['fuel_type'] = $inventoryModel['fuel_type'];
@@ -81,13 +79,17 @@ $_SESSION['model'] = $inventoryModel['model'];
 
 
 
-
 switch($action){
     default:
         include_once("../forms/selectModelFormForInventoryUpdate.php");
         include_once("../forms/disabledEditInventoryForm.php");
         break;
     case 'got model':
+        
+        $vendorId = $_SESSION['vendor_id'];
+        $vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
+        $_SESSION['vendor_name'] = $vendor['vendor_name'];
+
         //include filled out update form
         include_once("../forms/updateInventoryForm.php");
 
@@ -98,7 +100,6 @@ switch($action){
             "vendor_id" => $vendorId,
             "vin_num" => $vinNum,
             "trim" => $trim,
-            "make" => $make,
             "year" => $year,
             "mileage" => $mileage,
             "fuel_type" => $fuelType,

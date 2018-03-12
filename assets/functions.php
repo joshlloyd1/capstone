@@ -30,7 +30,7 @@ function addInventory($db, $inventory){
         $vendorId = $add['vendor_id'];
         $vinNum = $add['vin_num'];
         $trim = $add['trim'];
-        $make = $add['make'];
+        $make="";
         $year = $add['year'];
         $mileage = $add['mileage'];
         $fuelType = $add['fuel_type'];
@@ -447,7 +447,10 @@ function getModelsDropDown($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
             foreach($models as $model){
-                $dropDown .= "<button type='submit' class='dropdown-item' name='carId' value='" . $model['car_id'] . "'>" . $model['year']  . " " . $model['make'] . " " .  $model['model'] . ", " . $model['trim'] . ", " . $model['type_of_car'] . "</button>";
+                $vendorId = $model['vendor_id'];
+                $vendorName = getVendor($db, $vendorId);
+
+                $dropDown .= "<button type='submit' class='dropdown-item' name='carId' value='" . $model['car_id'] . "'>" . $model['year']  . " " . $vendorName['vendor_name'] . " " .  $model['model'] . ", " . $model['trim'] . ", " . $model['type_of_car'] . "</button>";
             }  //passes vendor id and vendor name
             $dropDown .= "<input type='hidden' name='action' value='got model'>"; //passes "got vendor" to action
         } else { //if there is not any data, say so.
@@ -527,7 +530,7 @@ function getInventoryAsTable($db){
         inventory.vendor_id as vendor_id,
         inventory.vin_num as vin_num, 
         inventory.trim as trim, 
-        inventory.make as make,
+        vendors.vendor_name as make,
         inventory.year as year, 
         inventory.mileage as mileage, 
         inventory.fuel_type as fuel_type, 
@@ -929,7 +932,7 @@ function updateInventory($db, $inventory){
         $vendorId = $update['vendor_id'];
         $vinNum = $update['vin_num'];
         $trim = $update['trim'];
-        $make = $update['make'];
+        $make = "";
         $year = $update['year'];
         $mileage = $update['mileage'];
         $fuelType = $update['fuel_type'];

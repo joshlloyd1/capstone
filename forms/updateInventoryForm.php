@@ -16,7 +16,7 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMake">Make</label>
-                    <input type="text" class="form-control" id="txtMake" name="make" placeholder="Make" value="<?php echo $_SESSION['make'] ?>"> <!-- SHOULD WE TAKE MAKE COLUMN OUT OF THIS DB??? -->
+                    <input type="text" class="form-control" id="txtMake" name="make" placeholder="Make" value="<?php echo $_SESSION['vendor_name'] ?>"> <!-- SHOULD WE TAKE MAKE COLUMN OUT OF THIS DB??? -->
                     <input type="hidden" name="vendorId" value="<?php echo $_SESSION['vendor_id'] ?>">
                     <input type="hidden" name="date" value="<?php echo $_SESSION['dateOfArrival'] ?>">
                 </div>
