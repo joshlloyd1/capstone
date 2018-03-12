@@ -38,13 +38,21 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorPhone">Phone Number</label>
-                    <input type="text" class="form-control" id="txtVendorPhone" name="vendorPhone" placeholder="Phone Number" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtVendorPhone"
+                           name="vendorPhone"
+                           placeholder="Phone Number"
+                           required pattern="^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$"
+                           data-toggle="tooltip"
+                           title="Please enter a valid 10 digit phone number ex: (123)123-1234"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorEmail">Email</label>
-                    <input type="text" class="form-control" id="txtVendorEmail" name="vendorEmail" placeholder="Email" required>
+                    <input type="email" class="form-control" id="txtVendorEmail" name="vendorEmail" placeholder="Email" required>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -72,7 +80,15 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorZipCode">Zip Code</label>
-                    <input type="text" class="form-control" id="txtVendorZipCode" name="vendorZipCode" placeholder="Zip Code" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtVendorZipCode"
+                           name="vendorZipCode"
+                           placeholder="Zip Code"
+                           required pattern="^[0-9]{5}(?:-[0-9]{4})?$"
+                           data-toggle="tooltip"
+                           title="Please enter a valid 5 digit zip code. ex: 01904"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">

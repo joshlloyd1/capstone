@@ -8,7 +8,7 @@
 <?php
 session_start();
 include_once("functions.php");
-include_once("header.html");
+include_once("header.php");
 include_once("dbconnect.php");
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
@@ -24,11 +24,11 @@ switch($action) {
         if($valid > 0) { // if user exists brings to CUSTOMER PAGE
             $_SESSION['username'] = $valid;
             $_SESSION['access'] = true;
-            header('Location: loginSuccess.php');
+            header('Location: customerSavedCars.php');
         }
         if($valid == -1) { // user exists but gave wrong password brings back to log in
             $_SESSION['access'] = false;
-            $form = loginForm($username, $password);
+            $form = LoginForm($username, $password);
             echo $form;
             echo "<h3 style='text-align: center'>Incorrect password</h3>";
         }
@@ -37,20 +37,20 @@ switch($action) {
             if($admin > 0) { // if an admin account was found brings to ADMIN PAGE
                 $_SESSION['username'] = $valid;
                 $_SESSION['adminaccess'] = true;
-                header('Location: AdminHeader.php');
+                header('Location: AdminInventory.php');
                 $_SESSION['employee_id'] = $admin;
             }
             if($admin = -1) {
                 $_SESSION['access'] = false;
                 $_SESSION['adminaccess'] = false;
-                $form = loginForm($username, $password);
+                $form = LoginForm($username, $password);
                 echo $form;
                 echo "<h3 style='text-align: center'>Incorrect password</h3>";
             }
             if($admin == 0) {
                 $_SESSION['access'] = false;
                 $_SESSION['adminaccess'] = false;
-                $form = loginForm($username, $password);
+                $form = LoginForm($username, $password);
                 echo $form;
                 echo "<h3 style='text-align: center'>User doesn't exist</h3>";
             }
@@ -58,6 +58,7 @@ switch($action) {
         if($valid || $admin == -2) {
             $_SESSION['access'] = false;
             $_SESSION['adminaccess'] = false;
+            echo LoginForm();
             echo "<h3 style='text-align: center'>We apologize, there was a problem 
             getting into database</h3>";
         }
@@ -67,8 +68,7 @@ switch($action) {
         break;
     default:
         $_SESSION['access'] = false;
-        echo newUser("register");
-        echo loginForm();
+        echo LoginForm();
         break;
 }
 include_once("footer.html");

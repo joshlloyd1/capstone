@@ -51,11 +51,7 @@ $imagePath = [];
         </div>
     </div>
 
-
 <?php
-echo $vendorId . "</br>";
-echo $action . "</br>";
-
 
 switch($action){
     default:
@@ -74,57 +70,81 @@ switch($action){
 
         break;
     case 'Add Inventory':
-        //create an object to pass the addInventory function
-        $inventory = array(
-            "car_id" => $inventoryId,
-            "vendor_id" => $vendorId,
-            "vin_num" => $vinNum,
-            "trim" => $trim,
-            "make" => $make,
-            "year" => $year,
-            "mileage" => $mileage,
-            "fuel_type" => $fuelType,
-            "engine_type" => $engineType,
-            "transmission" => $transmission,
-            "mpg" => $mpg,
-            "color" => $color,
-            "drive_train" => $driveTrain,
-            "type_of_car" => $typeOfCar,
-            "date_of_arrival" => $dateOfArrival,
-            "date_sold" => $dateSold,
-            "price" => $price,
-            "description" => $description,
-            "model" => $model
-        );
-        $pk = addInventory($db, $inventory); //Adds inventory and returns the primary key.
 
-        //if no files have been uploaded here set $_FILE to null
-        if(!isset($_FILES['image'])){
-            $_FILES['image']['name'] = null;
+        $cleanMileage = preg_replace("/[^0-9]/", "", $mileage); //strips all non-numeric values from before storing to db.
+        $cleanYear = preg_replace("/[^0-9]/", "", $year); //strips all non-numeric values from before storing to db.
+        $cleanPrice = preg_replace("/[^0-9]/", "", $price); //strips all non-numeric values from before storing to db.
+        $cleanMpg = preg_replace("/[^0-9]/", "", $mpg); //strips all non-numeric values from before storing to db.
+
+        if($cleanYear > date("Y") || $cleanYear < 1908){
+            $result = "Please choose a valid manufacture year.";
+            echo getMessage($result);
+            include_once("../forms/selectVendorFormForInventoryAdd.php");
+            include_once("../forms/disabledAddInventoryForm.php");
         } else {
-            //if something is there, name it and get the temp location
-            $imageName = $_FILES['image']['name'];
-            $tempName = $_FILES['image']['tmp_name'];
 
-            //if there is a name
-            if(isset($imageName)){
-                //and the name is not empty
-                if(!empty($imageName)){
-                    //make a location
-                    $location = '../images/';
-                    //move image to new location
-                    for($i = 0; $i < count($imageName); $i++) {
-                        if(move_uploaded_file($tempName[$i], $location . $imageName[$i])){
-                            $imagePath[$i] = "/images/" . $imageName[$i];
+            //create an object to pass the addInventory function
+            $inventory = array(
+                "car_id" => $inventoryId,
+                "vendor_id" => $vendorId,
+                "vin_num" => $vinNum,
+                "trim" => $trim,
+                "make" => $make,
+                "year" => $cleanYear,
+                "mileage" => $cleanMileage,
+                "fuel_type" => $fuelType,
+                "engine_type" => $engineType,
+                "transmission" => $transmission,
+                "mpg" => $cleanMpg,
+                "color" => $color,
+                "drive_train" => $driveTrain,
+                "type_of_car" => $typeOfCar,
+                "date_of_arrival" => $dateOfArrival,
+                "date_sold" => $dateSold,
+                "price" => $cleanPrice,
+                "description" => $description,
+                "model" => $model
+            );
+            if($pk = addInventory($db, $inventory)){//Adds inventory and returns the primary key.
+                $result = "Inventory added";
+                echo getMessage($result);
+            } else {
+                $result = "There was a problem adding the inventory";
+                echo getMessage($result);
+            }
+
+            //if no files have been uploaded here set $_FILE to null
+            if(!isset($_FILES['image'])){
+                $_FILES['image']['name'] = null;
+            } else {
+                //if something is there, name it and get the temp location
+                $imageName = $_FILES['image']['name'];
+                $tempName = $_FILES['image']['tmp_name'];
+
+                //if there is a name
+                if(isset($imageName)){
+                    //and the name is not empty
+                    if(!empty($imageName)){
+                        //make a location
+                        $location = '../images/';
+                        //move image to new location
+                        for($i = 0; $i < count($imageName); $i++) {
+                            if(move_uploaded_file($tempName[$i], $location . $imageName[$i])){
+                                $imagePath[$i] = "/images/" . $imageName[$i];
+                            }
                         }
+                    } else {
+                        $result = "please choose a file";
+                        echo getMessage($result);
                     }
-                } else {
-                    echo "please choose a file";
                 }
             }
+            $result = addImages($db, $pk, $imagePath);
+            echo getMessage($result);
+
+            include_once("../forms/selectVendorFormForInventoryAdd.php");
+            include_once("../forms/disabledAddInventoryForm.php");
         }
-        $result = addImages($db, $pk, $imagePath);
-        echo getMessage($result);
 
         break;
 }

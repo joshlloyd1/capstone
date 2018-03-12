@@ -114,12 +114,14 @@ switch($action){
             "description" => $description,
             "model" => $model
         );
-        if(!isset($_POST['keepImage'])) {
-            //if keep image checkbox not checked - user does not want to keep images
+        if(isset($_POST['changeImage'])) {
+            //if change image checkbox is checked - user does not want to keep images
+
             //delete all images with inventory PK
             $deleteImages = deleteImages($db, $carId);
 
             //add new images with PK
+
             //if no files have been uploaded here set $_FILE to null
             if (!isset($_FILES['image'])) {
                 $_FILES['image']['name'] = null;
@@ -145,16 +147,40 @@ switch($action){
                     }
                 }
             }
-            addImages($db, $_SESSION['car_id'], $imagePath);
-        } else{ //checkbox is checked - do want to keep images
+
+            $result = addImages($db, $_SESSION['car_id'], $imagePath);
+            echo getMessage($result);
+
             $result = updateInventory($db, $inventory);
             echo getMessage($result);
+
+            include_once("../forms/selectModelFormForInventoryUpdate.php");
+            include_once("../forms/disabledEditInventoryForm.php");
+
+        } else{ //checkbox is not checked - do want to keep images
+
+            $result = updateInventory($db, $inventory);
+            echo getMessage($result);
+
+            $_SESSION['model'] = "select model...";
+
+            include_once("../forms/selectModelFormForInventoryUpdate.php");
+            include_once("../forms/disabledEditInventoryForm.php");
         }
         break;
+
     case 'delete':
+
         deleteImages($db, $carId);
         $result = deleteInventory($db, $carId);
         echo getMessage($result);
+
+        $_SESSION['model'] = "select model...";
+
+        include_once("../forms/selectModelFormForInventoryUpdate.php");
+        include_once("../forms/disabledEditInventoryForm.php");
+
+
         break;
 }
 

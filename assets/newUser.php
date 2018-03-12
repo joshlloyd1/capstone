@@ -7,6 +7,7 @@
  */
 include_once ('dbconnect.php');
 
+
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? null;
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING) ?? "";
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING) ?? "";
@@ -61,23 +62,74 @@ switch ($action) {
 }
 include_once ("footer.html");
 function AddUser($firstName = "", $lastName = "", $phoneNum = "", $email = "", $username = "", $password = "", $passwordRE = "") {
-    $form = "<div style='position:relative; text-align:center; width:100%;background-color:#f7f7f7; height:375px;'><section><form method='post' action=/htdocs/capstone/index.php>
-        <h1 style='float:right; padding-right:250px;'>New User</h1><br><BR>
-        <div style='position:absolute; right:30%;'><br>
-        <input type='firstName' name='firstName' id = 'firstName' style='text-align:center;' placeholder='First Name' value='$firstName'/>
-        <input type='lastName' name='lastName' id = 'lastName' style='text-align:center;' placeholder='Last Name' value='$lastName'/><br><br>
-        <input type='phoneNum' name='phoneNum' id = 'phoneNum' style='text-align:center;' placeholder='Phone Number' value='$phoneNum'/>
-                <input type='text' name='email' id = 'email' style='text-align:center;' placeholder='Email' value='$email'/><br><br>
-            <input type='text' name='username' id = 'username' style='text-align:center;' placeholder='Username' value='$username'/><br>
-
-        <input type='password' name='password' id = 'password' style='text-align:center;' placeholder='Password' value='$password'/><br>
-        <input type='password' name='passwordRE' id = 'passwordRE' style='text-align:center;' placeholder='Re Enter Password' value='$passwordRE'/><br>
-        <br>
-        <input type='hidden' name='action' value='submit' />
-        <input type='submit' /><br><label for='nothing' ></label>
-        </div>
-        <div style='float: left; position: absolute; top:11px; left:7%;' ><img src='images/car.jpg' width='400px' height='350px'></div>
-
-    </form></section></div>";
+    $form = "<div style='position:relative; width:100%; background-color:#f7f7f7; height:375px;'>
+    <section>
+           <div style='float:right; width:25%; margin-right:300px; margin-top:28px;'>
+                 <h1>Sign Up!</h1><br>
+                 <form method='post' action=/htdocs/capstone/index.php>
+                 
+                 <div class='row'>
+                    <div class='col-12'>
+                        <div class='form-group'>                     
+                            <input type='text' name='username' id='username' class='form-control'  placeholder='Username' value='$username'/>
+                        </div>
+                    </div>                   
+                 </div>
+                 
+                 <div class='row'>
+                    <div class='col-6'>
+                        <div class='form-group'>                     
+                            <input type='text' name='firstName' id='firstName' class='form-control form-control-sm'  placeholder='First Name' value='$firstName'/> 
+                        </div>
+                    </div>
+                  
+                    <div class='col-6'>
+                        <div class='form-group'>   
+                            <input type='text' name='lastName' id='lastName' class='form-control form-control-sm'  placeholder='Last Name' value='$lastName'/>
+                         </div>   
+                    </div>
+                 </div>
+                 
+                 <div class='row'>
+                    <div class='col-6'>
+                        <div class='form-group'>                     
+                            <input type='password' name='password' id='password' class='form-control form-control-sm'  placeholder='Password' value='$password'/>
+                        </div>
+                    </div>
+                    <div class='col-6'>
+                        <div class='form-group'>   
+                            <input type='password' name='passwordRE' id='passwordRE' class='form-control form-control-sm'  placeholder='Re Enter Password' value='$passwordRE'/>
+                        </div>   
+                    </div>
+                 </div>
+                 
+                 <div class='row'>
+                    <div class='col-6'>
+                        <div class='form-group'>                       
+                            <input type='text' name='phoneNum' id='phoneNum' class='form-control form-control-sm'  placeholder='Phone Number' value='$phoneNum'/>
+                        </div>
+                    </div>
+                  
+                    <div class='col-6'>
+                        <div class='form-group'>
+                            <input type='text' name='email' id='email' class='form-control form-control-sm'  placeholder='Email' value='$email'/>
+                        </div>   
+                    </div>
+                   
+                 </div>
+                 
+                 <div class='row'>
+                    <div class='col-12'>
+                        <div class='form-group'>                     
+                            <input type='hidden' name='action' value='submit' />
+                        <input type='submit' class='btn btn-outline-secondary' /><br><label for='nothing' ></label>
+                        </div>
+                    </div>
+                 </div>
+           </div>
+           </form>
+           <div style='float:left; margin-left:300px; margin-top:36px;'><img src='images/car.jpg' width='400px'></div>
+    </section>
+</div>";
     return $form;
 }

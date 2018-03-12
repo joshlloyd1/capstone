@@ -37,7 +37,15 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtPrice">Price</label>
-                    <input type="text" class="form-control" id="txtPrice" name="price" placeholder="Price" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtPrice"
+                           name="price"
+                           placeholder="Price"
+                           required pattern="^(\d+|\d{1,3}(,\d{3})*)(\.\d+)?$"
+                           data-toggle="tooltip"
+                           title="Please, no dollar signs"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
@@ -71,7 +79,15 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMileage">Mileage</label>
-                    <input type="text" class="form-control" id="txtMileage" name="mileage" placeholder="Mileage" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtMileage"
+                           name="mileage"
+                           placeholder="Mileage"
+                           required pattern="^(\d+|\d{1,3}(,\d{3})*)(\.\d+)?$"
+                           data-toggle="tooltip"
+                           title="please only enter numbers"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
@@ -91,7 +107,14 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMpg">Miles Per Gallon</label>
-                    <input type="text" class="form-control" id="txtMpg" name="mpg" placeholder="Miles Per Gallon" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtMpg" name="mpg"
+                           placeholder="Miles Per Gallon"
+                           required pattern="^\d+$"
+                           data-toggle="tooltip"
+                           title="Please only enter numbers"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
@@ -157,7 +180,14 @@ $dropdown = getVendorsDropDown($db);
                 </div>
                 <div class="form-group">
                     <label for="txtYear">Year</label>
-                    <input type="text" class="form-control" id="txtYear" name="year" placeholder="Year" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtYear" name="year"
+                           placeholder="Year"
+                           required pattern="^\d+$"
+                           data-toggle="tooltip"
+                           title="Please enter numbers only"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">

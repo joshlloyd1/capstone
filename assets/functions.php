@@ -17,12 +17,11 @@ function addImages($db, $pk, $imagePath){
             $sql->bindParam(':car_id', $pk);
             $sql->bindParam(':image_location', $image_location);
             $sql->execute();
-            $message = $sql->rowCount() . " records added.";
-
         }
+        $message = "Image added";
         return $message;
     }catch(PDOException $e){
-        die($e);
+        die("There was a problem connecting to the database");
     }
 }
 function addInventory($db, $inventory){
@@ -88,34 +87,9 @@ function addEmployee($db, $f_name, $l_name, $email, $phone_number, $username, $p
     $sql->execute();
 
     if ($sql) {
-        $str = " User entered successfully";
+        $str = "<h5>User entered successfully</h5>";
     }
     return $str;
-}
-function addUser($firstName = "", $lastName = "", $phoneNum = "", $email = "", $username = "", $password = "", $passwordRE = "") {
-    $form = "<div style='position:relative; margin:auto; text-align:center; border:1px solid black; width:400px;'><section><form method='post' action='NewUser.php'>
-        <h1>New User</h1>
-        <label for='firstName'>First Name: </label><br>
-        <input type='firstName' name='firstName' id = 'firstName' style='text-align:center;' value='$firstName'/><br>
-        <label for='lastName'>Last Name: </label><br>
-        <input type='lastName' name='lastName' id = 'lastName' style='text-align:center;' value='$lastName'/><br>
-        <label for='phoneNum'>Phone Number: </label><br>
-        <input type='phoneNum' name='phoneNum' id = 'phoneNum' style='text-align:center;' value='$phoneNum'/><br>
-
-        <label for='email'>Email: </label><br>
-                <input type='text' name='email' id = 'email' style='text-align:center;' value='$email'/><br>
-        <label for='username'>Username: </label><br>
-            <input type='text' name='username' id = 'username' style='text-align:center;' value='$username'/><br>
-
-        <label for='password'>Password: </label><br>
-        <input type='password' name='password' id = 'password' style='text-align:center;' value='$password'/><br>
-        <label for='passwordRE'>Re enter Password: </label><br>
-        <input type='password' name='passwordRE' id = 'passwordRE' style='text-align:center;' value='$passwordRE'/><br>
-        
-        <input type='hidden' name='action' value='submit' />
-        <input type='submit' />
-    </form></section></div>";
-    return $form;
 }
 function addVendor($db, $vendor){
     try{
@@ -143,7 +117,7 @@ function addVendor($db, $vendor){
         $sql->bindParam(':vendorState', $vendorState);
         $sql->bindParam(':vendorZipCode', $vendorZipCode);
         $sql->execute();
-        $message = $sql->RowCount() . " Rows inserted.";
+        $message = $vendorName . " added to vendors.";
 
         return $message;
     }catch(PDOException $e){
@@ -163,7 +137,7 @@ function checkUserCustomer($db, $customer_username, $password, $hash) {
                 $user_id = $results['customer_id'];
                 $bln = $user_id;
             } else {
-                $bln = -1;
+                $bln = 0;
             }
         } else {
             $bln = 0;
@@ -186,13 +160,171 @@ function checkUserEmployee($db, $username, $password, $hash) {
                 $user_id = $results['employee_id'];
                 $bln = $user_id;
             } else {
-                $bln = -1;
+                $bln = 0;
             }
         } else {
-            $bln = -2;
+            $bln = 0;
         }
+    } else {
+        $bln = -2;
     }
     return $bln;
+}
+function customerApp($db, $customer_id) { // NEXT TO WORK ON, THE JOIN STATEMENT FOR THE EMPLOYEE NAMES
+    $sql = $db->prepare("SELECT appointments.appointment_id as appointment_id, appointments.appointment as appointment, employees.f_name as f_name, employees.l_name as l_name,appointments.approve as approve 
+  FROM appointments 
+  INNER JOIN employees 
+  ON appointments.employee_id = employees.employee_id 
+  WHERE appointments.customer_id = :customer_id");
+
+    $binds = array(
+        ":customer_id" => $customer_id
+    );
+    $results = array();
+    if($sql->execute($binds) && $sql->rowCount() > 0) {
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        $table = "<table class='table table striped'>";
+        $table .= "<tr class='reg'><td>Date</td><td>Name of Employee</td><td>Status</td></tr>";
+        foreach($results as $result) {
+            if($result['approve'] == 0) {$approve = "Not Approved";} else{$approve = "Approved";}
+            $table .= "</td><td>" . $result['appointment'] . "</td><td>" . $result['f_name'] . " " . $result['l_name'] . "</td><td>approved: " . $approve . "</td></tr>";
+        }
+        $table .= "</table>";
+    } else {
+        $table = "There are no scheduled appointments.";
+    }
+    return $table;
+}
+function customerViewInventory($db, $vendor_id, $type_of_car, $mileage, $price) { // function that grabs information given through the sort form and displays inventory based on the variables passed through function
+    $query = "SELECT inventory.car_id as car_id, inventory.vendor_id as vendor_id, inventory.trim as trim, inventory.year as year, inventory.mileage as mileage, inventory.fuel_type as fuel, inventory.model as model, inventory.price as price,
+    photos.photo_id as photo_id, photos.car_id as car_id, photos.photo_front as photo, vendors.vendor_id, vendors.vendor_name as vendor, inventory.mpg as mpg, inventory.engine_type as engine, inventory.color as color, inventory.type_of_car as type 
+    FROM inventory
+    INNER JOIN photos
+    ON inventory.car_id = photos.car_id
+    INNER JOIN vendors
+    ON inventory.vendor_id = vendors.vendor_id ";
+
+    if($vendor_id == "All Makes" && $type_of_car == "All Types" && $mileage == "All Miles" && $price == "All Prices") {
+        $query .= " WHERE 1 = 1 ";
+    }
+    if($vendor_id != "All Makes") {
+        $query .= " WHERE inventory.vendor_id = :vendor_id "; }
+
+    if($type_of_car != "All Types") {
+        if ($vendor_id == "All Makes") {
+            $query .= " WHERE type_of_car = :type_of_car ";
+        } else {
+            $query .= " AND type_of_car = :type_of_car ";
+        }
+    }
+    if($mileage != "All Miles") {
+        if($vendor_id == "All Makes" || $type_of_car == "All Types") {
+            $query .= "WHERE mileage < :mileage ";
+        } else {
+            $query .= " AND mileage < :mileage ";
+        }
+    }
+
+    if($price == "ASC") {
+        $query .= " ORDER BY price ASC ";
+    }
+    if($price == "DESC") {
+        $query .= " ORDER BY price DESC ";
+    }
+
+    $sql = $db->prepare($query);
+    if($vendor_id != "All Makes") { $sql->bindParam(':vendor_id', $vendor_id); }
+    if($type_of_car != "All Types") {$sql->bindParam(':type_of_car', $type_of_car); }
+    if($mileage != "All Miles") { $sql->bindParam(':mileage', $mileage); }
+
+    if($sql->execute() && $sql->rowCount() > 0) {
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        $table = "<center><table>";
+        foreach($results as $result) {
+            $table .= "<tr><td style='padding-right: 10px;'><a href='customerViewACar.php?car_id=" . $result['car_id'] . "'><img src='/htdocs/capstone/images/" . $result['photo'] . "'  width='310' height='200'/></a></td>";
+            $table .= "<td><b><a href='customerViewACar.php?car_id=" . $result['car_id'] . "'>" . $result['year'] . " " . $result['vendor'] . " " . $result['model'] . " " .  $result['trim'] . "</a></b>
+            <Br><br>Engine: " . $result['engine']. "<br>Mileage: " . $result['mileage'] . "<br>MPG: " . $result['mpg'] . "</td>";
+            $table .= "<td><br><br>Color: " . $result['color'] . "<br>Fuel: " . $result['fuel'] . "<br>Type: " . $result['type'] . "</td>";
+            $table .= "<td align='right' width='200;'><p style='color:firebrick'><b> $" . $result['price'];
+            $table .= ".00</p></b></td></tr>";
+        }
+        $table .= "</table></center>";
+
+    }
+    else {
+        $table = "<h5 style='color:red'>There is nothing in the inventory with the credentials vendor id: \""  . $vendor_id . "\", \"" . $type_of_car . "\" and \"" .  $mileage . "\" </h5>";
+    }
+    return $table;
+}
+function customerShowCarInfo($db, $car_id, $from) {
+    $sql = $db->prepare("SELECT inventory.car_id as car_id, inventory.vendor_id as vendor_id, inventory.trim as trim, inventory.year as year, inventory.mileage as mileage, inventory.fuel_type as fuel, inventory.model as model,
+ inventory.price as price, photos.photo_id as photo_id, photos.car_id as car_id, photos.photo_front as photo, vendors.vendor_id, vendors.vendor_name as vendor, inventory.mpg as mpg, inventory.engine_type as engine, 
+ inventory.color as color, inventory.type_of_car as type, inventory.vin_num as vin_num, inventory.transmission as trans, inventory.drive_train as drive_train, inventory.description as description, photos.photo_back as back,
+ photos.photo_side as side, photos.photo_interior as interior 
+    FROM inventory
+    INNER JOIN photos
+    ON inventory.car_id = photos.car_id
+    INNER JOIN vendors
+    ON inventory.vendor_id = vendors.vendor_id 
+    WHERE inventory.car_id = :car_id");
+    $sql->bindParam(":car_id", $car_id);
+
+
+
+    if($sql->execute() && $sql->rowCount() > 0) {
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($results as $result) {
+            $int = intval($result['price']);
+            $payment = $int / 60;
+
+            $car = "<div style='width:1500px; margin-left: -190px; margin-top: -95px;'><h1>" . $result['year'] . " " . $result['vendor'] . " " . $result['model'] . " " . $result['trim'] . "<p style='float: right;'>";
+
+            if($from != "customer") { $car.= "<a href='inventory.php'><button class='btn-success'>Return</button></a></p></h1><hr>"; }
+            if($from == "customer") { $car.= "<a href='customerInventory.php'><button class='btn-success'>Return make me an icon</button></a></p></h1><hr>"; }
+
+            $car .= "<div class='incar'><table><tr><td><img src='/htdocs/capstone/images/" . $result['photo'] . "' width='610' height='400'></td>&nbsp;&nbsp;&nbsp;&nbsp;<td> <p style='font-size: 42; color: firebrick;'><b>$" . $result['price'] . ".00</p></b>
+            <br><p style='font-size: 18'>&#x2714; Est. Payment Over 5 years $" . number_format($payment, 2, '.', ',') . " a month!<br>
+            &#x2714; All cars get the same 270 point inspection<br>";
+            if($from == "customer") {
+                $car .= "<button class='btn-success'>Add To Saved Cars!</button>"; }
+            if($from != "customer") {
+                $car .= "&#x2714;<a href='/htdocs/capstone/index.php'>JOIN the community</a> for a better car buying expierence!";
+            }
+            $car .= "</td></tr></table></div><br><div class= 'descript' style='border: solid black;'>
+
+                <div style='background-color: white; position: relative; right:100px; top: 10px; float:right; width:15%; border: 2px solid black;'>
+                        <table><tr><td align='right'>Model:</td><td>" . $result['model'] . "</td></tr>
+                        <tr><td align='right'>Trim: </td><td>" . $result['trim'] . "</td></tr>
+                        <tr><td align='right'>Year: </td><td>" . $result['year'] . "</td></tr>
+                        <tr><td align='right'>Type: </td><td>" . $result['type'] . "</td></tr>
+                        <tr><td align='right'>Color: </td><td>" . $result['color'] . "</td></tr>
+                        <tr><td align='right'>Mileage: </td><td>" . $result['mileage'] . "</td></tr>
+                        <tr><td align='right'>Engine: </td><td>" . $result['engine'] . "</td></tr>
+                        <tr><td align='right'>Transmission: </td><td>" . $result['trans'] . "</td></tr>
+                        <tr><td align='right'>Fuel Type: </td><td>" . $result['fuel'] . "</td></tr>
+                        <tr><td align='right'>MPG: </td><td>" . $result['mpg'] . "</td></tr></table>
+                    </div>
+                    
+                    <div style='width: 70%;'>
+                    <h1 style='margin-left: 12.5px;'>Description:<br></h1><p style='margin-left: 25px;'>" . $result['description'] . "</p></div>
+                    <br>";
+
+            $car .= "</div> <div style='margin: auto;'>
+            <center><img src='/htdocs/capstone/images/". $result['photo'] . "' height='720' width='1280'><br><br>
+            <img src='/htdocs/capstone/images/". $result['back'] . "' height='720' width='1280'><br><br>
+            <img src='/htdocs/capstone/images/". $result['side'] . "' height='720' width='1280'><br><br>
+            <img src='/htdocs/capstone/images/". $result['interior'] . "' height='720' width='1280'><br><br></center>";
+
+            $car .= "</div></div>";
+        }
+    } else {
+        $car = "<h3>This car is not available for viewing right now, sorry</h3>";
+    }
+
+    return $car;
 }
 function deleteAVendor($db, $vendorId){
     try{
@@ -235,6 +367,14 @@ function employeeJobs() {
     return $btns;
 
 }
+function findUserName($db, $customer_id) {
+    $sql = $db->prepare("SELECT * FROM customers WHERE customer_id = :customer_id");
+    $sql->bindParam(':customer_id', $customer_id);
+
+    $sql->execute();
+    $username = $sql->fetch(PDO::FETCH_ASSOC);
+    return $username;
+}
 function getCredentials($db, $employee_id) {
     $sql = $db->prepare("SELECT * FROM employees WHERE employee_id = :employee_id");
     $binds = array(
@@ -247,6 +387,33 @@ function getCredentials($db, $employee_id) {
         $results = "there was a problem accessing your data";
     }
     return $results;
+}
+function getCustomer($db, $customer_id) {
+    $sql = $db->prepare("SELECT * FROM customers WHERE :customer_id = customer_id");
+    $sql->bindParam(":customer_id", $customer_id);
+    $sql->execute();
+
+    $results = $sql->fetch(PDO::FETCH_ASSOC);
+
+    return $results;
+}
+function getCarTypesList($db) {
+    $sql = $db->prepare("SELECT DISTINCT type_of_car FROM inventory");
+    $types = array();
+    if($sql->execute() && $sql->rowCount() > 0) {
+        $types = $sql->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $types = "there are no cars in our db.";
+    }
+    return $types;
+
+}
+function getEmployeeNames($db) {
+    $sql = $db->prepare("SELECT * FROM employees");
+    $sql->execute();
+
+    $employees = $sql->fetchALL(PDO::FETCH_ASSOC);
+    return $employees;
 }
 function getVendorsDropDown($db){
     try{
@@ -280,7 +447,7 @@ function getModelsDropDown($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $dropDown = "" . PHP_EOL;
             foreach($models as $model){
-                $dropDown .= "<button type='submit' class='dropdown-item' name='carId' value='" . $model['car_id'] . "'>" . $model['year']  . " " .  $model['model'] . ", " . $model['trim'] . ", " . $model['type_of_car'] . "</button>";
+                $dropDown .= "<button type='submit' class='dropdown-item' name='carId' value='" . $model['car_id'] . "'>" . $model['year']  . " " . $model['make'] . " " .  $model['model'] . ", " . $model['trim'] . ", " . $model['type_of_car'] . "</button>";
             }  //passes vendor id and vendor name
             $dropDown .= "<input type='hidden' name='action' value='got model'>"; //passes "got vendor" to action
         } else { //if there is not any data, say so.
@@ -302,22 +469,31 @@ function getVendorsAsTable($db){
         if($sql->rowCount() > 0){ //if there is data, pop it out into a dropdown.
             $displayVendors = "<div class='container' id='viewVendors'>" . PHP_EOL;
             foreach($vendors as $vendor){
+                //adding parentheses to format phone number
+                $first3digits = substr($vendor['vendor_phone'], 0, 3);
+                $next3digits = substr($vendor['vendor_phone'], 3, 3);
+                $replace = "(" . $first3digits . ")" . $next3digits . "-";
+                $vendorPhone = substr_replace($vendor['vendor_phone'], $replace, 0, 6 );
+
+
                 //row
                 $displayVendors .= "<div class='row'>";
                 //col 1
 
-                //col 2
-                $displayVendors .= "<div class='col-lg-12'>";
+                $displayVendors .= "<div class='col-lg-4'>";
                 $displayVendors .= "<h2>" . $vendor['vendor_name'] . "</h2>";
-                $displayVendors .= "<span>" . "Contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
-                $displayVendors .= "<span>" . "phone: " . $vendor['vendor_phone'] . "</span>" . "</br>";
+                $displayVendors .= "<span>" . "contact: " .  $vendor['vendor_contact_fname'] . " " . $vendor['vendor_contact_lname'] . "</span>" . "</br>";
+                $displayVendors .= "<span>" . "phone: " . $vendorPhone . "</span>" . "</br>";
                 $displayVendors .= "<span>" . "email: " . $vendor['vendor_email'] . "</span>" . "</br>";
                 $displayVendors .= "<span>" .  $vendor['vendor_city'] . ", " . $vendor['vendor_state'] . "</span>" . "</br>";
                 $displayVendors .= "<span>" . $vendor['vendor_country'] . ", " .  $vendor['vendor_zipcode'] . "</span>" . "</br>";
-                $displayVendors .= "</br>";
+                $displayVendors .= "</br><hr>";
                 $displayVendors .= "</br>";
                 $displayVendors .= "</div>";
 
+                //col 2
+                $displayVendors .= "<div class='col-lg-8'>";
+                $displayVendors .= "</div>";
 
                 $displayVendors .= "</div>";
             }
@@ -331,6 +507,17 @@ function getVendorsAsTable($db){
     }catch(PDOException $e){ //if it fails, throw the exception and display error message.
         die("There was a problem creating drop down");
     }
+}
+function getVendorsList($db) {
+    $sql = $db->prepare("SELECT * FROM vendors ORDER BY vendor_id");
+    $vendors = array();
+    if($sql->execute() && $sql->rowCount() > 0) {
+        $vendors = $sql->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $vendors = "there are no vendors in our db.";
+    }
+    return $vendors;
+
 }
 function getInventoryAsTable($db){
     try{
@@ -379,7 +566,7 @@ function getInventoryAsTable($db){
                 $displayProds .= "<span>" . "Vin Number: " . $product['vin_num'] . "</span>" . "</br>";
                 $displayProds .= "<span>" . "Date of arrival: " . $product['date_of_arrival'] . "</span>" . "</br>";
                 $displayProds .= "<span>" . "Price: " . $product['price'] . "</span>" . "</br>";
-                $displayProds .= "</br>";
+                $displayProds .= "</br><hr>";
                 $displayProds .= "</br>";
                 $displayProds .= "</div>";
 
@@ -387,7 +574,7 @@ function getInventoryAsTable($db){
                 $displayProds .= "<div class='col-lg-4'>";
                 $displayProds .= "<div class='flex-container'>";
                 foreach($images as $image){
-                    $displayProds .= "<div>";
+                    $displayProds .= "<div class='flexItem'>";
                     $displayProds .= "<img src='.." . $image['image_location'] . "' alt='' height='140px' width='auto'>";
                     $displayProds .= "</div>";
 
@@ -468,19 +655,55 @@ function getTheTeam($db) {
     return $table;
 }
 function loginForm($username = "", $password = "") { // displays the login form
-    $form = "<div style='position:relative; margin:auto; text-align:center; border:1px solid black; width:400px; margin-top: 65px;'><section>
-    <form method='post' action='LogIn.php'>
-        <h1>Log In</h1>
-        <label for='email'>Username: </label><br>
-                <input type='text' name='username' id = 'username' style='text-align:center;' value='$username'/><br>
-        <label for='password'>Password: </label><br>
-        <input type='password' name='password' id = 'password' style='text-align:center;' value='$password'/><br>
+    //style='position:relative; margin:auto; text-align:center; border:1px solid black; width:400px; margin-top: 65px;'<div class="row">
+    $form = "<div class='container' style='margin: auto'>
+        <div class='col-lg-4'>
+            <div class='form-group'>
+                <h1>Log In</h1>
+                <form method='post' action = 'LogIn.php'>
+                <label for='email'>Username: </label><br>
+                    <input type='text' name='username' id = 'username' style='text-align:center; margin: auto;' value='$username' class='form-control'/><br>
+                <label for='password'>Password: </label><br>
+                    <input type='password' name='password' id = 'password' style='text-align:center;' value='$password' class='form-control'/><br>
+    
+                    <input type='hidden' name='action' value='submit' />
+                    <input type='submit' class='btn btn-primary' />
+                    </form>
+            </div>
+        </div>
+    </div>";
 
-        <input type='hidden' name='action' value='submit' />
-        <input type='submit' />
-    </form></section></div>";
     return $form;
 
+}
+function myAppointments($db, $employee_id) {
+    $sql = $db->prepare("SELECT customers.customer_id, appointments.appointment_id as appointment_id, appointments.appointment as appointment, customers.customer_fname as fName, customers.customer_lName as lName, appointments.approve as approve 
+  FROM appointments 
+  INNER JOIN customers
+  ON appointments.customer_id = customers.customer_id 
+  WHERE employee_id = :employee_id");
+    $binds = array(
+        ":employee_id" => $employee_id
+    );
+    if($sql->execute($binds) && $sql->rowCount() > 0) {
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        $table = "<table class='table'>";
+        $table .= "<thead class='thead-dark'><tr class='reg'><th>#</th><th>Date</th><th>Time</th><th>Customer Name</th><th>Approved</th><th>Delete</th></tr></thead>";
+        foreach($results as $result) {
+            $date = date_create($result['appointment']);
+            if($result['approve'] == 1) {
+                $table .= "</td><td>" . $result['appointment_id'] . "</td><td>" . date_format($date, "m/d/Y") . "</td><td>" . date_format($date, 'h:i a') . "</td><td>" . $result['fName'] . " " . $result['lName'] . "</td><td><a href='approve.php?appointment_id=" . $result['appointment_id'] . "'><button disabled class='btn'>Approved</button></a></td><td><a href='adminDeleteAppointment.php?appointment_id=" . $result['appointment_id'] . "'><button class='btn1'><i id='trash' class='fa fa-trash'></i></button></a></td>";
+            }
+            if($result['approve'] == 0) {
+                $table .= "</td><td>" . $result['appointment_id'] . "</td><td>" . date_format($date, "m/d/Y") . "</td><td>" . date_format($date, 'h:i a') . "</td><td>" . $result['fName'] . " " . $result['lName'] . "</td><td><a href='approve.php?appointment_id=" . $result['appointment_id'] . "'><button class='btn'>Approve</button></a></td><td><a href='adminDeleteAppointment.php?appointment_id=" . $result['appointment_id'] . "'><button class='btn1'><i id='trash' class='fa fa-trash'></i></button></a></td>";
+            }
+            $table .= "</tr>";
+        }
+    } else {
+        $table = "<h4>You have no scheduled appointments</h4>";
+    }
+    return $table;
 }
 function newUser($newpage) { // brings user to a new page based on what the $newpage variable supplied is
     $form = "<div style='float:right'><form method='post' action='LogIn.php' ";
@@ -534,6 +757,133 @@ function storeNewUser($db, $customer_fname, $customer_lname, $customer_email, $c
     }
     return $str;
 }
+function scheduleApp($db, $employee_id, $customer_id, $appointment) {
+    $approve = 0;
+    $sql = $db->prepare("INSERT INTO appointments VALUES (null, :appointment, :employee_id, :customer_id, :approve)");
+
+    $sql->bindParam(':appointment', $appointment);
+    $sql->bindParam(':employee_id', $employee_id);
+    $sql->bindParam(':customer_id', $customer_id);
+    $sql->bindParam(':approve', $approve);
+
+    $sql->execute();
+    $ret = $sql->RowCount() . " appoint requested";
+
+    return $ret;
+}
+function showCarInfo($db, $car_id, $from) {
+    $sql = $db->prepare("SELECT inventory.car_id as car_id, inventory.vendor_id as vendor_id, inventory.trim as trim, inventory.year as year, inventory.mileage as mileage, inventory.fuel_type as fuel, inventory.model as model,
+ inventory.price as price, photos.photo_id as photo_id, photos.car_id as car_id, photos.photo_front as photo, vendors.vendor_id, vendors.vendor_name as vendor, inventory.mpg as mpg, inventory.engine_type as engine, 
+ inventory.color as color, inventory.type_of_car as type, inventory.vin_num as vin_num, inventory.transmission as trans, inventory.drive_train as drive_train, inventory.description as description, photos.photo_back as back,
+ photos.photo_side as side, photos.photo_interior as interior 
+    FROM inventory
+    INNER JOIN photos
+    ON inventory.car_id = photos.car_id
+    INNER JOIN vendors
+    ON inventory.vendor_id = vendors.vendor_id 
+    WHERE inventory.car_id = :car_id");
+    $sql->bindParam(":car_id", $car_id);
+
+
+
+    if($sql->execute() && $sql->rowCount() > 0) {
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($results as $result) {
+            $int = intval($result['price']);
+            $payment = $int / 60;
+
+            $car = "<div class='showcar'><h1>" . $result['year'] . " " . $result['vendor'] . " " . $result['model'] . " " . $result['trim'] . "<p style='float: right;'>";
+
+            if($from != "customer") { $car.= "<a href='inventory.php'><button class='btn-success'>Return</button></a></p></h1><hr>"; }
+            if($from == "customer") { $car.= "<a href='customerInventory.php'><button class='btn-success'>Return make me an icon</button></a></p></h1><hr>"; }
+
+            $car .= "<div class='incar'><table><tr><td><img src='/htdocs/capstone/images/" . $result['photo'] . "' width='610' height='400'></td>&nbsp;&nbsp;&nbsp;&nbsp;<td> <p style='font-size: 42; color: firebrick;'><b>$" . $result['price'] . ".00</p></b>
+            <br><p style='font-size: 18'>&#x2714; Est. Payment Over 5 years $" . number_format($payment, 2, '.', ',') . " a month!<br>
+            &#x2714; All cars get the same 270 point inspection<br>";
+            if($from == "customer") {
+                $car .= "<button class='btn-success'>Add To Saved Cars!</button>"; }
+            if($from != "customer") {
+                $car .= "&#x2714;<a href='/htdocs/capstone/index.php'>JOIN the community</a> for a better car buying expierence!";
+            }
+            $car .= "</td></tr></table></div><br><div class= 'descript' style='border: solid black;'>
+
+                <div style='background-color: white; position: relative; right:100px; top: 10px; float:right; width:15%; border: 2px solid black;'>
+                        <table><tr><td align='right'>Model:</td><td>" . $result['model'] . "</td></tr>
+                        <tr><td align='right'>Trim: </td><td>" . $result['trim'] . "</td></tr>
+                        <tr><td align='right'>Year: </td><td>" . $result['year'] . "</td></tr>
+                        <tr><td align='right'>Type: </td><td>" . $result['type'] . "</td></tr>
+                        <tr><td align='right'>Color: </td><td>" . $result['color'] . "</td></tr>
+                        <tr><td align='right'>Mileage: </td><td>" . $result['mileage'] . "</td></tr>
+                        <tr><td align='right'>Engine: </td><td>" . $result['engine'] . "</td></tr>
+                        <tr><td align='right'>Transmission: </td><td>" . $result['trans'] . "</td></tr>
+                        <tr><td align='right'>Fuel Type: </td><td>" . $result['fuel'] . "</td></tr>
+                        <tr><td align='right'>MPG: </td><td>" . $result['mpg'] . "</td></tr></table>
+                    </div>
+                    
+                    <div style='width: 70%;'>
+                    <h1 style='margin-left: 12.5px;'>Description:<br></h1><p style='margin-left: 25px;'>" . $result['description'] . "</p></div>
+                    <br>";
+
+            $car .= "</div> <div style='margin: auto;'>
+            <center><img src='/htdocs/capstone/images/". $result['photo'] . "' height='720' width='1280'><br><br>
+            <img src='/htdocs/capstone/images/". $result['back'] . "' height='720' width='1280'><br><br>
+            <img src='/htdocs/capstone/images/". $result['side'] . "' height='720' width='1280'><br><br>
+            <img src='/htdocs/capstone/images/". $result['interior'] . "' height='720' width='1280'><br><br></center>";
+
+            $car .= "</div></div>";
+        }
+    } else {
+        $car = "<h3>This car is not available for viewing right now, sorry</h3>";
+    }
+
+    return $car;
+}
+function search($brands, $types, $locate) {
+    $ret = "<div style='background-color: lightgray; font-size:20px; padding:10px;'  ><table width='100%'><form action=" . $locate . " method='get'>
+    <tr><td style='text-align:right;'>
+    Sort By Brand: </td>";
+    $ret .= "<td><select name='make' id='make' class='search'>";
+    $ret .= "<option>All Makes</option>";
+    foreach ($brands as $brand) {
+        $ret .= "<option value = " . $brand['vendor_id'] . ">" . $brand['vendor_name'] . "</option>";
+    }
+    $ret .= "</select></div>";
+    $ret .= "</td>";
+
+    $ret .= "<td style='text-align:right;'>Sort By Price:</td>";
+    $ret .= "<td><select name='price' id='price' class='search' >";
+    $ret .= "<option>All Prices</option>";
+    $ret .= "<option value = ASC>Ascending</option>";
+    $ret .= "<option value = DESC>Descending</option>";
+    $ret .= "</select></td></tr>";
+
+    $ret .= "<tr><td style='text-align:right;'>Sort By Car Type: </td>";
+    $ret .= "<td><select name='type' id='type' class='search'>";
+    $ret .= "<option>All Types</option>";
+    foreach ($types as $type) {
+        $ret .= "<option value = " . $type['type_of_car'] . ">" . $type['type_of_car'] . "</option>";
+    }
+    $ret .= "</select>";
+    $ret .= "</td>";
+
+
+    $ret .= "<td style='text-align:right;'>Sort By Mileage: </td>";
+    $ret .= "<td><select name='mileage' id='mileage' class='search'>";
+    $ret .= "<option>All Miles</option>";
+    $ret .= "<option value = 25000>Under 25,000</option>";
+    $ret .= "<option value = 50000>Under 50,000</option>";
+    $ret .= "<option value = 75000>Under 75,000</option>";
+    $ret .= "<option value = 100000>Under 100,000</option>";
+    $ret .= "<option value = 100001>Over 100,000</option>";
+    $ret .= "</select></td></tr>";
+    $ret .= "<tr><th colspan='4' align='center'><center><input type='submit' name='submit' value='Submit' class='btn-success'></center></th></tr>";
+    $ret .= "</div>";
+
+    $ret .= "</form></table></div>";
+
+    return $ret;
+}
 function updateVendor($db, $vendor){
     try{
         $update = $vendor;
@@ -561,7 +911,13 @@ function updateVendor($db, $vendor){
         $sql->bindParam(':vendor_zipcode', $vendorZipCode);
         $sql->execute();
 
-        return $sql->rowCount() . " row updated.";
+        if($sql->rowCount() < 1){
+            $result = "You made no changes to the record";
+            return $result;
+        } else{
+            $result = "Record Updated";
+            return $result;
+        }
     }catch (PDOException $e) { //if it fails, throw the exception and display error message.
         die($e);
     }
@@ -611,7 +967,13 @@ function updateInventory($db, $inventory){
         $sql->bindParam(':model', $model);
         $sql->execute();
 
-        return $sql->rowCount() . " row updated.";
+        if($sql->rowCount() < 1){
+            $result = "You made no changes to the record";
+            return $result;
+        } else{
+            $result = "Record Updated";
+            return $result;
+        }
     }catch (PDOException $e) { //if it fails, throw the exception and display error message.
         die($e);
     }
@@ -631,4 +993,66 @@ function validate($firstName, $lastName, $username, $password) {
         $ret = 3;
     }
     return $ret;
+}
+function viewInventory($db, $vendor_id, $type_of_car, $mileage, $price) { // function that grabs information given through the sort form and displays inventory based on the variables passed through function
+    $query = "SELECT inventory.car_id as car_id, inventory.vendor_id as vendor_id, inventory.trim as trim, inventory.year as year, inventory.mileage as mileage, inventory.fuel_type as fuel, inventory.model as model, inventory.price as price,
+    photos.photo_id as photo_id, photos.car_id as car_id, photos.photo_front as photo, vendors.vendor_id, vendors.vendor_name as vendor, inventory.mpg as mpg, inventory.engine_type as engine, inventory.color as color, inventory.type_of_car as type 
+    FROM inventory
+    INNER JOIN photos
+    ON inventory.car_id = photos.car_id
+    INNER JOIN vendors
+    ON inventory.vendor_id = vendors.vendor_id ";
+
+    if($vendor_id == "All Makes" && $type_of_car == "All Types" && $mileage == "All Miles" && $price == "All Prices") {
+        $query .= " WHERE 1 = 1 ";
+    }
+    if($vendor_id != "All Makes") {
+        $query .= " WHERE inventory.vendor_id = :vendor_id "; }
+
+    if($type_of_car != "All Types") {
+        if ($vendor_id == "All Makes") {
+            $query .= " WHERE type_of_car = :type_of_car ";
+        } else {
+            $query .= " AND type_of_car = :type_of_car ";
+        }
+    }
+    if($mileage != "All Miles") {
+        if($vendor_id == "All Makes" || $type_of_car == "All Types") {
+            $query .= "WHERE mileage < :mileage ";
+        } else {
+            $query .= " AND mileage < :mileage ";
+        }
+    }
+
+    if($price == "ASC") {
+        $query .= " ORDER BY price ASC ";
+    }
+    if($price == "DESC") {
+        $query .= " ORDER BY price DESC ";
+    }
+
+    $sql = $db->prepare($query);
+    if($vendor_id != "All Makes") { $sql->bindParam(':vendor_id', $vendor_id); }
+    if($type_of_car != "All Types") {$sql->bindParam(':type_of_car', $type_of_car); }
+    if($mileage != "All Miles") { $sql->bindParam(':mileage', $mileage); }
+
+    if($sql->execute() && $sql->rowCount() > 0) {
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        $table = "<center><table>";
+        foreach($results as $result) {
+            $table .= "<tr><td style='padding-right: 10px;'><a href='viewACar.php?car_id=" . $result['car_id'] . "'><img src='/htdocs/capstone/images/" . $result['photo'] . "'  width='310' height='200'/></a></td>";
+            $table .= "<td><b><a href='viewACar.php?car_id=" . $result['car_id'] . "'>" . $result['year'] . " " . $result['vendor'] . " " . $result['model'] . " " .  $result['trim'] . "</a></b>
+            <Br><br>Engine: " . $result['engine']. "<br>Mileage: " . $result['mileage'] . "<br>MPG: " . $result['mpg'] . "</td>";
+            $table .= "<td><br><br>Color: " . $result['color'] . "<br>Fuel: " . $result['fuel'] . "<br>Type: " . $result['type'] . "</td>";
+            $table .= "<td align='right' width='200;'><p style='color:firebrick'><b> $" . $result['price'];
+            $table .= ".00</p></b></td></tr>";
+        }
+        $table .= "</table></center>";
+
+    }
+    else {
+        $table = "<h5 style='color:red'>There is nothing in the inventory with the credentials vendor id: \""  . $vendor_id . "\", \"" . $type_of_car . "\" and \"" .  $mileage . "\" </h5>";
+    }
+    return $table;
 }

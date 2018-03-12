@@ -41,7 +41,17 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorPhone">Phone Number</label>
-                    <input type="text" class="form-control" id="txtVendorPhone" name="vendorPhone" value="<?php echo $_SESSION['vendor_phone'] ?>" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtVendorPhone"
+                           name="vendorPhone"
+                           placeholder="Phone Number"
+                           required pattern="^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$"
+                           data-toggle="tooltip"
+                           title="Please enter a valid 10 digit phone number ex: (123)123-1234"
+                           value="<?php echo $_SESSION['vendor_phone'] ?>"
+                    >
+
                 </div>
             </div>
             <div class="col-lg-4">
@@ -75,14 +85,23 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorZipCode">Zip Code</label>
-                    <input type="text" class="form-control" id="txtVendorZipCode" name="vendorZipCode" value="<?php echo $_SESSION['vendor_zipcode'] ?>" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtVendorZipCode"
+                           name="vendorZipCode"
+                           placeholder="Zip Code"
+                           required pattern="^[0-9]{5}(?:-[0-9]{4})?$"
+                           data-toggle="tooltip"
+                           title="Please enter a valid 5 digit zip code. ex: 01904"
+                           value="<?php echo $_SESSION['vendor_zipcode'] ?>"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtVendorState">State</label>
                     <select class="form-control" id="txtVendorState" name="vendorState" required>
-                        <option value="" selected disabled hidden><?php echo $_SESSION['vendor_state'] ?></option>
+                        <option value="<?php echo $_SESSION['vendor_state'] ?>" selected hidden><?php echo $_SESSION['vendor_state'] ?></option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
                         <option value="AZ">Arizona</option>
@@ -145,7 +164,7 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4"> <!-- start modal for delete !-->
                 <div class="container">
                     <button type="submit" name="action" class="btn btn-primary" value="execute update">Update</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#editModal">Delete</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#editModal" formnovalidate>Delete</button>
                     <div class="modal fade" id="editModal">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -167,7 +186,7 @@ $dropdown = getVendorsDropDown($db);
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-                                    <button type="submit" class="btn btn-danger" name="action" value="delete">delete</button>
+                                    <button type="submit" class="btn btn-danger" name="action" value="delete" formnovalidate>delete</button>
                                 </div>
                             </div>
                         </div>

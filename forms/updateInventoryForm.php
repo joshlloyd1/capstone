@@ -44,7 +44,16 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtPrice">Price</label>
-                    <input type="text" class="form-control" id="txtPrice" name="price" placeholder="Price" value="<?php echo $_SESSION['price'] ?>" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtPrice"
+                           name="price"
+                           placeholder="Price"
+                           value="<?php echo $_SESSION['price'] ?>"
+                           required pattern="^(\d+|\d{1,3}(,\d{3})*)(\.\d+)?$"
+                           data-toggle="tooltip"
+                           title="Please, no dollar signs"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
@@ -78,7 +87,16 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMileage">Mileage</label>
-                    <input type="text" class="form-control" id="txtMileage" name="mileage" placeholder="Mileage" value="<?php echo $_SESSION['mileage'] ?>" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtMileage"
+                           name="mileage"
+                           placeholder="Mileage"
+                           value="<?php echo $_SESSION['mileage'] ?>"
+                           required pattern="^(\d+|\d{1,3}(,\d{3})*)(\.\d+)?$"
+                           data-toggle="tooltip"
+                           title="please only enter numbers"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
@@ -98,7 +116,15 @@ $dropdown = getVendorsDropDown($db);
             <div class="col-lg-4">
                 <div class="form-group">
                     <label for="txtMpg">Miles Per Gallon</label>
-                    <input type="text" class="form-control" id="txtMpg" name="mpg" placeholder="Miles Per Gallon" value="<?php echo $_SESSION['mpg'] ?>" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtMpg" name="mpg"
+                           placeholder="Miles Per Gallon"
+                           value="<?php echo $_SESSION['mpg'] ?>"
+                           required pattern="^\d+$"
+                           data-toggle="tooltip"
+                           title="Please only enter numbers"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
@@ -119,7 +145,7 @@ $dropdown = getVendorsDropDown($db);
                 <div class="form-group">
                     <label for="fuelType">Fuel Type</label>
                     <select class="form-control" id="fuelType" name="fuelType" required>
-                        <option value="" selected disabled hidden><?php echo $_SESSION['fuel_type'] ?></option>
+                        <option value="<?php echo $_SESSION['fuel_type'] ?>" selected hidden><?php echo $_SESSION['fuel_type'] ?></option>
                         <option name="fuelType" value="Gas">Gas</option>
                         <option name="fuelType" value="Diesel">Diesel</option>
                         <option name="fuelType" value="Electric">Electric</option>
@@ -132,7 +158,7 @@ $dropdown = getVendorsDropDown($db);
                     <div class="form-group">
                         <label for="typeOfCar">Type</label>
                         <select class="form-control" id="typeOfCar" name="typeOfCar" required>
-                            <option value="" selected disabled hidden><?php echo $_SESSION['type_of_car'] ?></option>
+                            <option value="<?php echo $_SESSION['type_of_car'] ?>" selected hidden><?php echo $_SESSION['type_of_car'] ?></option>
                             <option name="typeOfCar" value="Sedan">Sedan</option>
                             <option name="typeOfCar" value="Coupe">Coupe</option>
                             <option name="typeOfCar" value="Convertible">Convertible</option>
@@ -147,7 +173,7 @@ $dropdown = getVendorsDropDown($db);
                 </div>
             </div>
             <div class="col-lg-4">
-                <p>Keep Images? <input type="checkbox" name="keepImage" id="keepImage" /></p>
+                <p>Change Images? <input type="checkbox" name="changeImage" id="changeImage" data-toggle="tooltip" title="This will delete all images of the product and replace them" /></p>
             </div>
         </div>
         <div class="row">
@@ -164,7 +190,16 @@ $dropdown = getVendorsDropDown($db);
                 </div>
                 <div class="form-group">
                     <label for="txtYear">Year</label>
-                    <input type="text" class="form-control" id="txtYear" name="year" placeholder="Year" value="<?php echo $_SESSION['year'] ?>" required>
+                    <input type="text"
+                           class="form-control"
+                           id="txtYear"
+                           name="year"
+                           placeholder="Year"
+                           value="<?php echo $_SESSION['year'] ?>"
+                           required pattern="^\d+$"
+                           data-toggle="tooltip"
+                           title="Please enter numbers only"
+                    >
                 </div>
             </div>
             <div class="col-lg-4">
@@ -173,7 +208,7 @@ $dropdown = getVendorsDropDown($db);
         <div class="row">
             <div class="col-lg-4">
                 <button type="submit" class="btn btn-primary" name="action" value="execute update">Update</button>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#editModal">Delete</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#editModal" formnovalidate>Delete</button>
                 <div class="modal fade" id="editModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -199,7 +234,7 @@ $dropdown = getVendorsDropDown($db);
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-                                <button type="submit" class="btn btn-danger" name="action" value="delete">delete</button>
+                                <button type="submit" class="btn btn-danger" name="action" value="delete" formnovalidate>delete</button>
                             </div>
                         </div>
                     </div>

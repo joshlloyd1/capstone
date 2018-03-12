@@ -61,24 +61,39 @@ switch($action){
 
         break;
     case 'execute update':
-        $vendor = array(
-            "vendor_id" => $vendorId,
-            "vendor_name" => $vendorName,
-            "vendor_contact_fname" => $vendorContactFname,
-            "vendor_contact_lname" => $vendorContactLname,
-            "vendor_email" => $vendorEmail,
-            "vendor_phone" => $vendorPhone,
-            "vendor_country" => $vendorCountry,
-            "vendor_city" => $vendorCity,
-            "vendor_state" => $vendorState,
-            "vendor_zipcode" => $vendorZipCode
-        );
-        $result = updateVendor($db, $vendor);
-        echo getMessage($result);
+        $cleanPhoneNum = preg_replace("/[^0-9]/", "", $vendorPhone); //strips all non-numeric values from phone number before storing to db.
+        if(filter_var($vendorEmail, FILTER_VALIDATE_EMAIL)){ //if email is valid store everything
+            $vendor = array(
+                "vendor_id" => $vendorId,
+                "vendor_name" => $vendorName,
+                "vendor_contact_fname" => $vendorContactFname,
+                "vendor_contact_lname" => $vendorContactLname,
+                "vendor_email" => $vendorEmail,
+                "vendor_phone" => $cleanPhoneNum,
+                "vendor_country" => $vendorCountry,
+                "vendor_city" => $vendorCity,
+                "vendor_state" => $vendorState,
+                "vendor_zipcode" => $vendorZipCode
+            );
+            $result = updateVendor($db, $vendor);
+            echo getMessage($result);
+
+            include_once("../forms/selectVendorForm.php");
+            include_once ("../forms/disabledEditVendorForm.php");
+
+        } else { //invalid email
+            echo "please enter a valid email";
+            include_once ("../forms/addVendorForm.php");
+        }
         break;
+
     case 'delete':
         $result = deleteAVendor($db, $vendorId);
         echo getMessage($result);
+
+        include_once("../forms/selectVendorForm.php");
+        include_once ("../forms/disabledEditVendorForm.php");
+
         break;
 }
 

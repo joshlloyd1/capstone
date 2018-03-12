@@ -1,18 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: iotenti
- * Date: 2/4/2018
- * Time: 3:09 PM
- */
+session_start();
 
 include_once ("adminHeader.php");
 include_once("functions.php");
 include_once("dbconnect.php");
+
+$db = dbconnect();
 ?>
-
-    <h1>Appointments</h1>
-
+    <h1>My Appointments</h1>
 <?php
+echo myAppointments($db, $_SESSION['employee_id']);
+?><?php
 include_once ("footer.html");
 ?>

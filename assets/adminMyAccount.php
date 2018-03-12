@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: iotenti
- * Date: 2/4/2018
- * Time: 3:09 PM
- */
 session_start();
 include_once ("adminHeader.php");
 include_once("functions.php");

@@ -39,18 +39,18 @@ $_SESSION['vendor_name'] = $make;
 
 
 ?>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 crudNav">
-            <div class="btn-group" role="group" aria-label="inventoryNav">
-                <a class='btn btn-secondary' href="adminInventory.php" role="button">View</a>
-                <a class='btn btn-secondary' href="adminAddInventory.php" role="button">Add</a>
-                <a class='btn btn-secondary' href="adminUpdateAndDeleteInventory.php" role="button">Edit</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 crudNav">
+                <div class="btn-group" role="group" aria-label="inventoryNav">
+                    <a class='btn btn-secondary' href="adminInventory.php" role="button">View</a>
+                    <a class='btn btn-secondary' href="adminAddInventory.php" role="button">Add</a>
+                    <a class='btn btn-secondary' href="adminUpdateAndDeleteInventory.php" role="button">Edit</a>
+                </div>
             </div>
+            <h1>View Inventory</h1>
         </div>
-        <h1>View Inventory</h1>
     </div>
-</div>
 
 
 <?php

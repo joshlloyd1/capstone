@@ -10,6 +10,6 @@ include_once("assets/dbconnect.php");
         </div>
     </div>
 <?php
-
+include_once ("assets/newUser.php");
 include_once ("assets/footer.html");
 ?>

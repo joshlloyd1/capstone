@@ -21,13 +21,19 @@
 }
 .flex-container {
     display:flex;
-    justify-content:right;
-    flex-wrap:wrap;
+}
+.flexItem{
+    flex:auto;
+    margin:5px;
 }
 .crudNav{
     background-color:#6f7784;
     margin-left: -15px;
-    padding:9px 9px 9px 68px;
-
+    padding:9px 9px 9px 18px;
+}
+.header{
+    text-align: right;
+}
+.addUser{
 
 }
