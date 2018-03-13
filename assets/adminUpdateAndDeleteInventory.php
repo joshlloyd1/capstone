@@ -85,7 +85,7 @@ switch($action){
         include_once("../forms/disabledEditInventoryForm.php");
         break;
     case 'got model':
-        
+
         $vendorId = $_SESSION['vendor_id'];
         $vendor = getVendor($db, $vendorId); //run function to get vendor that has been selected from dropdown -- return assoc array
         $_SESSION['vendor_name'] = $vendor['vendor_name'];

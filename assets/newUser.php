@@ -122,7 +122,7 @@ function AddUser($firstName = "", $lastName = "", $phoneNum = "", $email = "", $
                     <div class='col-12'>
                         <div class='form-group'>                     
                             <input type='hidden' name='action' value='submit' />
-                        <input type='submit' class='btn btn-outline-secondary' /><br><label for='nothing' ></label>
+                        <input type='submit' class='btn btn-outline-primary' /><br><label for='nothing' ></label>
                         </div>
                     </div>
                  </div>
