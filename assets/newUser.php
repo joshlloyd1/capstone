@@ -7,7 +7,6 @@
  */
 include_once ('dbconnect.php');
 
-
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? null;
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING) ?? "";
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING) ?? "";
@@ -22,37 +21,37 @@ $db = dbconnect();
 
 switch ($action) {
     default:
-        echo addUser();
+        echo AddUser();
         break;
     case 'submit':
         if($password == $passwordRE) {
             $validatecheck = validate($firstName, $lastName, $username, $password);
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "<h2>Invalid email format</h2>";
-                echo addUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE); // shows form again with origionally entered info so user doesn't have to start all over again
+                echo AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE); // shows form again with origionally entered info so user doesn't have to start all over again
                 echo $emailErr;
             }
             else {
                 if($validatecheck == 1) {
-                    $newUser .= addUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
+                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
                     echo "problem in name";
                 }
                 if($validatecheck == 2) {
-                    $newUser .= addUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
+                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
                     echo "problem in phone number";
                 }
                 if($validatecheck == 3) {
-                    $newUser .= addUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
+                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
                     echo "problem in username";
                 }
                 if(phoneCheck($phoneNum) != 0) {
-                    $newUser .= addUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
+                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
                     echo "Invalid phone number";
                 }
                 if($validatecheck == 0 && phoneCheck($phoneNum) == 0) {
                     $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $users = storeNewUser($db, $firstName, $lastName, $email, $phoneNum, $username, $hash);
-                    echo addUser();
+                    $users = StoreNewUser($db, $firstName, $lastName, $email, $phoneNum, $username, $hash);
+                    echo AddUser();
                     echo "<h1>$users</h1>";
                 }
 

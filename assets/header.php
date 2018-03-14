@@ -40,9 +40,10 @@
                 <a class="nav-link" href="/htdocs/capstone/assets/savedCars.php">Saved Cars</a>
             </li>
         </ul>
-        <form method="post" class="form-inline my-2 my-lg-0" action="LogIn.php">
-            <input class="form-control mr-sm-2" type="text" placeholder="User name">
-            <input class="form-control mr-sm-2" type="text" placeholder="Password">
+        <form method="post" class="form-inline my-2 my-lg-0" action="/htdocs/capstone/assets/LogIn.php">
+            <input class="form-control mr-sm-2" type="text" name = 'username' id='username' placeholder="Username">
+            <input class="form-control mr-sm-2" type="password" name = 'password' id='password' placeholder="Password">
+            <input type='hidden' name="action" value="submit" />
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
         </form>
     </div>

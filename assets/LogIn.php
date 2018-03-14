@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Log In</title>
-</head>
-<body>
 <?php
 session_start();
 include_once("functions.php");
@@ -28,9 +21,12 @@ switch($action) {
         }
         if($valid == -1) { // user exists but gave wrong password brings back to log in
             $_SESSION['access'] = false;
+            $result = "Incorrect password";
+            echo getMessage($result);
+
             $form = LoginForm($username, $password);
             echo $form;
-            echo "<h3 style='text-align: center'>Incorrect password</h3>";
+
         }
         if($valid == 0) { // if no user under username exists
             $admin = checkUserEmployee($db, $username, $password, $passwordhash);
@@ -44,23 +40,34 @@ switch($action) {
                 $_SESSION['access'] = false;
                 $_SESSION['adminaccess'] = false;
                 $form = LoginForm($username, $password);
+
+                $result = "Incorrect password";
+                echo getMessage($result);
+
                 echo $form;
-                echo "<h3 style='text-align: center'>Incorrect password</h3>";
+
+
             }
             if($admin == 0) {
                 $_SESSION['access'] = false;
                 $_SESSION['adminaccess'] = false;
                 $form = LoginForm($username, $password);
+                $result = "User doesn't exist";
+                echo getMessage($result);
+
                 echo $form;
-                echo "<h3 style='text-align: center'>User doesn't exist</h3>";
+
             }
         }
         if($valid || $admin == -2) {
             $_SESSION['access'] = false;
             $_SESSION['adminaccess'] = false;
+
+            $result = "We apologize, there was a problem 
+            getting into database";
+            echo getMessage($result);
+
             echo LoginForm();
-            echo "<h3 style='text-align: center'>We apologize, there was a problem 
-            getting into database</h3>";
         }
         break;
     case 'register':
@@ -73,5 +80,3 @@ switch($action) {
 }
 include_once("footer.html");
 ?>
-</body>
-</html>

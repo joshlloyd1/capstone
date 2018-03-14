@@ -5,7 +5,6 @@ include_once("functions.php");
 include_once("dbconnect.php");
 $db = dbconnect();
 ?>
-
     <h1>My Account</h1>
 
 <?php
