@@ -1,8 +1,9 @@
 <?php
+session_start();
 include_once ("adminHeader.php");
 include_once("functions.php");
 include_once("dbconnect.php");
-session_start();
+
 $db = dbconnect();
 
 $appointment_id = filter_input(INPUT_GET, 'appointment_id', FILTER_SANITIZE_STRING) ?? "";

@@ -1142,7 +1142,7 @@ function getImages($db, $pk){
         die($e . "There was a problem finding inventory");
     }
 }
-function locallySavedCar($db, $car_id) {
+function locallySavedCar($db, $car_id) { //shows locally saved cars
     $sql = $db->prepare("SELECT inventory.car_id as car_id, inventory.vendor_id as vendor_id, inventory.trim as trim, inventory.year as year, inventory.mileage as mileage, inventory.fuel_type as fuel, inventory.model as model, inventory.price as price,
     vendors.vendor_id, vendors.vendor_name as vendor, inventory.mpg as mpg, inventory.engine_type as engine, inventory.color as color, inventory.type_of_car as type 
     FROM inventory

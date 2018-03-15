@@ -32,23 +32,30 @@ switch ($action) {
                 echo $emailErr;
             }
             else {
+
+
                 if($validatecheck == 1) {
-                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
-                    echo "problem in name";
+                    echo AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE); //fills out form if not valid
+
+                    $result = "problem in name";
+                    echo getMessage($result);
                 }
                 if($validatecheck == 2) {
-                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
-                    echo "problem in phone number";
+                    echo AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE); //fills out form if not valid
+                    $result = "problem in phone number";
+                    echo getMessage($result);
                 }
                 if($validatecheck == 3) {
-                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
-                    echo "problem in username";
+                    echo AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE); //fills out form if not valid
+                    $result = "problem in username";
+                    echo getMessage($result);
                 }
                 if(phoneCheck($phoneNum) != 0) {
-                    $newUser .= AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE);
-                    echo "Invalid phone number";
+                    echo AddUser($firstName, $lastName, $phoneNum, $email, $username, $password, $passwordRE); //fills out form if not valid
+                    $result = "Invalid phone number";
+                    echo getMessage($result);
                 }
-                if($validatecheck == 0 && phoneCheck($phoneNum) == 0) {
+                if($validatecheck == 0 && phoneCheck($phoneNum) == 0) { //passed valildation and stores new user
                     $hash = password_hash($password, PASSWORD_DEFAULT);
                     $users = StoreNewUser($db, $firstName, $lastName, $email, $phoneNum, $username, $hash);
                     echo AddUser();
