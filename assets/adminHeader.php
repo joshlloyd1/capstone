@@ -24,7 +24,7 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="/capstone/index.php">Used Cars of New England Tech</a>
+    <a class="navbar-brand" href="/htdocs/capstone/assets/adminInventory.php">Used Cars of New England Tech</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -47,7 +47,7 @@
         <div>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/capstone/index.php">Log Out</a> <!--- LOG OUT JUST RETURNING TO INDEX ATM !-->
+                    <a class="nav-link" href="/htdocs/capstone/index.php">Log Out</a> <!--- LOG OUT JUST RETURNING TO INDEX ATM !-->
                 </li>
             </ul>
         </div>

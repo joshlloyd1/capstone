@@ -37,9 +37,24 @@ $employees = getEmployeeNames($db);
         }
         ?>
         </select>
-    <p>Date: <br><input type="text" name="datepicker" id="datepicker"></p>
-    <p>Time: <br><input type="time" name="time" value="time" id="time"</p> <br><br>
-    <input type="submit" value="submit" name="submit">
+        <div class="row">
+            <div class="col-lg-4"> <p>Date: <br><input type="text" class="form-control" name="datepicker" id="datepicker"></p></div>
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4"><p>Time: <br><input type="time" name="time" value="time" id="time"</p> <br><br></div>
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4"> <input type="submit" class="btn btn-primary" value="submit" name="submit"></div>
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4"></div>
+        </div>
+
+
+
     </form>
     </body>
     </html>

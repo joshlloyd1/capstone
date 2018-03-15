@@ -11,9 +11,6 @@ $db = dbconnect();
 // NEW PRODUCT PAGE TO ADD A NEW PRODUCT
 $max_size = 2097152; //2 mb
 $location = "../images/"; //where the file is going
-
-
-
 if (isset($_POST['submit'])) { //checking for anything will break the code
     $name = $_FILES['file']['name']; //file name
     $size = $_FILES['file']['size']; //file size
@@ -61,21 +58,23 @@ function save_file($tmp_name, $name, $location){
         $name = $rand . '.' . pathinfo($name, PATHINFO_EXTENSION); //create new name
     }
     if (move_uploaded_file($tmp_name, $location . $name)) {
-
         $firstName = filter_input(INPUT_POST, 'firstName');
         $lastName = filter_input(INPUT_POST, 'lastName');
         $email = filter_input(INPUT_POST, 'email');
+        $position = filter_input(INPUT_POST, 'position');
         $phoneNum = filter_input(INPUT_POST, 'phoneNum');
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
         $passwordRE = filter_input(INPUT_POST, 'passwordRE');
         $db = dbconnect();
-        if(is_numeric(preg_match("/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/", $phoneNum))) {
+        if(1 == 1) {
             if ($password != $passwordRE) {
                 echo "passwords must match!";
             } else {
                 echo 'Success! ';
-                echo addEmployee($db, $firstName, $lastName, $email, $phoneNum, $username, $password, $og_name);
+                $cleanPhoneNum = preg_replace("/[^0-9]/", "", $phoneNum); //strips all non-numeric values from phone number before storing to db.
+                $result = addEmployee($db, $firstName, $lastName, $email, $cleanPhoneNum, $position, $username, $password, $og_name);
+                echo getMessage($result);
             }
         }
         else {
@@ -90,29 +89,127 @@ function save_file($tmp_name, $name, $location){
         echo 'ERROR!';
     }
 }
-
-
-$form = "<div style='position:relative; margin:auto; text-align:center; border:1px solid black; width:400px;'><section><form method='post' action='' enctype='multipart/form-data'>
-        <h1>Add Employee</h1>
-        <label for='firstName'>First Name: </label><br>
-        <input type='firstName' name='firstName' id = 'firstName' style='text-align:center;' /><br>
-        <label for='lastName'>Last Name: </label><br>
-        <input type='lastName' name='lastName' id = 'lastName' style='text-align:center;'/><br>
-        <label for='phoneNum'>Phone Number: </label><br>
-        <input type='phoneNum' name='phoneNum' id = 'phoneNum' style='text-align:center;' /><br>
-        <label for='email'>Email: </label><br>
-                <input type='text' name='email' id = 'email' style='text-align:center;' /><br>
-        <label for='username'>Username: </label><br>
-            <input type='text' name='username' id = 'username' style='text-align:center;'/><br>
-
-        <label for='password'>Password: </label><br>
-        <input type='password' name='password' id = 'password' style='text-align:center;'/><br>
-        <label for='passwordRE'>Re enter Password: </label><br>
-        <input type='password' name='passwordRE' id = 'passwordRE' style='text-align:center;'/><br>
-            <label for='photo'>Profile Picture: </label>
-            <input type='file' name='file'/> <br>
-        <input type='submit' name='submit' value='submit' />
-    </form></section></div>";
-
-
-    echo $form;
+    $form = "<div class='container'>
+                <section>
+                    <form method='post' action='' enctype='multipart/form-data'>
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <h1>Add Employee</h1>
+                                <div class='form-group'>
+                                    <label for='firstName'>First Name: </label>
+                                    <input type='text' class='form-control' name='firstName' id='firstName'  placeholder='First Name' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>   
+                                  
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                    <label for='lastName'>Last Name: </label>
+                                    <input type='text' class='form-control' name='lastName' id='lastName' placeholder='Last Name' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>
+                        
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                    <label for='phoneNum'>Phone Number: </label>
+                                    <input type='text'
+                                           class='form-control'
+                                           id='phoneNum'
+                                           name='phoneNum'
+                                           placeholder='Phone Number'
+                                           required pattern='^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$'
+                                           data-toggle='tooltip'
+                                           title='Please enter a valid 10 digit phone number ex: (123)123-1234'
+                                    >
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>
+                        
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                    <label for='email'>Email: </label>
+                                    <input type='text' class='form-control' name='email' id='email'  placeholder='Email' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>
+                        
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                    <label for='username'>Position: </label>
+                                    <input type='text' class='form-control' name='position' id='position'  placeholder='Position' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>
+                                        
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                     <label for='username'>Username: </label>
+                                     <input type='text' class='form-control' name='username' id='username' placeholder='User Name' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>                
+                                        
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                     <label for='password'>Password: </label>
+                                     <input type='password' class='form-control' name='password' id='password' placeholder='Password' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>                                
+                                        
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                     <label for='passwordRE'>Re enter Password: </label>
+                                     <input type='password' class='form-control' name='passwordRE' id='passwordRE' placeholder='Re-enter Password' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>                         
+                                        
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                     <label for='photo'>Profile Picture: </label>
+                                     <input type='file' name='file' required/>
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>                 
+                                       
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <div class='form-group'>
+                                     <input type='submit' class='btn btn-primary' name='submit' value='submit' style='margin-top:15px;' />
+                                </div>
+                            </div>
+                            <div class='col-lg-4'></div>
+                            <div class='col-lg-4'></div>
+                        </div>                    
+                    </form>
+                </section>
+        </div>";
+echo $form;

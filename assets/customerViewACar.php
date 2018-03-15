@@ -13,5 +13,5 @@ $db = dbconnect();
 
 $car_id = filter_input(INPUT_GET, 'car_id', FILTER_SANITIZE_STRING) ?? "no";
 
-echo customerShowCarInfo($db, $car_id, "customer");
+echo customershowCarInfo($db, $car_id, "customer");
 include_once ("footer.html");

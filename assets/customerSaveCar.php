@@ -5,22 +5,20 @@
  * Date: 2/16/2018
  * Time: 9:52 AM
  */
-include_once ("customerHeader.php.php");
+include_once ("customerHeader.php");
 include_once("functions.php");
 include_once("dbconnect.php");
-session_start();
 $db = dbconnect();
 
 $car_id = filter_input(INPUT_GET, 'car_id', FILTER_SANITIZE_STRING) ?? "";
-$customer_id = $_SESSION('username');
-$date = date("Y/m/d");
+$customer_id = $_SESSION['username'];
+$datet = date("Y/m/d");
 
-$sql = $db->prepare("INSERT INTO saved cars VALUES(null, :customer_id, :car_id, :date)");
+$sql = $db->prepare("INSERT INTO saved_cars VALUES(null, :car_id, :customer_id, :datet)");
 $sql->bindParam(':customer_id', $customer_id);
 $sql->bindParam(':car_id', $car_id);
-$sql->bindParam(':date', $date);
-
+$sql->bindParam(':datet', $datet);
 
 if($sql->execute() && $sql->rowCount() == 1) {
-    header("Location: #.php");
+    echo"<script>window.location='customerViewACar.php?car_id=" . $car_id . "'</script>";
 }

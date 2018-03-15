@@ -226,9 +226,9 @@ function Empform($f_name, $l_name, $email, $phone_num, $position, $photo)
         </div>
         </form>
         </section>
+        <div class='col-lg-4'></div>
+        <div class='col-lg-4'></div>
         </div>
-        <div class='col-lg-4'></div>
-        <div class='col-lg-4'></div>
         </div>";
     $form .= "New Image?: <input type='checkbox' name='new' value='new'>Yes<br>";
     $form .= "New Image: <input type='file' name='file'/>
